@@ -187,7 +187,7 @@ if (!isset($_SESSION['authenticated'])) {
     </nav>
     <!-- End Navbar -->
 
-
+    <!-- Database Connection -->
     <?php
 
     $host        = "host = 127.0.0.1";
@@ -200,10 +200,7 @@ if (!isset($_SESSION['authenticated'])) {
     if(!isset($conn)){
         echo die("Database connection failed");
     }
-    ?>
 
-
-    <?php
     $sql =<<<Eof
 SELECT * FROM employeeslist
 Eof;
