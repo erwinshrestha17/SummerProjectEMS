@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ermsdb@localhost" uuid="17c87055-990b-4132-b8cc-26b59321f337">
+    <data-source source="LOCAL" name="emsdb@localhost" uuid="a0a2e6de-e786-4606-bc6a-b796a0730d34">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/ermsdb</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/emsdb</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

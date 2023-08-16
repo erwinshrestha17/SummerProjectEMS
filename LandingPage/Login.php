@@ -1,88 +1,79 @@
-<html>
-<head>
-    <title>Log In</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="resource/css/style.css" rel="stylesheet">
+
+    <title>Employee Management System</title>
     <style>
-        body{
-            background-color:#edede9 ;
-        }
-        h3{
-            align-content: center;
-        }
-        .Card{
-            padding: 40px;
-            background-color: #F3FFEB;
-            max-width: 360px;
-            border-radius: 20px;
-            margin: 60px auto;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;
-        }
-    </style>
-</head>
-<body>
-<section class="Card">
-    <form action="Admin/AdminDashboard.php" method="post" onsubmit="validateEmail()">
-        <div class="form-group">
-            <h3>Admin Log In</h3>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    background-image: url("background.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+</style>
+  </head>
+  <body >
+
+
+  <div class="bg border">
+  <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mt-5">
+                            <div class="card-body shadow">
+
+                                    <h2 class="text-center pb-4">Employee Management System</h2>
+                                    <h6 class="text-center pb-4">Please Log-In Acording To Your Role!!</h6>
+
+                                <div class="container mt-4">
+
+                                  <div class="btn-toolbar justify-content-between">
+                                        <div class="btn-group">
+                                            <a href="../Dashboards/Employees/EmployeesLogin.php" class="btn btn-primary btn-lg">Log-in As Employee </a>
+                                        </div>
+
+                                        <div class="btn-group">
+
+                                            <a href="../Dashboards/Admin/Pages/LogIn-Logout/AdminLogin.php" class="btn btn-primary btn-lg">Log-In As Admin</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
+    </div>
+  </div>
 
-        <div class="form-group">
-            <label for="exampleInputEmail1"></label>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Select Your Department</option>
-                <option value="1">Admin</option>
-                <option value="2">Managers</option>
-            </select>
-        </div>
 
-        <br>
-
-        <div class="form-group">
-            <label for="exampleInputEmail1"></label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" >
-        </div>
-        <br>
-
-        <div class="form-group">
-            <label for="exampleInputPassword1"></label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" placeholder="Password" ">
-        </div>
-        <br>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
-            <label class="form-check-label" for="flexCheckChecked">
-                Remember me
-            </label>
-        </div>
-        <br>
-
-        <button type="submit" class="btn btn-primary"">Log In </button>
-    </form>
-
-</section>
-<script>
-    const email = document.getElementById('exampleInputEmail1').value;
-    const password = document.getElementById('exampleInputPassword1').value;
-
-    function validateEmail(){
-        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        /*if (email.value.match(validRegex)) {
-            alert("Valid email address!");
-            return true;
-        } else {
-            alert("Invalid email address!");
-            return false;
-        }
-
-         */
-
-        return validRegex.test(email)
-    }
-</script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="./resorce/plugins/common/common.min.js"></script>
+    <script src="./resorce/js/custom.min.js"></script>
+    <script src="./resorce/js/settings.js"></script>
+    <script src="./resorce/js/gleek.js"></script>
+    <script src="./resorce/js/styleSwitcher.js"></script>
+  </body>
 </html>
-
-
-
