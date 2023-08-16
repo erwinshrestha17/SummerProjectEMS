@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <!-- EMPLOYEES INFORMATION-->
             <!--By using js class='sub-menu' active and deactivated in others according to the button clicked  -->
             <li class='sub-menu' >
-                <a class="nav-link text-white " href="../Dashboards/AdminDashboard.php">
+                <a class="nav-link text-white " href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
