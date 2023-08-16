@@ -181,7 +181,7 @@ if (!isset($_SESSION['authenticated'])) {
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Adding Employees</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Tables</h6>
+                <h6 class="font-weight-bolder mb-0">Registration</h6>
             </nav>
         </div>
     </nav>
@@ -226,35 +226,40 @@ Eof;
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
                             <form role="form" action="" method="post">
+
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID">
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="User Names">
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email">
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="password" class="form-control" placeholder="Password">
+                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid">
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <select class="form-select form-select-lg mb-2 p-2">
+                                    <input type="text" class="form-control" placeholder="User Names" name="username">
+                                </div>
+
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="email" class="form-control" placeholder="Email" name="email">
+                                </div>
+
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                </div>
+
+                                <div class="input-group input-group-outline mb-3">
+                                    <select class="form-select form-select-lg mb-2 p-2" name="roles">
                                         <option class="outline mb-3" selected >Select Roles</option>
                                         <option class="outline mb-3" value="1">One</option>
                                         <option class="outline mb-3" value="2">Two</option>
                                         <option class="outline mb-3" value="3">Three</option>
                                     </select>
-                                    <select class="form-select form-select-lg mb-2 ">
+                                    <div class="p-2"></div>
+                                    <select class="form-select form-select-lg mb-2 " name="branch">
                                         <option class="outline mb-3" selected >Branch</option>
                                         <option class="outline mb-3" value="1">One</option>
                                         <option class="outline mb-3" value="2">Two</option>
                                         <option class="outline mb-3" value="3">Three</option>
                                     </select>
+                                </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="date" class="form-control" placeholder="Employed">
-
+                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate">
                                 </div>
 
                                 <div class="text-center">
@@ -262,27 +267,12 @@ Eof;
                                 </div>
                             </form>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <form>
-
-    </form>
-
-
-
 </main>
-
-
-
-
-
 
 <script src="../Assets/js/perfect-scrollbar.min.js"></script>
 <script src="../Assets/js/smooth-scrollbar.min.js"></script>

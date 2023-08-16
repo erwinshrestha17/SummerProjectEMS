@@ -181,7 +181,7 @@ if (!isset($_SESSION['authenticated'])) {
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Employees Lists</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Tables</h6>
+                <h6 class="font-weight-bolder mb-0">Lists</h6>
             </nav>
         </div>
     </nav>
@@ -220,7 +220,7 @@ Eof;
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3">Authors table</h6>
+                            <h6 class="text-white text-capitalize ps-3">All Employees</h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
