@@ -145,7 +145,7 @@ EOF;
 <script src="../Assets/js/settings.js"></script>
 <script src="../Assets/js/gleek.js"></script>
 <script src="../Assets/js/styleSwitcher.js"></script>
-<script src=""></script>
+
 
 </body>
 </html>

@@ -5,44 +5,54 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }
 
-$_SESSION['authenticated-registration']= true;
+$_SESSION['authenticated-registration']= false;
 ?>
 
 <?php
+/*
+$employeesid_err=$username_err=$email_err=$roles_err=$branch_err=$employeddate_err=$password_err="";
 if(isset($_POST['submit'])){
+
     if(!empty($_POST['employeesid'])) {
         $employeesid = $_POST['employeesid'];
-        echo $employeesid;
+    }else{
+        $employeesid_err =" <p> * ID Can Not Be Empty</p> ";
     }
     echo "<br>";
     if(!empty($_POST['username'])) {
         $username = $_POST['username'];
-        echo $username;
+    }else{
+        $username_err = "<p>* User Name Can Not Be Empty</p>";
     }
     echo "<br>";
     if(!empty($_POST['email'])) {
         $email = $_POST['email'];
-        echo $email;
+    }else{
+        $email_err = "<p> * Email Can Not Be Empty </p>";
     }
     echo "<br>";
     if(!empty($_POST['password'])) {
         $password = $_POST['password'];
-        echo $password;
+    }else{
+        $password_err = "<p> * Password Can Not Be Empty </p>";
     }
     echo "<br>";
     if(!empty($_POST['role'])) {
         $roles = $_POST['role'];
-        echo $roles;
+    }else{
+        $roles_err = "<p> * Role Can Not Be Empty </p>";
     }
     echo "<br>";
     if(!empty($_POST['branch'])) {
         $branch = $_POST['branch'];
-        echo $branch;
+    }else{
+        $branch_err = "<p> * Branch Can Not Be Empty </p>";
     }
     echo "<br>";
     if(!empty($_POST['employeddate'])) {
         $employeddate = $_POST['employeddate'];
-        echo $employeddate;
+    }else{
+        $employeddate_err= "<p> * Employeed Date Can Not Be Empty </p>";
     }
     echo "<br>";
 }
@@ -72,13 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "Error: " . pg_last_error($conn);
     }
 }
-
+*/
 ?>
 
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Adding EMployees </title>
+    <title>Adding Employees </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -269,44 +279,45 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
-                            <form role="form" action="" method="post">
+                            <form role="form" action="insertdata.php" method="post">
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid" value="<?php $employeesid ?>">
+                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="User Names" name="username" value="<?php $username ?>">
-
-                                </div>
-
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php $email ?>">
+                                    <input type="text" class="form-control" placeholder="User Names" name="username"  required>
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="password" class="form-control" placeholder="Password" name="password" value="<?php $password ?>" >
+                                    <input type="email" class="form-control" placeholder="Email" name="email"  required>
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <select class="form-select form-select-lg mb-2 p-2" name="role">
-                                        <option class="outline mb-3" selected  value="<?php $roles ?>">Select Roles</option>
-                                        <option class="outline mb-3" name="role1">Sr Software Engineer</option>
-                                        <option class="outline mb-3" name="role2">Jr Web Developer</option>
-                                        <option class="outline mb-3" name="role3">Full stack developer</option>
+                                    <input type="password" class="form-control" placeholder="Password" name="password" required >
+
+                                </div>
+
+                                <div class="input-group input-group-outline mb-3">
+                                    <select class="form-select form-select-lg mb-2 p-2" name="role" required>
+                                        <option class="outline mb-3" selected value="role">Select Roles</option>
+                                        <option class="outline mb-3" name="role">Sr Software Engineer</option>
+                                        <option class="outline mb-3" name="role">Jr Web Developer</option>
+                                        <option class="outline mb-3" name="role">Full stack developer</option>
+
                                     </select>
                                     <div class="p-2"></div>
-                                    <select class="form-select form-select-lg mb-2 " name="branch" >
-                                        <option class="outline mb-3" selected value="<?php $branch ?>">Branch</option>
-                                        <option class="outline mb-3" name="branch1">Kathmandu</option>
-                                        <option class="outline mb-3" name="branch2" >Butwal</option>
-                                        <option class="outline mb-3" name="branch3">Pokhara</option>
+                                    <select class="form-select form-select-lg mb-2 " name="branch" required>
+                                        <option class="outline mb-3" selected value="branch">Branch</option>
+                                        <option class="outline mb-3" name="branch">Kathmandu</option>
+                                        <option class="outline mb-3" name="branch" >Butwal</option>
+                                        <option class="outline mb-3" name="branch">Pokhara</option>
                                     </select>
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate" value="<?php $employeddate ?>">
+                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate"  required>
                                 </div>
 
                                 <div class="text-center">
