@@ -4,9 +4,76 @@ if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
+
+$_SESSION['authenticated-registration']= true;
 ?>
 
+<?php
+if(isset($_POST['submit'])){
+    if(!empty($_POST['employeesid'])) {
+        $employeesid = $_POST['employeesid'];
+        echo $employeesid;
+    }
+    echo "<br>";
+    if(!empty($_POST['username'])) {
+        $username = $_POST['username'];
+        echo $username;
+    }
+    echo "<br>";
+    if(!empty($_POST['email'])) {
+        $email = $_POST['email'];
+        echo $email;
+    }
+    echo "<br>";
+    if(!empty($_POST['password'])) {
+        $password = $_POST['password'];
+        echo $password;
+    }
+    echo "<br>";
+    if(!empty($_POST['role'])) {
+        $roles = $_POST['role'];
+        echo $roles;
+    }
+    echo "<br>";
+    if(!empty($_POST['branch'])) {
+        $branch = $_POST['branch'];
+        echo $branch;
+    }
+    echo "<br>";
+    if(!empty($_POST['employeddate'])) {
+        $employeddate = $_POST['employeddate'];
+        echo $employeddate;
+    }
+    echo "<br>";
+}
 
+$host        = "host = 127.0.0.1";
+$port        = "port = 5432";
+$dbname      = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect( "$host $port $dbname $credentials"  );
+
+if(!isset($conn)){
+    echo die("Database connection failed");
+}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+
+    $query1 = "INSERT INTO employeeslist (id, username, email, position, organization, date) VALUES ($employeesid,'$username ', '$email','$roles','$branch','$employeddate')";
+    $result1 = pg_query($conn, $query1);
+    $query2 = "INSERT INTO employeeslogin (id, email, password) VALUES ($employeesid, '$email','$password')";
+    $result2 = pg_query($conn, $query2);
+
+    if ($result1 && $result2) {
+        echo "Data inserted successfully.";
+        header("Location: addingEmployees.php");
+    } else {
+        echo "Error: " . pg_last_error($conn);
+    }
+}
+
+?>
 
 <!Doctype html>
 <html lang="eng">
@@ -187,31 +254,8 @@ if (!isset($_SESSION['authenticated'])) {
     </nav>
     <!-- End Navbar -->
 
-    <!-- Database Connection -->
-    <?php
-
-    $host        = "host = 127.0.0.1";
-    $port        = "port = 5432";
-    $dbname      = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-
-    $conn = pg_connect( "$host $port $dbname $credentials"  );
-
-    if(!isset($conn)){
-        echo die("Database connection failed");
-    }
-
-    $sql =<<<Eof
-SELECT * FROM employeeslist
-Eof;
 
 
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-    ?>
 
     <!-- Form Start -->
     <div class="container-fluid py-4">
@@ -228,42 +272,45 @@ Eof;
                             <form role="form" action="" method="post">
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid">
+                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid" value="<?php $employeesid ?>">
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="User Names" name="username">
+                                    <input type="text" class="form-control" placeholder="User Names" name="username" value="<?php $username ?>">
+
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" name="email">
+                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php $email ?>">
+
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                    <input type="password" class="form-control" placeholder="Password" name="password" value="<?php $password ?>" >
+
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <select class="form-select form-select-lg mb-2 p-2" name="roles">
-                                        <option class="outline mb-3" selected >Select Roles</option>
-                                        <option class="outline mb-3" value="1">One</option>
-                                        <option class="outline mb-3" value="2">Two</option>
-                                        <option class="outline mb-3" value="3">Three</option>
+                                    <select class="form-select form-select-lg mb-2 p-2" name="role">
+                                        <option class="outline mb-3" selected  value="<?php $roles ?>">Select Roles</option>
+                                        <option class="outline mb-3" name="role1">Sr Software Engineer</option>
+                                        <option class="outline mb-3" name="role2">Jr Web Developer</option>
+                                        <option class="outline mb-3" name="role3">Full stack developer</option>
                                     </select>
                                     <div class="p-2"></div>
-                                    <select class="form-select form-select-lg mb-2 " name="branch">
-                                        <option class="outline mb-3" selected >Branch</option>
-                                        <option class="outline mb-3" value="1">One</option>
-                                        <option class="outline mb-3" value="2">Two</option>
-                                        <option class="outline mb-3" value="3">Three</option>
+                                    <select class="form-select form-select-lg mb-2 " name="branch" >
+                                        <option class="outline mb-3" selected value="<?php $branch ?>">Branch</option>
+                                        <option class="outline mb-3" name="branch1">Kathmandu</option>
+                                        <option class="outline mb-3" name="branch2" >Butwal</option>
+                                        <option class="outline mb-3" name="branch3">Pokhara</option>
                                     </select>
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate">
+                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate" value="<?php $employeddate ?>">
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
+                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
                                 </div>
                             </form>
                         </div>
@@ -276,6 +323,8 @@ Eof;
 
 <script src="../Assets/js/perfect-scrollbar.min.js"></script>
 <script src="../Assets/js/smooth-scrollbar.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -288,3 +337,6 @@ Eof;
 
 </body>
 </html>
+
+
+
