@@ -5,13 +5,10 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }
 ?>
-
-
-
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Employees Lists </title>
+    <title>Admin Overview</title>
     <link rel="icon" type="image/png" href="../Assets/img/img.png">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -148,7 +145,7 @@ if (!isset($_SESSION['authenticated'])) {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
+                        <a class="nav-link text-white" href="adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
@@ -189,27 +186,26 @@ if (!isset($_SESSION['authenticated'])) {
 
 </aside>
 
-
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Employees Lists</li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Lists</h6>
+                <h6 class="font-weight-bolder mb-0">Overview</h6>
             </nav>
         </div>
-
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
-                <button class="btn btn-primary" type="button"><a href="../AdminSettings/adminprofile.php"><i class="material-icons opacity-10">person</i></a></button>
+                <button class="btn btn-primary" type="button"><a href="adminprofile.php"><i class="material-icons opacity-10">person</i></a></button>
             </div>
         </div>
     </nav>
     <!-- End Navbar -->
+
 
     <!-- Database Connection -->
     <?php
@@ -223,7 +219,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo die("Database connection failed");
     }
     $sql =<<<Eof
-            SELECT * FROM employeeslist
+            SELECT * FROM adminlists
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {
@@ -231,6 +227,8 @@ if (!isset($_SESSION['authenticated'])) {
         exit;
     }
     ?>
+
+
 
     <!-- Table Start -->
     <div class="container-fluid py-4">
@@ -250,11 +248,7 @@ if (!isset($_SESSION['authenticated'])) {
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salary</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
                                     <th class="text-secondary opacity-7"></th>
-                                    <th class="text-secondary opacity-7"></th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -265,8 +259,6 @@ if (!isset($_SESSION['authenticated'])) {
                                     $email=$let['email'];
                                     $position=$let['position'];
                                     $organization=$let['organization'];
-                                    $employeeddate=$let['date'];
-                                    $salary=$let['salary'];
                                     echo "<tr>";
                                     echo "<td>";
                                     echo "<div class='d-flex px-2 py-1'>";
@@ -283,26 +275,12 @@ if (!isset($_SESSION['authenticated'])) {
                                     </td>
                                     <td class='align-middle text-center text-sm'>
                                         <span class='badge badge-sm bg-gradient-success'>Online</span>
-                                    </td>
-                                    <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'> $ ".$salary."</span>
-                                    </td>
-                                       <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'>".$employeeddate."</span>
-                                    </td>
-                                    
-                                    
-                                    ";
-
-                                    echo "<td class='align-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Edit</button>
-                                        </a>
                                     </td>";
 
-                                    echo "<td class='align-middle'>
-                                        <a href='employeesprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Open</button>
+                                    echo "<td class='lign-middle'>
+                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Edit</button>
+                                      
                                         </a>
                                     </td>";
                                     echo"</tr>";
@@ -321,14 +299,7 @@ if (!isset($_SESSION['authenticated'])) {
 
     <!-- Table End -->
 
-
-
 </main>
-
-
-
-
-
 
 <script src="../Assets/js/perfect-scrollbar.min.js"></script>
 <script src="../Assets/js/smooth-scrollbar.min.js"></script>
@@ -341,6 +312,12 @@ if (!isset($_SESSION['authenticated'])) {
         $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
     });
 </script>
+
+
+
+<script src="../Assets/js/bootstrap.bundle.min.js"></script>
+<script src="../Assets/js/perfect-scrollbar.min.js"></script>
+<script src="../Assets/js/smooth-scrollbar.min.js"></script>
 
 </body>
 </html>

@@ -73,6 +73,8 @@ EOF;
     <link href="../Employees/Assets/css/style.css" rel="stylesheet">
 
     <title>Employee Management System</title>
+      <link rel="icon" type="image/png" href="../Assets/img/img.png">
+
     <style>
     body, html {
     height: 100%;

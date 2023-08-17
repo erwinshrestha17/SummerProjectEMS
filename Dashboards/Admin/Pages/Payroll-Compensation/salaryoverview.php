@@ -9,6 +9,8 @@ if (!isset($_SESSION['authenticated'])) {
 <html lang="eng">
 <head>
     <title>Salary Overview</title>
+    <link rel="icon" type="image/png" href="../Assets/img/img.png">
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -21,11 +23,11 @@ if (!isset($_SESSION['authenticated'])) {
     <!-- CSS -->
     <link id="pagestyle" href="../Assets/css/material-dashboard.min.css" rel="stylesheet" />
 </head>
-<body>
+<body class="g-sidenav-show  bg-gray-200">
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="AdminDashboard.php" >
+        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
             <img src="../Assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Admin Dashboard</span>
         </a>
@@ -80,6 +82,8 @@ if (!isset($_SESSION['authenticated'])) {
                     </div>
                     <span class="nav-link-text ms-1"> Onboarding</span>
                 </a>
+
+                <!--ADDING EMPLOYEES-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../Onboarding/addingEmployees.php">
@@ -101,6 +105,7 @@ if (!isset($_SESSION['authenticated'])) {
                     </div>
                     <span class="nav-link-text ms-1">Leave Management</span>
                 </a>
+                <!--LEAVE REQUEST-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
@@ -121,6 +126,7 @@ if (!isset($_SESSION['authenticated'])) {
                     </div>
                     <span class="nav-link-text ms-1">Payroll & Compensation</span>
                 </a>
+                <!--SALARY OVERVIEW-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../Payroll-Compensation/salaryoverview.php">
@@ -134,7 +140,7 @@ if (!isset($_SESSION['authenticated'])) {
             </li>
 
             <hr class="horizontal light mt-0 mb-2">
-
+            <!--ADMIN-->
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -143,12 +149,31 @@ if (!isset($_SESSION['authenticated'])) {
                     <span class="nav-link-text ms-1">Admin</span>
                 </a>
                 <ul class="navbar-nav">
+                    <!--OVERVIEW-->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminsettings.php">
+                        <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Overview</span>
+                        </a>
+                    </li>
+                    <!--REGISTRATION-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Registration</span>
+                        </a>
+                    </li>
+                    <!--PROFILE-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Profile</span>
                         </a>
                     </li>
                 </ul>
@@ -179,6 +204,12 @@ if (!isset($_SESSION['authenticated'])) {
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Overview</h6>
             </nav>
+        </div>
+
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline border-0">
+                <button class="btn btn-primary" type="button"><a href="../AdminSettings/adminprofile.php"><i class="material-icons opacity-10">person</i></a></button>
+            </div>
         </div>
     </nav>
     <!-- End Navbar -->

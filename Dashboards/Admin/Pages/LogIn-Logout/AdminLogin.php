@@ -25,15 +25,12 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
         $port        = "port = 5432";
         $dbname      = "dbname = emsdb";
         $credentials = "user = postgres password=admin";
-
         $conn = pg_connect( "$host $port $dbname $credentials"  );
-
         if(!isset($conn)){
             echo die("Database connection failed");
         }
-
         $sql = <<<EOF
-SELECT * FROM admin where email='$email' and password='$password'
+SELECT * FROM adminlogin where email='$email' and password='$password'
 EOF;
         $result = pg_query( $conn , $sql);
         if ( pg_num_rows($result) > 0 ){
@@ -76,6 +73,8 @@ EOF;
     <link href="../Assets/css/style.css" rel="stylesheet">
 
     <title>Admin LogIn</title>
+    <link rel="icon" type="image/png" href="../Assets/img/img.png">
+    
     <style>
         body, html {
             height: 100%;

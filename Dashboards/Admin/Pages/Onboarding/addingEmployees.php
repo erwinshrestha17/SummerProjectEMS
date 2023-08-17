@@ -89,6 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="eng">
 <head>
     <title>Adding Employees </title>
+    <link rel="icon" type="image/png" href="../Assets/img/img.png">
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -224,11 +226,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminsettings.php">
+                        <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Registration</span>
+                        </a>
+                    </li>
+                    <!--PROFILE-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Profile</span>
                         </a>
                     </li>
                 </ul>
@@ -260,6 +279,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Registration</h6>
             </nav>
+        </div>
+
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline border-0">
+                <button class="btn btn-primary" type="button"><a href="../AdminSettings/adminprofile.php"><i class="material-icons opacity-10">person</i></a></button>
+            </div>
         </div>
     </nav>
     <!-- End Navbar -->
@@ -318,6 +343,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="date" class="form-control" placeholder="Employed" name="employeddate"  required>
+                                    <div class="p-2"></div>
+                                    <input type="number" class="form-control" placeholder="Salary "name="Salary"  required>
+
                                 </div>
 
                                 <div class="text-center">

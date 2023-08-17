@@ -9,7 +9,8 @@ if (!isset($_SESSION['authenticated'])) {
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Test Profiles</title>
+    <title>Employees Profiles</title>
+    <link rel="icon" type="image/png" href="../Assets/img/img.png">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -22,7 +23,7 @@ if (!isset($_SESSION['authenticated'])) {
     <!-- CSS -->
     <link id="pagestyle" href="../Assets/css/material-dashboard.min.css" rel="stylesheet" />
 </head>
-<body>
+<body class="g-sidenav-show  bg-gray-200">
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
@@ -146,11 +147,28 @@ if (!isset($_SESSION['authenticated'])) {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminsettings.php">
+                        <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Registration</span>
+                        </a>
+                    </li>
+                    <!--PROFILE-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Profile</span>
                         </a>
                     </li>
                 </ul>
@@ -170,9 +188,6 @@ if (!isset($_SESSION['authenticated'])) {
 
 </aside>
 
-
-
-
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -185,6 +200,12 @@ if (!isset($_SESSION['authenticated'])) {
                 <h6 class="font-weight-bolder mb-0">Profile</h6>
             </nav>
         </div>
+
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline border-0">
+                <button class="btn btn-primary" type="button"><a href="../AdminSettings/adminoverviews.php"><i class="material-icons opacity-10">person</i></a></button>
+            </div>
+        </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid px-2 px-md-4">
@@ -195,7 +216,7 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="row gx-4 mb-2">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">

@@ -4,6 +4,7 @@
 <head>
 
     <title>Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="../Assets/img/img.png">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -24,10 +25,15 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tables</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Tables</h6>
+                <h6 class="font-weight-bolder mb-0">Dashboard</h6>
             </nav>
+        </div>
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline border-0">
+                <button class="btn btn-primary" type="button"><a href="../AdminSettings/adminprofile.php"><i class="material-icons opacity-10">person</i></a></button>
+            </div>
         </div>
     </nav>
     <!-- End Navbar -->

@@ -4,15 +4,93 @@ if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
+
+$_SESSION['authenticated-registration']= false;
 ?>
 
+<?php
+/*
+$employeesid_err=$username_err=$email_err=$roles_err=$branch_err=$employeddate_err=$password_err="";
+if(isset($_POST['submit'])){
 
+    if(!empty($_POST['employeesid'])) {
+        $employeesid = $_POST['employeesid'];
+    }else{
+        $employeesid_err =" <p> * ID Can Not Be Empty</p> ";
+    }
+    echo "<br>";
+    if(!empty($_POST['username'])) {
+        $username = $_POST['username'];
+    }else{
+        $username_err = "<p>* User Name Can Not Be Empty</p>";
+    }
+    echo "<br>";
+    if(!empty($_POST['email'])) {
+        $email = $_POST['email'];
+    }else{
+        $email_err = "<p> * Email Can Not Be Empty </p>";
+    }
+    echo "<br>";
+    if(!empty($_POST['password'])) {
+        $password = $_POST['password'];
+    }else{
+        $password_err = "<p> * Password Can Not Be Empty </p>";
+    }
+    echo "<br>";
+    if(!empty($_POST['role'])) {
+        $roles = $_POST['role'];
+    }else{
+        $roles_err = "<p> * Role Can Not Be Empty </p>";
+    }
+    echo "<br>";
+    if(!empty($_POST['branch'])) {
+        $branch = $_POST['branch'];
+    }else{
+        $branch_err = "<p> * Branch Can Not Be Empty </p>";
+    }
+    echo "<br>";
+    if(!empty($_POST['employeddate'])) {
+        $employeddate = $_POST['employeddate'];
+    }else{
+        $employeddate_err= "<p> * Employeed Date Can Not Be Empty </p>";
+    }
+    echo "<br>";
+}
+
+$host        = "host = 127.0.0.1";
+$port        = "port = 5432";
+$dbname      = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect( "$host $port $dbname $credentials"  );
+
+if(!isset($conn)){
+    echo die("Database connection failed");
+}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+
+    $query1 = "INSERT INTO employeeslist (id, username, email, position, organization, date) VALUES ($employeesid,'$username ', '$email','$roles','$branch','$employeddate')";
+    $result1 = pg_query($conn, $query1);
+    $query2 = "INSERT INTO employeeslogin (id, email, password) VALUES ($employeesid, '$email','$password')";
+    $result2 = pg_query($conn, $query2);
+
+    if ($result1 && $result2) {
+        echo "Data inserted successfully.";
+        header("Location: addingEmployees.php");
+    } else {
+        echo "Error: " . pg_last_error($conn);
+    }
+}
+*/
+?>
 
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Employees Lists </title>
+    <title>Admin Registration</title>
     <link rel="icon" type="image/png" href="../Assets/img/img.png">
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -29,7 +107,7 @@ if (!isset($_SESSION['authenticated'])) {
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
+        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php">
             <img src="../Assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Admin Dashboard</span>
         </a>
@@ -42,7 +120,7 @@ if (!isset($_SESSION['authenticated'])) {
             <!-- EMPLOYEES INFORMATION-->
             <!--By using js class='sub-menu' active and deactivated in others according to the button clicked  -->
             <li class='sub-menu' >
-                <a class="nav-link text-white ">
+                <a class="nav-link text-white " href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -163,15 +241,6 @@ if (!isset($_SESSION['authenticated'])) {
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--PROFILE-->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Profile</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
 
@@ -197,9 +266,9 @@ if (!isset($_SESSION['authenticated'])) {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Employees Lists</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin Registration</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Lists</h6>
+                <h6 class="font-weight-bolder mb-0">Registration</h6>
             </nav>
         </div>
 
@@ -211,127 +280,74 @@ if (!isset($_SESSION['authenticated'])) {
     </nav>
     <!-- End Navbar -->
 
-    <!-- Database Connection -->
-    <?php
 
-    $host        = "host = 127.0.0.1";
-    $port        = "port = 5432";
-    $dbname      = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-    $conn = pg_connect( "$host $port $dbname $credentials"  );
-    if(!isset($conn)){
-        echo die("Database connection failed");
-    }
-    $sql =<<<Eof
-            SELECT * FROM employeeslist
-    Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-    ?>
 
-    <!-- Table Start -->
+
+    <!-- Form Start -->
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3">All Employees</h6>
+                            <h6 class="text-white text-capitalize ps-3">Admin Registration</h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salary</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                                    <th class="text-secondary opacity-7"></th>
-                                    <th class="text-secondary opacity-7"></th>
+                        <div class="card-body">
+                            <form role="form" action="insertdata.php" method="post">
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                while ($let=pg_fetch_assoc($ret)){
-                                    $id=$let['id'];
-                                    $username=$let['username'];
-                                    $email=$let['email'];
-                                    $position=$let['position'];
-                                    $organization=$let['organization'];
-                                    $employeeddate=$let['date'];
-                                    $salary=$let['salary'];
-                                    echo "<tr>";
-                                    echo "<td>";
-                                    echo "<div class='d-flex px-2 py-1'>";
-                                    echo "<div> <img src='' class='avatar avatar-sm me-3 border-radius-lg' alt='user1'> </div>";
-                                    echo "<div class='d-flex flex-column justify-content-center'>";
-                                    echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
-                                    echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
-                                    echo "</div>";
-                                    echo "</div>";
-                                    echo" </td>";
-                                    echo" <td>";
-                                    echo "<p class='text-xs font-weight-bold mb-0'>".$position."</p>";
-                                    echo "   <p class='text-xs text-secondary mb-0'>".$organization."</p>
-                                    </td>
-                                    <td class='align-middle text-center text-sm'>
-                                        <span class='badge badge-sm bg-gradient-success'>Online</span>
-                                    </td>
-                                    <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'> $ ".$salary."</span>
-                                    </td>
-                                       <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'>".$employeeddate."</span>
-                                    </td>
-                                    
-                                    
-                                    ";
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="number" class="form-control" placeholder="Admin ID" name="adminid"  required>
+                                </div>
 
-                                    echo "<td class='align-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Edit</button>
-                                        </a>
-                                    </td>";
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="text" class="form-control" placeholder="User Names" name="username"  required>
 
-                                    echo "<td class='align-middle'>
-                                        <a href='employeesprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Open</button>
-                                        </a>
-                                    </td>";
-                                    echo"</tr>";
-                                }
-                                ?>
+                                </div>
 
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="email" class="form-control" placeholder="Email" name="email"  required>
 
-                                </tbody>
-                            </table>
+                                </div>
+
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="password" class="form-control" placeholder="Password" name="password" required >
+
+                                </div>
+
+                                <div class="input-group input-group-outline mb-3">
+
+                                    <select class="form-select form-select-lg mb-2 p-2" name="role" required>
+                                        <option class="outline mb-3" selected value="role">Select Roles</option>
+                                        <option class="outline mb-3" name="role">Admin</option>
+
+                                    </select>
+                                    <div class="p-2"></div>
+                                    <select class="form-select form-select-lg mb-2 " name="branch" required>
+                                        <option class="outline mb-3" selected value="branch">Branch</option>
+                                        <option class="outline mb-3" name="branch">Kathmandu</option>
+                                        <option class="outline mb-3" name="branch" >Butwal</option>
+                                        <option class="outline mb-3" name="branch">Pokhara</option>
+                                    </select>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Table End -->
-
-
-
 </main>
-
-
-
-
-
 
 <script src="../Assets/js/perfect-scrollbar.min.js"></script>
 <script src="../Assets/js/smooth-scrollbar.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -344,3 +360,6 @@ if (!isset($_SESSION['authenticated'])) {
 
 </body>
 </html>
+
+
+
