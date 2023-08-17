@@ -294,7 +294,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
-                <button class="btn btn-primary" type="button"><a href="../AdminSettings/adminprofile.php"><i class="material-icons opacity-10">person</i></a></button>
+                <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                    <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                </a>
             </div>
         </div>
     </nav>
