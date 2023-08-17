@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </li>
 
                     <!-- EMPLOYEES PROFILE-->
-
+                    <?php /*
                     <li class="nav-item" id="">
                         <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
@@ -150,6 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <span class="nav-link-text ms-1">Employees Profiles</span>
                         </a>
                     </li>
+                    */?>
 
 
                 </ul>
@@ -184,6 +185,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="nav-link-text ms-1">Leave Management</span>
                 </a>
                 <ul class="navbar-nav">
+                    <!--LEAVE REQUEST-->
+
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -204,6 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="nav-link-text ms-1">Payroll & Compensation</span>
                 </a>
                 <ul class="navbar-nav">
+                    <!--SALARY Overview-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../Payroll-Compensation/salaryoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -216,6 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </li>
 
             <hr class="horizontal light mt-0 mb-2">
+            <!--Admin-->
 
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
@@ -225,6 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="nav-link-text ms-1">Admin</span>
                 </a>
                 <ul class="navbar-nav">
+                    <!--Overview-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -233,6 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <span class="nav-link-text ms-1">Overview</span>
                         </a>
                     </li>
+                    <!--Registration-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -241,6 +248,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
+                    <!--Profile-->
+
+                    <?php /*
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Profile</span>
+                        </a>
+                    </li>
+                    */
+                    ?>
                 </ul>
             </li>
 

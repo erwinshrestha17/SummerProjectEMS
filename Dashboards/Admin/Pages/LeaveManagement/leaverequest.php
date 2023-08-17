@@ -61,14 +61,6 @@ if (!isset($_SESSION['authenticated'])) {
 
                     <!-- EMPLOYEES PROFILE-->
 
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Employees Profiles</span>
-                        </a>
-                    </li>
 
 
                 </ul>
@@ -161,14 +153,7 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
                     <!--PROFILE-->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Profile</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
 

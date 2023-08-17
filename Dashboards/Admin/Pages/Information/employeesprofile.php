@@ -63,14 +63,6 @@ if (!isset($_SESSION['authenticated'])) {
 
                     <!-- EMPLOYEES PROFILE-->
 
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Employees Profiles</span>
-                        </a>
-                    </li>
 
 
                 </ul>
@@ -163,14 +155,6 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
                     <!--PROFILE-->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Profile</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
 
@@ -233,9 +217,11 @@ if (!isset($_SESSION['authenticated'])) {
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                    <i class="material-icons text-lg position-relative">home</i>
-                                    <span class="ms-1">App</span>
+                                <a href='employeeslist.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                    <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' >
+                                        <i class="material-icons text-lg position-relative">home</i>
+                                        Close
+                                    </button>
                                 </a>
                             </li>
                         </ul>

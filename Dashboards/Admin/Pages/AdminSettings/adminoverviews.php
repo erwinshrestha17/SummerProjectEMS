@@ -61,14 +61,6 @@ if (!isset($_SESSION['authenticated'])) {
 
                     <!-- EMPLOYEES PROFILE-->
 
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Employees Profiles</span>
-                        </a>
-                    </li>
 
 
                 </ul>
@@ -161,6 +153,7 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
                     <!--PROFILE-->
+                   <?php /*
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -169,6 +162,8 @@ if (!isset($_SESSION['authenticated'])) {
                             <span class="nav-link-text ms-1">Profile</span>
                         </a>
                     </li>
+                    */
+                    ?>
                 </ul>
             </li>
 
@@ -237,7 +232,7 @@ if (!isset($_SESSION['authenticated'])) {
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3">All Employees</h6>
+                            <h6 class="text-white text-capitalize ps-3">Admins</h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
@@ -249,6 +244,8 @@ if (!isset($_SESSION['authenticated'])) {
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-secondary opacity-7"></th>
+                                    <th class="text-secondary opacity-7"></th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -283,6 +280,13 @@ if (!isset($_SESSION['authenticated'])) {
                                       
                                         </a>
                                     </td>";
+
+                                    echo "<td class='align-middle'>
+                                        <a href='adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Open</button>
+                                        </a>
+                                    </td>";
+
                                     echo"</tr>";
                                 }
                                 ?>

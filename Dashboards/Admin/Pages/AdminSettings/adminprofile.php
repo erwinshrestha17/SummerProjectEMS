@@ -62,7 +62,7 @@ if (!isset($_SESSION['authenticated'])) {
                     </li>
 
                     <!-- EMPLOYEES PROFILE-->
-
+                    <?php /*
                     <li class="nav-item" id="">
                         <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
@@ -71,6 +71,8 @@ if (!isset($_SESSION['authenticated'])) {
                             <span class="nav-link-text ms-1">Employees Profiles</span>
                         </a>
                     </li>
+
+                    */?>
 
 
                 </ul>
@@ -166,6 +168,7 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
                     <!--PROFILE-->
+                    <?php /*
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -174,7 +177,8 @@ if (!isset($_SESSION['authenticated'])) {
                             <span class="nav-link-text ms-1">Profile</span>
                         </a>
                     </li>
-
+                    */
+                    ?>
 
                 </ul>
             </li>
@@ -203,7 +207,7 @@ if (!isset($_SESSION['authenticated'])) {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Employee Profiles</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin Profiles</li>
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Profile</h6>
             </nav>
@@ -216,6 +220,8 @@ if (!isset($_SESSION['authenticated'])) {
         </div>
     </nav>
     <!-- End Navbar -->
+
+
     <div class="container-fluid px-2 px-md-4">
         <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
             <span class="mask  bg-gradient-primary  opacity-6"></span>
@@ -224,7 +230,7 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="row gx-4 mb-2">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -241,9 +247,11 @@ if (!isset($_SESSION['authenticated'])) {
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                    <i class="material-icons text-lg position-relative">home</i>
-                                    <span class="ms-1">App</span>
+                                <a href='adminoverviews.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                    <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' >
+                                        <i class="material-icons text-lg position-relative">home</i>
+                                        Close
+                                    </button>
                                 </a>
                             </li>
                         </ul>
