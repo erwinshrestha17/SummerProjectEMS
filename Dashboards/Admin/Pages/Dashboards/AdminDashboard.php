@@ -1,7 +1,44 @@
 <?php
-include_once 'Adminsessions.php';
-?>
+session_start();
+if (!isset($_SESSION['authenticated'])) {
+    header('Location: ../LogIn-Logout/AdminLogin.php');
+    exit;
+}
+$adminID= $_SESSION['id'];
 
+$host = "host = 127.0.0.1";
+$port = "port = 5432";
+$dbname = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect("$host $port $dbname $credentials");
+
+if (!isset($conn)) {
+    echo die("Database connection failed");
+}
+$sql =<<<Eof
+            SELECT * FROM adminlists where id=$adminID;
+    Eof;
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    exit;
+}
+
+while ($let = pg_fetch_assoc($ret)) {
+    $id = $let['id'];
+    $username = $let['username'];
+    $email = $let['email'];
+    $position = $let['position'];
+    $organization = $let['organization'];
+    $employeeddate = $let['date'];
+    $salary = $let['salary'];
+    $fullname= $let['fullname'];
+    $phonenumber = $let['phonenumber'];
+
+}
+
+?>
 <!Doctype html>
 <html lang="eng">
 <head>
@@ -191,13 +228,18 @@ include_once 'Adminsessions.php';
                 <h6 class="font-weight-bolder mb-0">Dashboard</h6>
             </nav>
         </div>
+
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
                 <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+
                     <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                    <?php $adminID ?>
                 </a>
             </div>
         </div>
+
+
     </nav>
     <!-- End Navbar -->
 

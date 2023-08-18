@@ -338,12 +338,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
+                                    <input type="text" class="form-control" placeholder="Admin" value="Admin" name="role" >
+                                    <?php   /*
                                     <select class="form-select form-select-lg mb-2" name="role" required>
                                         <option class="outline mb-3" selected value="role">Select Roles</option>
                                         <option class="outline mb-3" name="role">Sr Software Engineer</option>
                                         <option class="outline mb-3" name="role">Jr Web Developer</option>
                                         <option class="outline mb-3" name="role">Full stack developer</option>
                                     </select>
+                                    */
+                                    ?>
                                     <div class="p-2"></div>
 
 

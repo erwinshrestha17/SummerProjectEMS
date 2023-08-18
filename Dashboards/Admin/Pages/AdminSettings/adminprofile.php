@@ -4,7 +4,7 @@ if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
-$adminID = $_POST['openprofilebtn'];
+$adminID = $_SESSION['id'];
 ?>
 
 

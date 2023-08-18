@@ -246,7 +246,6 @@ if (!isset($_SESSION['authenticated'])) {
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-secondary opacity-7"></th>
-                                    <th class="text-secondary opacity-7"></th>
 
                                 </tr>
                                 </thead>
@@ -283,14 +282,14 @@ if (!isset($_SESSION['authenticated'])) {
                                         </a>
                                     </td>";
 
-                                    echo "<td class='align-middle'>
+                                    /*echo " <td class='align-middle'>
                                                 <a class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                                     <form action='adminprofile.php' method='post'>
                                                         <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'> Open</button>                                            
                                                     </form>
                                                  </a>
                                         </td>";
-
+                                    */
                                     echo"</tr>";
                                 }
                                 ?>
