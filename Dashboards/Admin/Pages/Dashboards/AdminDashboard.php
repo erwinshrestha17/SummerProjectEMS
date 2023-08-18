@@ -1,9 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/AdminLogin.php');
-    exit;
-}
+include_once 'Adminsessions.php';
 ?>
 
 <!Doctype html>
@@ -11,7 +7,6 @@ if (!isset($_SESSION['authenticated'])) {
 <head>
     <title>Admin Dashboard</title>
     <link rel="icon" type="image/png" href="../Assets/img/img.png">
-
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -30,7 +25,7 @@ if (!isset($_SESSION['authenticated'])) {
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="AdminDashboard.php">
             <img src="../Assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Admin Dashboard</span>
+            <span class="ms-1 font-weight-bold text-white"> Admin <?php echo $fullname?></span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -137,7 +132,7 @@ if (!isset($_SESSION['authenticated'])) {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
+                        <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
@@ -145,7 +140,7 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
+                        <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>

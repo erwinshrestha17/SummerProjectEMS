@@ -320,7 +320,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <form role="form" action="insertdata.php" method="post">
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
+                                    <input type="number" class="form-control" placeholder="Admin ID" name="id"  required>
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">

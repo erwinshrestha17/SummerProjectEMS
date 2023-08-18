@@ -38,7 +38,8 @@ EOF;
                 session_start();
                 session_unset();
                 $_SESSION['authenticated']= true;
-                $_SESSION["email"] = $rows["email"];
+                $_SESSION['id'] =$rows['id'];
+                $_SESSION['email'] = $rows['email'];
                 header("Location: ../Dashboards/AdminDashboard.php");
             }
         }else{

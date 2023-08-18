@@ -1,11 +1,8 @@
-
-
-
 <?php
 if(isset($_POST['submit'])){
-    if(!empty($_POST['adminid'])) {
-        $adminid = $_POST['adminid'];
-        echo $adminid;
+    if(!empty($_POST['id'])) {
+        $id = $_POST['id'];
+        echo $id;
     }
     echo "<br>";
     if(!empty($_POST['username'])) {
@@ -32,8 +29,6 @@ if(isset($_POST['submit'])){
         $branch = $_POST['branch'];
         echo $branch;
     }
-    echo "<br>";
-
     echo "<br>";
     if(!empty($_POST['employeddate'])) {
         $employeddate = $_POST['employeddate'];
@@ -72,9 +67,9 @@ if(!isset($conn)){
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
-    $query1 = "INSERT INTO adminlists (id, username, email, position, organization) VALUES ($adminid,'$username ', '$email','$roles','$branch')";
+    $query1 = "INSERT INTO adminlists (id, username, email, position, organization, date,fullname,salary,phonenumber) VALUES ($id,'$username ', '$email','$roles','$branch','$employeddate','$fullname',$salary,'$phonenumber')";
+    $query2 = "INSERT INTO adminlogin (id, email, password) VALUES ($id, '$email','$password')";
     $result1 = pg_query($conn, $query1);
-    $query2 = "INSERT INTO adminlogin (id, email, password) VALUES ($adminid, '$email','$password')";
     $result2 = pg_query($conn, $query2);
 
     if ($result1 && $result2) {
