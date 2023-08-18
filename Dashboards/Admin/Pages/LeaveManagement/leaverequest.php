@@ -4,6 +4,41 @@ if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
+
+$adminID= $_SESSION['id'];
+
+$host = "host = 127.0.0.1";
+$port = "port = 5432";
+$dbname = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect("$host $port $dbname $credentials");
+
+if (!isset($conn)) {
+    echo die("Database connection failed");
+}
+$sql =<<<Eof
+            SELECT * FROM adminlists where id=$adminID;
+    Eof;
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    exit;
+}
+
+while ($let = pg_fetch_assoc($ret)) {
+    $id = $let['id'];
+    $username = $let['username'];
+    $email = $let['email'];
+    $position = $let['position'];
+    $organization = $let['organization'];
+    $employeeddate = $let['date'];
+    $salary = $let['salary'];
+    $fullname= $let['fullname'];
+    $phonenumber = $let['phonenumber'];
+
+}
+
 ?>
 <!Doctype html>
 <html lang="eng">
@@ -27,8 +62,8 @@ if (!isset($_SESSION['authenticated'])) {
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="AdminDashboard.php" >
-            <img src="../Assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Admin Dashboard</span>
+            <img src="../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
+            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname ?> </span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">

@@ -61,7 +61,7 @@ while ($let = pg_fetch_assoc($ret)) {
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="AdminDashboard.php">
-            <img src="../Assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white"> Admin <?php echo $fullname?></span>
         </a>
     </div>
@@ -234,7 +234,6 @@ while ($let = pg_fetch_assoc($ret)) {
                 <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
 
                     <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
-                    <?php $adminID ?>
                 </a>
             </div>
         </div>
