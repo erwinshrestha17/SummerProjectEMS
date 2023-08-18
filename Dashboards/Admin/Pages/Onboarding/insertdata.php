@@ -38,6 +38,22 @@ if(isset($_POST['submit'])){
         echo $employeddate;
     }
     echo "<br>";
+    if(!empty($_POST['fullname'])) {
+        $fullname = $_POST['fullname'];
+        echo $fullname;
+    }
+    echo "<br>";
+    if(!empty($_POST['salary'])) {
+        $salary = $_POST['salary'];
+        echo $salary;
+    }
+    echo "<br>";
+    if(!empty($_POST['phonenumber'])) {
+        $phonenumber = $_POST['phonenumber'];
+        echo $phonenumber;
+        echo gettype($phonenumber);
+    }
+    echo "<br>";
 }
 
 $host        = "host = 127.0.0.1";
@@ -53,12 +69,12 @@ if(!isset($conn)){
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
-    $query1 = "INSERT INTO employeeslist (id, username, email, position, organization, date) VALUES ($employeesid,'$username ', '$email','$roles','$branch','$employeddate')";
-    $result1 = pg_query($conn, $query1);
+    $query1 = "INSERT INTO employeeslist (id, username, email, position, organization, date,fullname,salary,phonenumber) VALUES ($employeesid,'$username ', '$email','$roles','$branch','$employeddate','$fullname',$salary,'$phonenumber')";
     $query2 = "INSERT INTO employeeslogin (id, email, password) VALUES ($employeesid, '$email','$password')";
+    $result1 = pg_query($conn, $query1);
     $result2 = pg_query($conn, $query2);
 
-    if ($result1 && $result2) {
+    if ($result1 || $result2) {
         echo "Data inserted successfully.";
         header("Location: addingEmployees.php");
     } else {

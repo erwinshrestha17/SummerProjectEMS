@@ -34,6 +34,29 @@ if(isset($_POST['submit'])){
     }
     echo "<br>";
 
+    echo "<br>";
+    if(!empty($_POST['employeddate'])) {
+        $employeddate = $_POST['employeddate'];
+        echo $employeddate;
+    }
+    echo "<br>";
+    if(!empty($_POST['fullname'])) {
+        $fullname = $_POST['fullname'];
+        echo $fullname;
+    }
+    echo "<br>";
+    if(!empty($_POST['salary'])) {
+        $salary = $_POST['salary'];
+        echo $salary;
+    }
+    echo "<br>";
+    if(!empty($_POST['phonenumber'])) {
+        $phonenumber = $_POST['phonenumber'];
+        echo $phonenumber;
+        echo gettype($phonenumber);
+    }
+    echo "<br>";
+
 }
 
 $host        = "host = 127.0.0.1";

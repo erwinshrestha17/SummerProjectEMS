@@ -320,38 +320,49 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <form role="form" action="insertdata.php" method="post">
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Admin ID" name="adminid"  required>
-                                </div>
+                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
 
+                                </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="User Names" name="username"  required>
+                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname"  required>
+                                    <div class="p-2"></div>
+                                    <input type="text" class="form-control" placeholder="User Name" name="username"  required>
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="email" class="form-control" placeholder="Email" name="email"  required>
-
-                                </div>
-
-                                <div class="input-group input-group-outline mb-3">
+                                    <div class="p-2"></div>
                                     <input type="password" class="form-control" placeholder="Password" name="password" required >
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-
-                                    <select class="form-select form-select-lg mb-2 p-2" name="role" required>
+                                    <select class="form-select form-select-lg mb-2" name="role" required>
                                         <option class="outline mb-3" selected value="role">Select Roles</option>
-                                        <option class="outline mb-3" name="role">Admin</option>
-
+                                        <option class="outline mb-3" name="role">Sr Software Engineer</option>
+                                        <option class="outline mb-3" name="role">Jr Web Developer</option>
+                                        <option class="outline mb-3" name="role">Full stack developer</option>
                                     </select>
                                     <div class="p-2"></div>
+
+
                                     <select class="form-select form-select-lg mb-2 " name="branch" required>
                                         <option class="outline mb-3" selected value="branch">Branch</option>
                                         <option class="outline mb-3" name="branch">Kathmandu</option>
                                         <option class="outline mb-3" name="branch" >Butwal</option>
                                         <option class="outline mb-3" name="branch">Pokhara</option>
                                     </select>
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate"  required>
+                                    <div class="p-2"></div>
+                                    <input type="number" class="form-control" placeholder="Salary" name="salary"  required>
+
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" maxlength="10" required>
+
                                 </div>
 
                                 <div class="text-center">

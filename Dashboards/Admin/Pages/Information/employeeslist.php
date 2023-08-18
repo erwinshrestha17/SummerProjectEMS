@@ -285,8 +285,12 @@ if (!isset($_SESSION['authenticated'])) {
                                     </td>";
 
                                     echo "<td class='align-middle'>
-                                        <a href='employeesprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Open</button>
+                                        <a class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                                <form action='employeesprofile.php' method='post'>
+                                              
+                                                  <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'> Open</button>                                            
+                                                
+                                                </form>
                                         </a>
                                     </td>";
 

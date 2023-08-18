@@ -5,7 +5,50 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }
 
+$empID = $_POST['openprofilebtn'];
+
 ?>
+
+<!-- Database Connection -->
+<?php
+
+$host        = "host = 127.0.0.1";
+$port        = "port = 5432";
+$dbname      = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+$conn = pg_connect( "$host $port $dbname $credentials"  );
+if(!isset($conn)){
+    echo die("Database connection failed");
+}
+$sql =<<<Eof
+            SELECT * FROM employeeslist where id=$empID;
+    Eof;
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    exit;
+}
+
+while ($let = pg_fetch_assoc($ret)) {
+    $id = $let['id'];
+    $username = $let['username'];
+    $email = $let['email'];
+    $position = $let['position'];
+    $organization = $let['organization'];
+    $employeeddate = $let['date'];
+    $salary = $let['salary'];
+    $fullname= $let['fullname'];
+    $phonenumber = $let['phonenumber'];
+
+}
+
+
+?>
+
+
+
+
+
 <!Doctype html>
 <html lang="eng">
 <head>
@@ -208,10 +251,10 @@ if (!isset($_SESSION['authenticated'])) {
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            Richard Davis
+                            <?php echo $fullname;?>
                         </h5>
                         <p class="mb-0 font-weight-normal text-sm">
-                            CEO / Co-Founder
+                            <?php echo $position?> / <?php echo $organization?>
                         </p>
                     </div>
                 </div>
@@ -232,6 +275,8 @@ if (!isset($_SESSION['authenticated'])) {
             </div>
             <div class="row">
                 <div class="row">
+
+
                     <div class="col-12 col-xl-4">
                         <div class="card card-plain h-100">
                             <div class="card-header pb-0 p-3">
@@ -243,9 +288,11 @@ if (!isset($_SESSION['authenticated'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-xl-4">
+
+
+                    <div class="col-12 col-xl-5">
                         <div class="card card-plain h-100">
-                            <div class="card-header pb-0 p-3">
+                            <div class="card-header pb-0 p-2">
                                 <div class="row">
                                     <div class="col-md-8 d-flex align-items-center">
                                         <h6 class="mb-0">Profile Information</h6>
@@ -257,16 +304,16 @@ if (!isset($_SESSION['authenticated'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body p-3">
+                            <div class="card-body p-4">
                                 <p class="text-sm">
                                     Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                                 </p>
                                 <hr class="horizontal gray-light my-4">
                                 <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; alecthompson@mail.com</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
+                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
+                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
+                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
                                     <li class="list-group-item border-0 ps-0 pb-0">
                                         <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                         <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -283,16 +330,8 @@ if (!isset($_SESSION['authenticated'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-xl-4">
-                        <div class="card card-plain h-100">
-                            <div class="card-header pb-0 p-3">
-                                <h6 class="mb-0">Conversations</h6>
-                            </div>
-                            <div class="card-body p-3">
 
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
