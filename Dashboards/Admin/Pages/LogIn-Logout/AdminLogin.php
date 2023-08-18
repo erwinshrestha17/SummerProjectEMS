@@ -1,6 +1,6 @@
 <!-- php script start -->
 <?php
-
+//include('../DatabaseConnection/databaseconnections.php');
 $email="";
 $password="";
 $email_err = $pass_err = $login_Err = "";
@@ -17,21 +17,31 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
     if (empty($_POST["password"])) {
         $pass_err = " <p > * Password Can Not Be Empty</p> ";
     } else {
+        // Decrypting hash
+
+
+       // $dbPassword = $rows['password'];
         $password = $_REQUEST["password"];
+       // $password_decoded = password_verify($password,$dbPassword);
+        //pg_close($conn);
     }
 
     if( !empty($email) && !empty($password) ){
+
         $host        = "host = 127.0.0.1";
         $port        = "port = 5432";
         $dbname      = "dbname = emsdb";
         $credentials = "user = postgres password=admin";
+
         $conn = pg_connect( "$host $port $dbname $credentials"  );
         if(!isset($conn)){
             echo die("Database connection failed");
         }
+
+
         $sql = <<<EOF
-SELECT * FROM adminlogin where email='$email' and password='$password'
-EOF;
+            SELECT * FROM adminlogin where email='$email' and password='$password'
+        EOF;
         $result = pg_query( $conn , $sql);
         if ( pg_num_rows($result) > 0 ){
             while( $rows = pg_fetch_assoc($result) ){

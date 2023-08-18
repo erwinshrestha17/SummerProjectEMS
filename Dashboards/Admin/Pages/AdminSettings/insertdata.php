@@ -16,7 +16,8 @@ if(isset($_POST['submit'])){
     }
     echo "<br>";
     if(!empty($_POST['password'])) {
-        $password = $_POST['password'];
+        $password =$_POST['password'];
+        //$password =password_hash( $_POST['password'],PASSWORD_DEFAULT ); // Password has been encrypted by hashing
         echo $password;
     }
     echo "<br>";
