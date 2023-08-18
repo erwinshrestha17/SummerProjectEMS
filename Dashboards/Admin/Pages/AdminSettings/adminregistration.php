@@ -401,7 +401,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" maxlength="10" required>
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" required>
 
                                 </div>
 

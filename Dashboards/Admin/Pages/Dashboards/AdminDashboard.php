@@ -5,6 +5,7 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }
 $adminID= $_SESSION['id'];
+$adminemail =$_SESSION['email'];
 
 $host = "host = 127.0.0.1";
 $port = "port = 5432";
