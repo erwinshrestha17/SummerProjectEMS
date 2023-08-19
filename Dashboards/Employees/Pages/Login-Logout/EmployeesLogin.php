@@ -40,7 +40,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
 
 
         $sql = <<<EOF
-            SELECT * FROM adminlogin where email='$email' and password='$password'
+            SELECT * FROM employeeslogin where email='$email' and password='$password'
         EOF;
         $result = pg_query( $conn , $sql);
         if ( pg_num_rows($result) > 0 ){
@@ -50,7 +50,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                 $_SESSION['authenticated']= true;
                 $_SESSION['id'] =$rows['id'];
                 $_SESSION['email'] = $rows['email'];
-                header("Location: ../Dashboards/AdminDashboard.php");
+                header("Location: ../Dashboards/EmployeesDashboard.php");
             }
         }else{
             $login_Err = "<div class='alert alert-danger alert-dismissible fade show'>
@@ -77,7 +77,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
-        Admin Sign IN
+        Employees Sign IN
     </title>
     <link rel="icon" type="image/png" href="../Assets/img/img.png">
     <!--     Fonts and icons     -->
@@ -94,8 +94,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
 </head>
 
 <body class="sign-in-basic">
-<!-- Navbar Transparent -->
-<!-- End Navbar -->
+
 <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');" loading="lazy">
     <span class="mask bg-gradient-dark opacity-6"></span>
     <div class="container my-auto">
@@ -146,7 +145,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                             </div>
-                            <p class=" mt-4 text-sm text center">Not an admin? <a href="../../../Employees/Pages/Login-Logout/EmployeesLogin.php" class="text-primary">Log-In </a>as Employee now</p>
+                            <p class=" mt-4 text-sm text center">Not an admin? <a href="../../../Admin/Pages/LogIn-Logout/AdminLogin.php" class="text-primary">Log-In </a>as Admin now</p>
                         </form>
                     </div>
                 </div>

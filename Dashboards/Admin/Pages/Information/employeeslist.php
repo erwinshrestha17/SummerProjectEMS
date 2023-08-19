@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/AdminLogin.php');
+    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
     exit;
 }
 
