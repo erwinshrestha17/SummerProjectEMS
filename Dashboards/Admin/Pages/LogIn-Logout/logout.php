@@ -1,6 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header('Location:TestEmployeesLogin.php');
+header('Location:AdminLogin.php');
 exit;
 ?>

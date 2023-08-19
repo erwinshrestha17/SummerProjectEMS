@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+if (!isset($_SESSION['authenticated'])) {
+    header('Location: ../LogIn-Logout/EmployeesLogin.php');
+    exit;
+}
 $id= $_SESSION['id'];
 $email =$_SESSION['email'];
 $username=$_SESSION['username'];
