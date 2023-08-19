@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
 
@@ -27,15 +27,7 @@ if(!$ret) {
 }
 
 while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
     $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
 
 }
 
@@ -61,7 +53,7 @@ while ($let = pg_fetch_assoc($ret)) {
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="AdminDashboard.php" >
+        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
             <img src="../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname ?> </span>
         </a>
@@ -131,11 +123,11 @@ while ($let = pg_fetch_assoc($ret)) {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                        <a class="nav-link text-white" href="leaverequestoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Leave request</span>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
                         </a>
                     </li>
                 </ul>
@@ -229,6 +221,11 @@ while ($let = pg_fetch_assoc($ret)) {
     </nav>
     <!-- End Navbar -->
 
+    <!-- Database Connection -->
+    <?php
+
+
+    ?>
 
     <!-- Table Start -->
     <div class="container-fluid py-4">
@@ -247,14 +244,96 @@ while ($let = pg_fetch_assoc($ret)) {
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"> Start Date</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"> End Date</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reasons</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-
                                     <th class="text-secondary opacity-7"></th>
+                                    <th class="text-secondary opacity-7"></th>
+
                                 </tr>
                                 </thead>
 
                                 <tbody>
+
+
+                                <?php
+                                $sql =<<<Eof
+                                    SELECT * FROM employees_leave_requests
+                                Eof;
+                                $ret = pg_query($conn, $sql);
+                                if(!$ret) {
+                                    echo pg_last_error($conn);
+                                    exit;
+                                }
+                                while ($let=pg_fetch_assoc($ret)) {
+                                    $id = $let['id'];
+                                    $username = $let['username'];
+                                    $email = $let['email'];
+                                    $position = $let['position'];
+                                    $organization = $let['organization'];
+                                    $startdate = $let['startdate'];
+                                    $enddate = $let['enddate'];
+                                    $reasons = $let['reasons'];
+
+
+                                    echo "<tr>";
+                                    echo "<td>";
+                                    echo "<div class='d-flex px-2 py-1'>";
+                                    echo "<div> <img src='' class='avatar avatar-sm me-3 border-radius-lg' alt='user1'> </div>";
+                                    echo "<div class='d-flex flex-column justify-content-center'>";
+                                    echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
+                                    echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo" </td>";
+                                    echo" <td>";
+                                    echo "<p class='text-xs font-weight-bold mb-0'>".$position."</p>";
+                                    echo "<p class='text-xs text-secondary mb-0'>".$organization."</p>
+                                    </td>";
+                                    echo "
+                                    </td>
+                                       <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'>".$startdate ."</span>
+                                    </td>
+                                    </td>
+                                       <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'>".$enddate ."</span>
+                                    </td>
+                                    </td>
+                                       <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'>".$reasons ."</span>
+                                    </td>
+                                    
+                                    <td class='align-middle'>
+                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Approve</button>
+                                        </a>
+                                    </td>
+                                    
+                                        <td class='align-middle'>
+                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Decline</button>
+                                        </a>
+                                    </td>
+                                    
+                                    ";
+
+
+
+
+                                }
+
+
+                                ?>
+
+
+
+
+
+
+                                </tbody>
+
+                            </table>
 
 </main>
 

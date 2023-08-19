@@ -133,11 +133,11 @@ while ($let = pg_fetch_assoc($ret)) {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Leave request</span>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
                         </a>
                     </li>
                 </ul>
@@ -234,14 +234,6 @@ while ($let = pg_fetch_assoc($ret)) {
     <!-- Database Connection -->
     <?php
 
-    $host        = "host = 127.0.0.1";
-    $port        = "port = 5432";
-    $dbname      = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-    $conn = pg_connect( "$host $port $dbname $credentials"  );
-    if(!isset($conn)){
-        echo die("Database connection failed");
-    }
     $sql =<<<Eof
             SELECT * FROM employeeslist
     Eof;

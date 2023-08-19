@@ -1,13 +1,10 @@
 
-<!DOCTYPE html>
-<html lang="en">
-
+<!Doctype html>
+<html lang="eng">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-        Employees Admin
-    </title>
+
+    <title>Employees Dashboard</title>
+    <link rel="icon" type="image/png" href="../Assets/img/img.png">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -17,44 +14,37 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="Pages/Assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+    <!-- CSS -->
+    <link id="pagestyle" href="../Assets/css/material-dashboard.min.css" rel="stylesheet" />
 </head>
-
 <body class="g-sidenav-show  bg-gray-200">
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
         <div class="container-fluid py-1 px-3">
-            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                    <div class="input-group input-group-outline">
-                        <form method="post" action="">
-                            <input type="text" class="form-control" placeholder="Type here..."  aria-label="default input example">
-                        </form>
-                    </div>
-                </div>
-                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                    <div class="input-group input-group-outline border-0">
-                        <button class="btn btn-primary">Profile</button>
-                    </div>
-                </div>
-
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+            </nav>
+        </div>
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline border-0">
+                <a href='../employeesprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                    <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                </a>
             </div>
         </div>
     </nav>
+    <!-- End Navbar -->
 
 </main>
 
+<script src="../Assets/js/bootstrap.bundle.min.js"></script>
+<script src="../Assets/js/perfect-scrollbar.min.js"></script>
+<script src="../Assets/js/smooth-scrollbar.min.js"></script>
 
-
-
-<!--   Core JS Files   -->
-<script src="../Assets/js/core/popper.min.js"></script>
-<script src="../Assets/js/core/bootstrap.min.js"></script>
-<script src="../Assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="Pages/Assets/js/plugins/smooth-scrollbar.min.js"></script>
-<script src="Pages/Assets/js/plugins/chartjs.min.js"></script>
-<script src="Pages/Assets/js/material-dashboard.min.js?v=3.1.0"></script>
 </body>
 </html>

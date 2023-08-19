@@ -45,7 +45,7 @@ while ($let = pg_fetch_assoc($ret)) {
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Employees Dashboard</title>
+    <title>Leave Request</title>
     <link rel="icon" type="image/png" href="../Assets/img/img.png">
 
     <!--     Fonts and icons     -->
@@ -64,7 +64,7 @@ while ($let = pg_fetch_assoc($ret)) {
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="EmployeesDashboard.php" target="_self">
+        <a class="navbar-brand m-0" href="../Dashboards/EmployeesDashboard.php" target="_self">
             <img src="../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Welcome <?php echo $fullname ?> </span>
         </a>
@@ -96,7 +96,7 @@ while ($let = pg_fetch_assoc($ret)) {
             </li>
             <!--LEAVE MANAGEMENT-->
             <li class="sub-menu">
-                <a class="nav-link text-white" href="../LeaveRequest/leaverequest.php">
+                <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -131,9 +131,9 @@ while ($let = pg_fetch_assoc($ret)) {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Leave Request</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+                <h6 class="font-weight-bolder mb-0">Leave Request</h6>
             </nav>
         </div>
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -145,6 +145,41 @@ while ($let = pg_fetch_assoc($ret)) {
         </div>
     </nav>
     <!-- End Navbar -->
+
+
+    <!-- Form Start -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Leave Request</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="card-body">
+                            <form role="form" action="insertdata.php" method="post">
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="date" class="form-control" placeholder="Start" name="startdate"  required>
+                                    <div class="p-2"></div>
+                                    <input type="date" class="form-control" placeholder="End" name="enddate"  required>
+
+                                </div>
+                                <div class=" input-group input-group-outline mb-3">
+                                    <input type="text" class="form-control" placeholder="Reasons" name="reasons"  required>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 

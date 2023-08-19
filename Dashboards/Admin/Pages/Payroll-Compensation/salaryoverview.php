@@ -133,11 +133,11 @@ while ($let = pg_fetch_assoc($ret)) {
                 <!--LEAVE REQUEST-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Leave request</span>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
                         </a>
                     </li>
                 </ul>
@@ -254,6 +254,7 @@ while ($let = pg_fetch_assoc($ret)) {
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salary</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bonus</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deduction</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
 
                                     <th class="text-secondary opacity-7"></th>

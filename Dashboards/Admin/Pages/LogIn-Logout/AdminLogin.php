@@ -50,6 +50,11 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                 $_SESSION['authenticated']= true;
                 $_SESSION['id'] =$rows['id'];
                 $_SESSION['email'] = $rows['email'];
+                $_SESSION['username'] = $rows['username'];
+                $_SESSION['fullname'] = $rows['fullname'];
+                $_SESSION['role']=$rows['position'];
+                $_SESSION['branch']=$rows['organization'];
+
                 header("Location: ../Dashboards/AdminDashboard.php");
             }
         }else{

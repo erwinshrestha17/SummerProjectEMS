@@ -91,11 +91,11 @@
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Leave request</span>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
                         </a>
                     </li>
                 </ul>
@@ -154,7 +154,7 @@
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Profile</span>
+                            <span class="nav-link-text ms-1">EmployeesProfile</span>
                         </a>
                     </li>
                     */?>

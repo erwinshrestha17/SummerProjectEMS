@@ -224,11 +224,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <!--LEAVE REQUEST-->
 
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Leave request</span>
+                            <span class="nav-link-text ms-1">Leave Request overview</span>
                         </a>
                     </li>
                 </ul>
@@ -284,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--Profile-->
+                    <!--EmployeesProfile-->
 
                     <?php /*
                     <li class="nav-item">
@@ -292,7 +292,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Profile</span>
+                            <span class="nav-link-text ms-1">EmployeesProfile</span>
                         </a>
                     </li>
                     */

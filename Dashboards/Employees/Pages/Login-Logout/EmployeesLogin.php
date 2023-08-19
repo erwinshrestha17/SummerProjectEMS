@@ -1,6 +1,5 @@
 <!-- php script start -->
 <?php
-//include('../DatabaseConnection/databaseconnections.php');
 $email="";
 $password="";
 $email_err = $pass_err = $login_Err = "";
@@ -50,6 +49,10 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                 $_SESSION['authenticated']= true;
                 $_SESSION['id'] =$rows['id'];
                 $_SESSION['email'] = $rows['email'];
+                $_SESSION['username'] = $rows['username'];
+                $_SESSION['fullname'] = $rows['fullname'];
+                $_SESSION['role']=$rows['position'];
+                $_SESSION['branch']=$rows['organization'];
                 header("Location: ../Dashboards/EmployeesDashboard.php");
             }
         }else{
@@ -76,10 +79,11 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-        Employees Sign IN
-    </title>
+    <link rel="apple-touch-icon" sizes="76x76" href="../Assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../Assets/img/img.png">
+    <title>
+        Employees Dashboard
+    </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -90,7 +94,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
-    <link id="pagestyle" href="../Assets/css/material-kit.css?v=3.0.4" rel="stylesheet" />
+    <link id="pagestyle" href="../Assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
 </head>
 
 <body class="sign-in-basic">
