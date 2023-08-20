@@ -233,6 +233,14 @@ while ($let = pg_fetch_assoc($ret)) {
 
     <!-- Database Connection -->
     <?php
+    $host        = "host = 127.0.0.1";
+    $port        = "port = 5432";
+    $dbname      = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
+    $conn = pg_connect( "$host $port $dbname $credentials"  );
+    if(!isset($conn)){
+        echo die("Database connection failed");
+    }
 
     $sql =<<<Eof
             SELECT * FROM employeeslist
@@ -279,10 +287,12 @@ while ($let = pg_fetch_assoc($ret)) {
                                     $organization=$let['organization'];
                                     $employeeddate=$let['date'];
                                     $salary=$let['salary'];
+                                    $image=$let['image'];
+
                                     echo "<tr>";
                                     echo "<td>";
                                     echo "<div class='d-flex px-2 py-1'>";
-                                    echo "<div> <img src='' class='avatar avatar-sm me-3 border-radius-lg' alt='user1'> </div>";
+                                    echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg'alt='Image'> </div>";
                                     echo "<div class='d-flex flex-column justify-content-center'>";
                                     echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
                                     echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";

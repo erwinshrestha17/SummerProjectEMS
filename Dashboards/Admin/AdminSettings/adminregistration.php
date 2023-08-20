@@ -361,7 +361,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
-                            <form role="form" action="insertdata2.php" method="post" enctype="multipart/form-data">
+                            <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
 
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="number" class="form-control" placeholder="Admin ID" name="id"  required>
