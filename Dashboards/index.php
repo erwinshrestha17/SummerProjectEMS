@@ -58,12 +58,12 @@
                     <div class="card-body">
                         <div class="text-center">
                             <div class="btn-group">
-                                <a href="Employees/Pages/Login-Logout/EmployeesLogin.php" class="btn btn-primary btn-lg">Log-in As Employee </a>
+                                <a href="Employees/Login-Logout/EmployeesLogin.php" class="btn btn-primary btn-lg">Log-in As Employee </a>
                             </div>
 
                             <div class="btn-group">
 
-                                <a href="Admin/Pages/LogIn-Logout/AdminLogin.php" class="btn btn-primary btn-lg">Log-In As Admin</a>
+                                <a href="Admin/LogIn-Logout/AdminLogin.php" class="btn btn-primary btn-lg">Log-In As Admin</a>
                             </div>
                         </div>
 

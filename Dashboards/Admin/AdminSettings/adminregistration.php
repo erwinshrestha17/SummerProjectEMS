@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="eng">
 <head>
     <title>Admin Registration</title>
-    <link rel="icon" type="image/png" href=".../../Assets/img/img.png">
+    <link rel="icon" type="image/png" href="../../Assets/img/img.png">
 
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -361,7 +361,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
-                            <form role="form" action="insertdata.php" method="post">
+                            <form role="form" action="insertdata2.php" method="post" enctype="multipart/form-data">
 
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="number" class="form-control" placeholder="Admin ID" name="id"  required>
@@ -410,7 +410,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" required>
-
+                                    <div class="p-2"></div>
+                                    <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png>
                                 </div>
 
                                 <div class="text-center">

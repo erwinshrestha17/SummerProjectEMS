@@ -293,10 +293,11 @@ while ($let = pg_fetch_assoc($ret)) {
                                     $email=$let['email'];
                                     $position=$let['position'];
                                     $organization=$let['organization'];
+                                    $image=$let['image'];
                                     echo "<tr>";
                                     echo "<td>";
                                     echo "<div class='d-flex px-2 py-1'>";
-                                    echo "<div> <img src='' class='avatar avatar-sm me-3 border-radius-lg' alt='user1'> </div>";
+                                    echo "<div> <img src='img/$image '  class='avatar avatar-sm me-3 border-radius-lg'alt='Image' width='10px' height='10px'> </div>";
                                     echo "<div class='d-flex flex-column justify-content-center'>";
                                     echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
                                     echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";

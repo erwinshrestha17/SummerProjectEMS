@@ -336,7 +336,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
-                            <form role="form" action="insertdata.php" method="post">
+                            <form role="form" action="insertdata1.php" method="post" enctype="multipart/form-data">
 
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
@@ -381,6 +381,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" required>
+                                    <div class="p-2"></div>
+                                    <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png">
 
                                 </div>
 
