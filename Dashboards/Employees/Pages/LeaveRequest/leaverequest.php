@@ -59,6 +59,14 @@ while ($let = pg_fetch_assoc($ret)) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS -->
     <link id="pagestyle" href="../Assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <style>
+        input[type="date"]::before {
+            content: attr(placeholder);
+            width: 100%;
+        }
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before { display: none }
+    </style>
 </head>
 <body>
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
@@ -104,7 +112,7 @@ while ($let = pg_fetch_assoc($ret)) {
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="leaverequest.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>

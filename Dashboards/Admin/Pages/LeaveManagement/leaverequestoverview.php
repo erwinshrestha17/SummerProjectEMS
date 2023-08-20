@@ -87,9 +87,6 @@ while ($let = pg_fetch_assoc($ret)) {
                     </li>
 
                     <!-- EMPLOYEES PROFILE-->
-
-
-
                 </ul>
             </li>
             <!-- EMPLOYEES ONBOARDING-->
@@ -183,9 +180,6 @@ while ($let = pg_fetch_assoc($ret)) {
 
                 </ul>
             </li>
-
-
-
         </ul>
 
     </div>
@@ -254,8 +248,6 @@ while ($let = pg_fetch_assoc($ret)) {
                                 </thead>
 
                                 <tbody>
-
-
                                 <?php
                                 $sql =<<<Eof
                                     SELECT * FROM employees_leave_requests
@@ -305,32 +297,19 @@ while ($let = pg_fetch_assoc($ret)) {
                                     </td>
                                     
                                     <td class='align-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                        <a href='#' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                             <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Approve</button>
                                         </a>
                                     </td>
                                     
-                                        <td class='align-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                     <td class='align-middle'>
+                                        <a href='#' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                             <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Decline</button>
                                         </a>
                                     </td>
-                                    
                                     ";
-
-
-
-
                                 }
-
-
                                 ?>
-
-
-
-
-
-
                                 </tbody>
 
                             </table>
