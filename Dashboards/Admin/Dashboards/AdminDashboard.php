@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
 $adminID= $_SESSION['id'];
@@ -35,6 +35,7 @@ while ($let = pg_fetch_assoc($ret)) {
     $salary = $let['salary'];
     $fullname= $let['fullname'];
     $phonenumber = $let['phonenumber'];
+    $image=$let['image'];
 
 }
 
@@ -233,7 +234,7 @@ while ($let = pg_fetch_assoc($ret)) {
             <div class="input-group input-group-outline border-0">
                 <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
 
-                    <img src="../../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                    <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
@@ -241,7 +242,22 @@ while ($let = pg_fetch_assoc($ret)) {
 
     </nav>
     <!-- End Navbar -->
+    <?php
+    $sql =<<<Eof
+            SELECT COUNT(id) as count FROM employeeslist;
+    Eof;
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
 
+    while ($let = pg_fetch_assoc($ret)) {
+        $count_emp_id = $let['count'];
+
+    }
+
+    ?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -270,7 +286,7 @@ while ($let = pg_fetch_assoc($ret)) {
                         </div>
                         <div class="text-end pt-1">
                             <p class="text-sm mb-0 text-capitalize">Employees Activity</p>
-                            <h4 class="mb-0">300</h4>
+                            <h4 class="mb-0"><?php echo $count_emp_id?> </h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
@@ -334,3 +350,5 @@ while ($let = pg_fetch_assoc($ret)) {
 </script>
 </body>
 </html>
+
+

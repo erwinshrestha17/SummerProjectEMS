@@ -1,12 +1,12 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
 
 $empID = $_POST['openprofilebtn'];
-
+$adminID= $_SESSION['id'];
 ?>
 
 <!-- Database Connection -->
@@ -20,6 +20,8 @@ $conn = pg_connect( "$host $port $dbname $credentials"  );
 if(!isset($conn)){
     echo die("Database connection failed");
 }
+
+// Employee All data
 $sql =<<<Eof
             SELECT * FROM employeeslist where id=$empID;
     Eof;
@@ -39,9 +41,24 @@ while ($let = pg_fetch_assoc($ret)) {
     $salary = $let['salary'];
     $fullname= $let['fullname'];
     $phonenumber = $let['phonenumber'];
-
+    $empimage=$let['image'];
+}
+?>
+<?php
+// Admin Profile Image
+$query=<<<EOF
+        SELECT * FROM adminlists WHERE id=$adminID;
+EOF;
+$ret1 = pg_query($conn, $query);
+if(!$ret1) {
+    echo pg_last_error($conn);
+    exit;
 }
 
+while ($let = pg_fetch_assoc($ret1)) {
+ $image=$let['image'];
+
+}
 
 ?>
 
@@ -231,7 +248,7 @@ while ($let = pg_fetch_assoc($ret)) {
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
                 <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                    <img src="../../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                    <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
@@ -245,7 +262,7 @@ while ($let = pg_fetch_assoc($ret)) {
             <div class="row gx-4 mb-2">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img   src="../Onboarding/img/<?php echo $empimage ?>" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                     </div>
                 </div>
                 <div class="col-auto my-auto">

@@ -36,6 +36,7 @@ while ($let = pg_fetch_assoc($ret)) {
     $salary = $let['salary'];
     $fullname= $let['fullname'];
     $phonenumber = $let['phonenumber'];
+    $images=$let['image'];
 
 }
 ?>
@@ -147,7 +148,7 @@ while ($let = pg_fetch_assoc($ret)) {
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
                 <a href='../EmployeesProfile/employeesprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                    <img src="../Assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                    <img src="../../Admin/Onboarding/img/<?php echo $images?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
