@@ -90,34 +90,7 @@ if (!isset($_SESSION['authenticated'])) {
 
                 </ul>
             </li>
-            <!--LEAVE MANAGEMENT-->
-            <li class="sub-menu">
-                <a class="nav-link text-white" href="#">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Leave</span>
-                </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveRequest/leaverequest.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Leave request</span>
-                        </a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveRequest/response.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Response</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
 
         </ul>

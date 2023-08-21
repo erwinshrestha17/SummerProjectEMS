@@ -43,7 +43,7 @@ if (!isset($_SESSION['authenticated'])) {
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="../../Assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href=",,/../Assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../../Assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
@@ -64,7 +64,7 @@ if (!isset($_SESSION['authenticated'])) {
     <hr class="horizontal light mt-0 mb-2">
 
 
-    <div class="animated bounceInDown  w-auto  max-height-vh-100" >
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <!-- EMPLOYEES INFORMATION-->
             <!--By using js class='sub-menu' active and deactivated in others according to the button clicked  -->
@@ -113,26 +113,7 @@ if (!isset($_SESSION['authenticated'])) {
                 </ul>
             </li>
 
-            <!--LEAVE MANAGEMENT-->
 
-            <li class="sub-menu">
-                <a class="nav-link text-white" href="#">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Leave Management</span>
-                </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Leave Request Overview</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <!--PAYROLL & COMPENSATION-->
 
             <li class="sub-menu">
@@ -343,7 +324,15 @@ if (!isset($_SESSION['authenticated'])) {
         $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
     });
 </script>
-
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
 
 
 <script src="../../Assets/js/bootstrap.bundle.min.js"></script>

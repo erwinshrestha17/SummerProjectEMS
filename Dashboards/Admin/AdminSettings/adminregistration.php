@@ -78,7 +78,7 @@ if (!isset($_SESSION['authenticated'])) {
     <hr class="horizontal light mt-0 mb-2">
 
 
-    <div class="animated bounceInDown  w-auto  max-height-vh-100" >
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main" >
         <ul class="navbar-nav">
             <!-- EMPLOYEES INFORMATION-->
             <!--By using js class='sub-menu' active and deactivated in others according to the button clicked  -->
@@ -103,17 +103,7 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
 
-                    <!-- EMPLOYEES PROFILE-->
-                    <?php /*
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Employees Profiles</span>
-                        </a>
-                    </li>
-                    */?>
+
 
 
                 </ul>
@@ -138,28 +128,7 @@ if (!isset($_SESSION['authenticated'])) {
                 </ul>
             </li>
 
-            <!--LEAVE MANAGEMENT-->
 
-            <li class="sub-menu">
-                <a class="nav-link text-white" href="#">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Leave Management</span>
-                </a>
-                <ul class="navbar-nav">
-                    <!--LEAVE REQUEST-->
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Leave Request overview</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <!--PAYROLL & COMPENSATION-->
 
             <li class="sub-menu">
@@ -347,8 +316,12 @@ if (!isset($_SESSION['authenticated'])) {
 
 <script src="../../Assets/js/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/smooth-scrollbar.min.js"></script>
+<script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="../../Assets/js/core/popper.min.js"></script>
+<script src="../../Assets/js/core/bootstrap.min.js"></script>
+<script src="../../Assets/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -358,7 +331,15 @@ if (!isset($_SESSION['authenticated'])) {
         $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
     });
 </script>
-
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
 </body>
 </html>
 
