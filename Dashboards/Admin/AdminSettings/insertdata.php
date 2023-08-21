@@ -1,18 +1,19 @@
 <?php
 
-$host = "host=127.0.0.1";
-$port = "port=5432";
-$dbname = "dbname=emsdb";
-$credentials = "user=postgres password=admin";
 
-$conn = pg_connect("$host $port $dbname $credentials");
-
-if (!$conn) {
-    echo die("Database connection failed");
-}
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['submit'])) {
+        $host = "host=127.0.0.1";
+        $port = "port=5432";
+        $dbname = "dbname=emsdb";
+        $credentials = "user=postgres password=admin";
+
+        $conn = pg_connect("$host $port $dbname $credentials");
+
+        if (!$conn) {
+            echo die("Database connection failed");
+        }
         // Validate and sanitize user inputs
         $id = $_POST['id'];
         $username = pg_escape_string($_POST['username']);
@@ -59,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     if ($result1 || $result2) {
                         echo "Data inserted successfully.";
+                        pg_close($conn);
                         header("Location: adminregistration.php");
                     } else {
                         echo "Error: " . pg_last_error($conn);

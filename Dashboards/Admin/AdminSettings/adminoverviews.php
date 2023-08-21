@@ -3,41 +3,34 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
     exit;
-}
+}else{
+    $adminID= $_SESSION['id'];
+    $fullname="";
+    $image="";
 
-$adminID= $_SESSION['id'];
+    $host = "host = 127.0.0.1";
+    $port = "port = 5432";
+    $dbname = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
 
-$host = "host = 127.0.0.1";
-$port = "port = 5432";
-$dbname = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
+    $conn = pg_connect("$host $port $dbname $credentials");
 
-$conn = pg_connect("$host $port $dbname $credentials");
-
-if (!isset($conn)) {
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
+    if (!isset($conn)) {
+        echo die("Database connection failed");
+    }
+    $sql =<<<Eof
             SELECT * FROM adminlists where id=$adminID;
     Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
-
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $image=$let['image'];
-
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
+    while ($let = pg_fetch_assoc($ret)) {
+        $fullname= $let['fullname'];
+        $image=$let['image'];
+    }
+    pg_close($conn);
 }
 
 ?>
@@ -97,8 +90,6 @@ while ($let = pg_fetch_assoc($ret)) {
                     </li>
 
                     <!-- EMPLOYEES PROFILE-->
-
-
 
                 </ul>
             </li>
@@ -241,28 +232,6 @@ while ($let = pg_fetch_assoc($ret)) {
     <!-- End Navbar -->
 
 
-    <!-- Database Connection -->
-    <?php
-
-    $host        = "host = 127.0.0.1";
-    $port        = "port = 5432";
-    $dbname      = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-    $conn = pg_connect( "$host $port $dbname $credentials"  );
-    if(!isset($conn)){
-        echo die("Database connection failed");
-    }
-    $sql =<<<Eof
-            SELECT * FROM adminlists
-    Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-    ?>
-
-
 
     <!-- Table Start -->
     <div class="container-fluid py-4">
@@ -288,6 +257,22 @@ while ($let = pg_fetch_assoc($ret)) {
                                 </thead>
                                 <tbody>
                                 <?php
+                                $host        = "host = 127.0.0.1";
+                                $port        = "port = 5432";
+                                $dbname      = "dbname = emsdb";
+                                $credentials = "user = postgres password=admin";
+                                $conn = pg_connect( "$host $port $dbname $credentials"  );
+                                if(!isset($conn)){
+                                    echo die("Database connection failed");
+                                }
+                                $sql =<<<Eof
+                                    SELECT * FROM adminlists
+                                Eof;
+                                $ret = pg_query($conn, $sql);
+                                if(!$ret) {
+                                    echo pg_last_error($conn);
+                                    exit;
+                                }
                                 while ($let=pg_fetch_assoc($ret)){
                                     $id=$let['id'];
                                     $username=$let['username'];
@@ -323,13 +308,14 @@ while ($let = pg_fetch_assoc($ret)) {
                                     /*echo " <td class='align-middle'>
                                                 <a class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                                     <form action='adminprofile.php' method='post'>
-                                                        <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'> Open</button>                                            
+                                                        <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'> Open</button>
                                                     </form>
                                                  </a>
                                         </td>";
                                     */
                                     echo"</tr>";
                                 }
+                                pg_close($conn);
                                 ?>
 
 

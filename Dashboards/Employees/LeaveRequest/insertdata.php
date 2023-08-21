@@ -1,19 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/EmployeesLogin.php');
-    exit;
-}
-$id= $_SESSION['id'];
-$email =$_SESSION['email'];
-$username=$_SESSION['username'];
-$role=$_SESSION['role'];
-$branch=$_SESSION['branch'];
-
-?>
-<?php
-
 if(isset($_POST['submit'])){
+    $id= $_SESSION['id'];
+    $email =$_SESSION['email'];
+    $username=$_SESSION['username'];
+    $position=$_SESSION['role'];
+    $organization=$_SESSION['branch'];
+    $image=$_SESSION['image'];
 
     if(!empty($_POST['startdate'])) {
         $startdate = $_POST['startdate'];
@@ -32,33 +25,31 @@ if(isset($_POST['submit'])){
     }
     echo "<br>";
 
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $host        = "host = 127.0.0.1";
+        $port        = "port = 5432";
+        $dbname      = "dbname = emsdb";
+        $credentials = "user = postgres password=admin";
 
-}
+        $conn = pg_connect( "$host $port $dbname $credentials"  );
 
-$host        = "host = 127.0.0.1";
-$port        = "port = 5432";
-$dbname      = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
+        if(!isset($conn)){
+            echo die("Database connection failed");
+        }
 
-$conn = pg_connect( "$host $port $dbname $credentials"  );
+        $query = "INSERT INTO employees_leave_requests(id, username, email, position, organization, startdate, enddate, reasons,images) VALUES ($id,'$username ', '$email','$position','$organization','$startdate','$enddate','$reasons','$image')";
+        $result = pg_query($conn, $query);
 
-if(!isset($conn)){
-    echo die("Database connection failed");
-}
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if ($result) {
+            echo "Data inserted successfully.";
 
-
-    $query = "INSERT INTO employees_leave_requests(id, username, email, position, organization, startdate, enddate, reasons) VALUES ($id,'$username ', '$email','$role','$branch','$startdate','$enddate','$reasons')";
-    $result = pg_query($conn, $query);
-
-    if ($result) {
-        echo "Data inserted successfully.";
-        header("Location: leaverequestoverview.php");
-    } else {
-        echo "Error: " . pg_last_error($conn);
+            header("Location: leaverequest.php");
+        } else {
+            echo "Error: " . pg_last_error($conn);
+        }
+        pg_close($conn);
     }
 }
-
 ?>
 
 

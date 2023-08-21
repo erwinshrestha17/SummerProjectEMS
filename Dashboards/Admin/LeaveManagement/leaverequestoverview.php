@@ -3,33 +3,36 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
-}
+}else{
+    $adminID= $_SESSION['id'];
+    $fullname="";
+    $image="";
+    $host = "host = 127.0.0.1";
+    $port = "port = 5432";
+    $dbname = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
 
-$adminID= $_SESSION['id'];
+    $conn = pg_connect("$host $port $dbname $credentials");
 
-$host = "host = 127.0.0.1";
-$port = "port = 5432";
-$dbname = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
-
-$conn = pg_connect("$host $port $dbname $credentials");
-
-if (!isset($conn)) {
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
+    if (!isset($conn)) {
+        echo die("Database connection failed");
+    }
+    $sql =<<<Eof
             SELECT * FROM adminlists where id=$adminID;
     Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
+    $fullname='';
+    $image='';
+    while ($let = pg_fetch_assoc($ret)) {
+        $fullname= $let['fullname'];
+        $image=$let['image'];
 
-while ($let = pg_fetch_assoc($ret)) {
-    $fullname= $let['fullname'];
-    $image=$let['image'];
-
+    }
+    pg_close($conn);
 }
 
 ?>
@@ -216,12 +219,6 @@ while ($let = pg_fetch_assoc($ret)) {
     </nav>
     <!-- End Navbar -->
 
-    <!-- Database Connection -->
-    <?php
-
-
-    ?>
-
     <!-- Table Start -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -250,6 +247,16 @@ while ($let = pg_fetch_assoc($ret)) {
 
                                 <tbody>
                                 <?php
+                                $host = "host = 127.0.0.1";
+                                $port = "port = 5432";
+                                $dbname = "dbname = emsdb";
+                                $credentials = "user = postgres password=admin";
+
+                                $conn = pg_connect("$host $port $dbname $credentials");
+
+                                if (!isset($conn)) {
+                                    echo die("Database connection failed");
+                                }
                                 $sql =<<<Eof
                                     SELECT * FROM employees_leave_requests
                                 Eof;
@@ -267,12 +274,15 @@ while ($let = pg_fetch_assoc($ret)) {
                                     $startdate = $let['startdate'];
                                     $enddate = $let['enddate'];
                                     $reasons = $let['reasons'];
+                                    $image=$let['images'];
 
-
+                                    $_SESSION['id'] =$id;
+                                    $empID=$_SESSION['id'];
+                                    echo $empID;
                                     echo "<tr>";
                                     echo "<td>";
                                     echo "<div class='d-flex px-2 py-1'>";
-                                    echo "<div> <img src='' class='avatar avatar-sm me-3 border-radius-lg' alt='user1'> </div>";
+                                    echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg'alt='Image'> </div>";
                                     echo "<div class='d-flex flex-column justify-content-center'>";
                                     echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
                                     echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
@@ -295,22 +305,22 @@ while ($let = pg_fetch_assoc($ret)) {
                                     </td>
                                        <td class='align-middle text-center'>
                                         <span class='text-secondary text-xs font-weight-bold'>".$reasons ."</span>
-                                       
                                     </td>
                                     
                                     <td class='align-middle'>
-                                        <a href='#' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Approve</button>
+                                        <a href='approve.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0'name='btn-approved' value=$empID  >Approve</button>
                                         </a>
                                     </td>
                                     
                                      <td class='align-middle'>
-                                        <a href='#' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Decline</button>
+                                        <a href='decline.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' name='btn-declined' >Decline</button>
                                         </a>
                                     </td>
                                     ";
                                 }
+                                pg_close($conn);
                                 ?>
                                 </tbody>
 

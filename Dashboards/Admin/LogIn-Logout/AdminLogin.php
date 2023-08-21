@@ -1,6 +1,7 @@
 <!-- php script start -->
 <?php
 //include('../DatabaseConnection/databaseconnections.php');
+session_start();
 $email="";
 $password="";
 $email_err = $pass_err = $login_Err = "";
@@ -44,20 +45,14 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
         EOF;
         $result = pg_query( $conn , $sql);
         if ( pg_num_rows($result) > 0 ){
+
             while( $rows = pg_fetch_assoc($result) ){
-                session_start();
-                session_unset();
                 $_SESSION['authenticated']= true;
                 $_SESSION['id'] =$rows['id'];
-                /*
                 $_SESSION['email'] = $rows['email'];
-                $_SESSION['username'] = $rows['username'];
-                $_SESSION['fullname'] = $rows['fullname'];
-                $_SESSION['role']=$rows['position'];
-                $_SESSION['branch']=$rows['organization'];
-                */
-                header("Location: ../Dashboards/AdminDashboard.php");
+
             }
+            header("Location: ../Dashboards/AdminDashboard.php");
         }else{
             $login_Err = "<div class='alert alert-danger alert-dismissible fade show'>
             
@@ -152,7 +147,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                             </div>
-                            <p class=" mt-4 text-sm text center">Not an admin? <a href="../../../Employees/Pages/Login-Logout/EmployeesLogin.php" class="text-primary">Log-In </a>as Employee now</p>
+                            <p class=" mt-4 text-sm text center">Not an admin? <a href="../../Employees/Login-Logout/EmployeesLogin.php" class="text-primary">Log-In </a>as Employee now</p>
                         </form>
                     </div>
                 </div>

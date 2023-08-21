@@ -3,41 +3,41 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
-}
-$adminID= $_SESSION['id'];
+}else{
 
-$host = "host = 127.0.0.1";
-$port = "port = 5432";
-$dbname = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
+    $adminID= $_SESSION['id'];
+    $fullname="";
+    $image="";
 
-$conn = pg_connect("$host $port $dbname $credentials");
+    $host = "host = 127.0.0.1";
+    $port = "port = 5432";
+    $dbname = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
 
-if (!isset($conn)) {
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
+    $conn = pg_connect("$host $port $dbname $credentials");
+
+    if (!isset($conn)) {
+        echo die("Database connection failed");
+    }
+    $sql =<<<Eof
             SELECT * FROM adminlists where id=$adminID;
     Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
 
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $image=$let['image'];
+    while ($let = pg_fetch_assoc($ret)) {
+        $id = $let['id'];
+        $image=$let['image'];
+        $fullname=$let['fullname'];
+
+    }
 
 }
+
+
 
 ?>
 <!Doctype html>

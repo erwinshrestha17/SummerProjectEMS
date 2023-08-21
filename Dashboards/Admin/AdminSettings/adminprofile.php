@@ -3,82 +3,45 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
     exit;
-}
-$adminID = $_SESSION['id'];
+}else{
+    $adminID = $_SESSION['id'];
+    $fullname="";
+    $image="";
+    $host = "host = 127.0.0.1";
+    $port = "port = 5432";
+    $dbname = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
 
-$host = "host = 127.0.0.1";
-$port = "port = 5432";
-$dbname = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
+    $conn = pg_connect("$host $port $dbname $credentials");
 
-$conn = pg_connect("$host $port $dbname $credentials");
-
-if (!isset($conn)) {
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
+    if (!isset($conn)) {
+        echo die("Database connection failed");
+    }
+    $sql =<<<Eof
             SELECT * FROM adminlists where id=$adminID;
     Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
 
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $image=$let['image'];
+    while ($let = pg_fetch_assoc($ret)) {
+        $id = $let['id'];
+        $email = $let['email'];
+        $position = $let['position'];
+        $organization = $let['organization'];
+        $salary = $let['salary'];
+        $fullname= $let['fullname'];
+        $phonenumber = $let['phonenumber'];
+        $image=$let['image'];
 
+    }
+    pg_close($conn);
 }
 
 ?>
 
-
-
-<!-- Database Connection -->
-<?php
-/*
-
-$host        = "host = 127.0.0.1";
-$port        = "port = 5432";
-$dbname      = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
-$conn = pg_connect( "$host $port $dbname $credentials"  );
-if(!isset($conn)){
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
-            SELECT * FROM adminlists where id=$adminID;
-    Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
-
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-
-}
-*/
-
-?>
 <!Doctype html>
 <html lang="eng">
 <head>
@@ -133,20 +96,6 @@ while ($let = pg_fetch_assoc($ret)) {
                             <span class="nav-link-text ms-1">Employees List</span>
                         </a>
                     </li>
-
-                    <!-- EMPLOYEES PROFILE-->
-                    <?php /*
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Employees Profiles</span>
-                        </a>
-                    </li>
-
-                    */?>
-
 
                 </ul>
             </li>

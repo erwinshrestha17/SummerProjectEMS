@@ -3,124 +3,42 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
     exit;
-}
+}else{
 
-$_SESSION['authenticated-registration']= false;
+    $_SESSION['authenticated-registration']= false;
+    $fullname="";
+    $image="";
 
+    $adminID= $_SESSION['id'];
 
-$adminID= $_SESSION['id'];
+    $host = "host = 127.0.0.1";
+    $port = "port = 5432";
+    $dbname = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
 
-$host = "host = 127.0.0.1";
-$port = "port = 5432";
-$dbname = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
+    $conn = pg_connect("$host $port $dbname $credentials");
 
-$conn = pg_connect("$host $port $dbname $credentials");
-
-if (!isset($conn)) {
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
+    if (!isset($conn)) {
+        echo die("Database connection failed");
+    }
+    $sql =<<<Eof
             SELECT * FROM adminlists where id=$adminID;
     Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
+    while ($let = pg_fetch_assoc($ret)) {
+        $fullname= $let['fullname'];
+        $image=$let['image'];
+    }
+    pg_close($conn);
 }
 
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $image=$let['image'];
-
-}
 
 ?>
 
-<?php
-/*
-$employeesid_err=$username_err=$email_err=$roles_err=$branch_err=$employeddate_err=$password_err="";
-if(isset($_POST['submit'])){
-
-    if(!empty($_POST['employeesid'])) {
-        $employeesid = $_POST['employeesid'];
-    }else{
-        $employeesid_err =" <p> * ID Can Not Be Empty</p> ";
-    }
-    echo "<br>";
-    if(!empty($_POST['username'])) {
-        $username = $_POST['username'];
-    }else{
-        $username_err = "<p>* User Name Can Not Be Empty</p>";
-    }
-    echo "<br>";
-    if(!empty($_POST['email'])) {
-        $email = $_POST['email'];
-    }else{
-        $email_err = "<p> * Email Can Not Be Empty </p>";
-    }
-    echo "<br>";
-    if(!empty($_POST['password'])) {
-        $password = $_POST['password'];
-    }else{
-        $password_err = "<p> * Password Can Not Be Empty </p>";
-    }
-    echo "<br>";
-    if(!empty($_POST['role'])) {
-        $roles = $_POST['role'];
-    }else{
-        $roles_err = "<p> * Role Can Not Be Empty </p>";
-    }
-    echo "<br>";
-    if(!empty($_POST['branch'])) {
-        $branch = $_POST['branch'];
-    }else{
-        $branch_err = "<p> * Branch Can Not Be Empty </p>";
-    }
-    echo "<br>";
-    if(!empty($_POST['employeddate'])) {
-        $employeddate = $_POST['employeddate'];
-    }else{
-        $employeddate_err= "<p> * Employeed Date Can Not Be Empty </p>";
-    }
-    echo "<br>";
-}
-
-$host        = "host = 127.0.0.1";
-$port        = "port = 5432";
-$dbname      = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
-
-$conn = pg_connect( "$host $port $dbname $credentials"  );
-
-if(!isset($conn)){
-    echo die("Database connection failed");
-}
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-
-    $query1 = "INSERT INTO employeeslist (id, username, email, position, organization, date) VALUES ($employeesid,'$username ', '$email','$roles','$branch','$employeddate')";
-    $result1 = pg_query($conn, $query1);
-    $query2 = "INSERT INTO employeeslogin (id, email, password) VALUES ($employeesid, '$email','$password')";
-    $result2 = pg_query($conn, $query2);
-
-    if ($result1 && $result2) {
-        echo "Data inserted successfully.";
-        header("Location: addingEmployees.php");
-    } else {
-        echo "Error: " . pg_last_error($conn);
-    }
-}
-*/
-?>
 
 <!Doctype html>
 <html lang="eng">

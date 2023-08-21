@@ -3,41 +3,36 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/EmployeesLogin.php');
     exit;
-}
-$employeeID= $_SESSION['id'];
-$employeemail =$_SESSION['email'];
+}else{
 
-$host = "host = 127.0.0.1";
-$port = "port = 5432";
-$dbname = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
+    $employeeID= $_SESSION['id'];
+    $fullname="";
+    $image="";
+    $host = "host = 127.0.0.1";
+    $port = "port = 5432";
+    $dbname = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
 
-$conn = pg_connect("$host $port $dbname $credentials");
+    $conn = pg_connect("$host $port $dbname $credentials");
 
-if (!isset($conn)) {
-    echo die("Database connection failed");
-}
-$sql =<<<Eof
+    if (!isset($conn)) {
+        echo die("Database connection failed");
+    }
+    $sql =<<<Eof
             SELECT * FROM employeeslist where id=$employeeID;
     Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
 
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $images=$let['image'];
+    while ($let = pg_fetch_assoc($ret)) {
+        $fullname= $let['fullname'];
+        $images=$let['image'];
 
+    }
+    pg_close($conn);
 }
 ?>
 
@@ -110,6 +105,15 @@ while ($let = pg_fetch_assoc($ret)) {
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Leave request</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequest/response.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Response</span>
                         </a>
                     </li>
                 </ul>

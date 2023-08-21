@@ -3,62 +3,71 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
+}else{
+    $empID = $_POST['openprofilebtn'];
+    $adminID= $_SESSION['id'];
+    $adminfullname="";
+    $adminimage="";
+
+    $host        = "host = 127.0.0.1";
+    $port        = "port = 5432";
+    $dbname      = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
+    $conn = pg_connect( "$host $port $dbname $credentials"  );
+    if(!isset($conn)){
+        echo die("Database connection failed");
+    }
+
+    // Employee All data
+    $sql =<<<Eof
+            SELECT * FROM employeeslist where id=$empID;
+    Eof;
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        header('Location:employeeslist.php');
+        exit;
+    }
+
+    while ($let = pg_fetch_assoc($ret)) {
+        $id = $let['id'];
+        $email = $let['email'];
+        $position = $let['position'];
+        $organization = $let['organization'];
+        $salary = $let['salary'];
+        $fullname= $let['fullname'];
+        $phonenumber = $let['phonenumber'];
+        $empimage=$let['image'];
+    }
+
+
+    // Admin Profile Image
+    $query=<<<EOF
+        SELECT * FROM adminlists WHERE id=$adminID;
+EOF;
+    $ret1 = pg_query($conn, $query);
+    if(!$ret1) {
+        echo pg_last_error($conn);
+        exit;
+    }
+
+    while ($let = pg_fetch_assoc($ret1)) {
+        $adminimage=$let['image'];
+
+    }
+    pg_close($conn);
 }
 
-$empID = $_POST['openprofilebtn'];
-$adminID= $_SESSION['id'];
+
 ?>
 
 <!-- Database Connection -->
 <?php
 
-$host        = "host = 127.0.0.1";
-$port        = "port = 5432";
-$dbname      = "dbname = emsdb";
-$credentials = "user = postgres password=admin";
-$conn = pg_connect( "$host $port $dbname $credentials"  );
-if(!isset($conn)){
-    echo die("Database connection failed");
-}
 
-// Employee All data
-$sql =<<<Eof
-            SELECT * FROM employeeslist where id=$empID;
-    Eof;
-$ret = pg_query($conn, $sql);
-if(!$ret) {
-    echo pg_last_error($conn);
-    exit;
-}
-
-while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['id'];
-    $username = $let['username'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $employeeddate = $let['date'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $empimage=$let['image'];
-}
 ?>
 <?php
-// Admin Profile Image
-$query=<<<EOF
-        SELECT * FROM adminlists WHERE id=$adminID;
-EOF;
-$ret1 = pg_query($conn, $query);
-if(!$ret1) {
-    echo pg_last_error($conn);
-    exit;
-}
 
-while ($let = pg_fetch_assoc($ret1)) {
- $image=$let['image'];
-
-}
 
 ?>
 
@@ -90,7 +99,7 @@ while ($let = pg_fetch_assoc($ret1)) {
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
             <img src="../../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Admin Dashboard</span>
+            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $adminfullname ?></span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -248,7 +257,7 @@ while ($let = pg_fetch_assoc($ret1)) {
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
                 <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                    <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                    <img src="../AdminSettings/img/<?php echo $adminimage?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
