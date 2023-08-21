@@ -103,17 +103,7 @@ if (!isset($_SESSION['authenticated'])) {
                         </a>
                     </li>
 
-                    <!-- EMPLOYEES PROFILE-->
-                    <?php /*
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white <?php //echo isset($page) && $page == 'employeesprofile' ? 'active-menu' : '' ?>" href="../Information/employeesprofile.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Employees Profiles</span>
-                        </a>
-                    </li>
-                    */?>
+
 
 
                 </ul>
@@ -138,28 +128,7 @@ if (!isset($_SESSION['authenticated'])) {
                 </ul>
             </li>
 
-            <!--LEAVE MANAGEMENT-->
 
-            <li class="sub-menu">
-                <a class="nav-link text-white" href="#">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Leave Management</span>
-                </a>
-                <ul class="navbar-nav">
-                    <!--LEAVE REQUEST-->
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveManagement/leaverequestoverview.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Leave Request overview</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <!--PAYROLL & COMPENSATION-->
 
             <li class="sub-menu">
