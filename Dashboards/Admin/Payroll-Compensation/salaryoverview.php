@@ -19,7 +19,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo die("Database connection failed");
     }
     $sql =<<<Eof
-            SELECT * FROM adminlists where id=$adminID;
+            SELECT * FROM adminlists where adminid=$adminID;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {
@@ -259,7 +259,7 @@ if (!isset($_SESSION['authenticated'])) {
                                     exit;
                                 }
                                 while ($let=pg_fetch_assoc($ret)){
-                                    $id=$let['id'];
+                                    $id=$let['employeesid'];
                                     $username=$let['username'];
                                     $email=$let['email'];
                                     $position=$let['position'];
@@ -300,8 +300,8 @@ if (!isset($_SESSION['authenticated'])) {
 
 
                                     echo "<td class='lign-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Payment</button>
+                                        <a href='payment.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value=''>Payment</button>
                                         </a>
                                     </td>";
 

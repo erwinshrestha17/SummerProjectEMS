@@ -54,14 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 // Try to move the uploaded image to the destination
                 if (move_uploaded_file($tmpName, $imagePath)) {
                     // Insert data into the database
-                    $query1 = "INSERT INTO employeeslist(id, username, email, position, organization, date, fullname, salary, phonenumber, image) 
-                               VALUES ($id, '$username', '$email', '$roles', '$branch', '$employeddate', '$fullname', $salary, '$phonenumber', '$newImageName')";
-                    $query2 = "INSERT INTO employeeslogin (id, email, password) 
-                               VALUES ($id, '$email', '$password')";
+                    $query1 = "INSERT INTO employeeslist(employeesid, username, email, position, organization, date, fullname, salary, phonenumber, image,password) 
+                               VALUES ($id, '$username', '$email', '$roles', '$branch', '$employeddate', '$fullname', $salary, '$phonenumber', '$newImageName','$password')";
                     $result1 = pg_query($conn, $query1);
-                    $result2 = pg_query($conn, $query2);
 
-                    if ($result1 || $result2) {
+                    if ($result1 ) {
                         echo "Data inserted successfully.";
                         header("Location: addingEmployees.php");
                     } else {

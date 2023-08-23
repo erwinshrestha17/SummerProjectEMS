@@ -18,7 +18,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo die("Database connection failed");
     }
     $sql =<<<Eof
-            SELECT * FROM adminlists where id=$adminID;
+            SELECT * FROM adminlists where adminid=$adminID;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {
@@ -27,7 +27,7 @@ if (!isset($_SESSION['authenticated'])) {
     }
 
     while ($let = pg_fetch_assoc($ret)) {
-        $id = $let['id'];
+        $id = $let['adminid'];
         $email = $let['email'];
         $position = $let['position'];
         $organization = $let['organization'];

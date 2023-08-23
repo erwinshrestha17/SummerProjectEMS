@@ -19,7 +19,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo die("Database connection failed");
     }
     $sql =<<<Eof
-            SELECT * FROM employeeslist where id=$employeeID;
+            SELECT * FROM employeeslist where employeesid=$employeeID;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {

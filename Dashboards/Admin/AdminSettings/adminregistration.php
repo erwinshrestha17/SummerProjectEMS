@@ -22,7 +22,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo die("Database connection failed");
     }
     $sql =<<<Eof
-            SELECT * FROM adminlists where id=$adminID;
+            SELECT * FROM adminlists where adminid=$adminID;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {

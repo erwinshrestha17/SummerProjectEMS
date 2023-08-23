@@ -41,14 +41,14 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
 
 
         $sql = <<<EOF
-            SELECT * FROM adminlogin where email='$email' and password='$password'
+            SELECT * FROM adminlists where email='$email' and password='$password'
         EOF;
         $result = pg_query( $conn , $sql);
         if ( pg_num_rows($result) > 0 ){
 
             while( $rows = pg_fetch_assoc($result) ){
                 $_SESSION['authenticated']= true;
-                $_SESSION['id'] =$rows['id'];
+                $_SESSION['id'] =$rows['adminid'];
                 $_SESSION['email'] = $rows['email'];
 
             }

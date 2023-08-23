@@ -20,7 +20,7 @@ if (!isset($_SESSION['authenticated'])) {
 
     // Employee All data
     $sql =<<<Eof
-            SELECT * FROM employeeslist where id=$empID;
+            SELECT * FROM employeeslist where employeesid=$empID;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {
@@ -30,7 +30,7 @@ if (!isset($_SESSION['authenticated'])) {
     }
 
     while ($let = pg_fetch_assoc($ret)) {
-        $id = $let['id'];
+        $id = $let['employeesid'];
         $email = $let['email'];
         $position = $let['position'];
         $organization = $let['organization'];
@@ -43,7 +43,7 @@ if (!isset($_SESSION['authenticated'])) {
 
     // Admin Profile Image
     $query=<<<EOF
-        SELECT * FROM adminlists WHERE id=$adminID;
+        SELECT * FROM adminlists WHERE adminid=$adminID;
 EOF;
     $ret1 = pg_query($conn, $query);
     if(!$ret1) {

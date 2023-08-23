@@ -20,7 +20,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo die("Database connection failed");
     }
     $sql =<<<Eof
-            SELECT * FROM adminlists where id=$adminID;
+            SELECT * FROM adminlists where adminid=$adminID;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {
@@ -29,7 +29,7 @@ if (!isset($_SESSION['authenticated'])) {
     }
 
     while ($let = pg_fetch_assoc($ret)) {
-        $id = $let['id'];
+        $id = $let['adminid'];
         $image=$let['image'];
         $fullname=$let['fullname'];
 
@@ -225,7 +225,7 @@ if (!isset($_SESSION['authenticated'])) {
     <!-- End Navbar -->
     <?php
     $sql =<<<Eof
-            SELECT COUNT(id) as count FROM employeeslist;
+            SELECT COUNT(employeesid) as count FROM employeeslist;
     Eof;
     $ret = pg_query($conn, $sql);
     if(!$ret) {
