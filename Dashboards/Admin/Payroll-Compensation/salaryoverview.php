@@ -250,10 +250,24 @@ if (!isset($_SESSION['authenticated'])) {
 
 </main>
 
-
+<!--   Core JS Files   -->
 <script src="../../Assets/js/bootstrap.bundle.min.js"></script>
 <script src="../../Assets/js/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/smooth-scrollbar.min.js"></script>
+<script src="../../Assets/js/core/popper.min.js"></script>
+<script src="../../Assets/js/core/bootstrap.min.js"></script>
+<script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
+<script src="../../Assets/js/material-dashboard.min.js?v=3.1.0"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>

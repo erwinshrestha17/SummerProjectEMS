@@ -127,6 +127,7 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                         </div>
                     </div>
                     <div class="card-body">
+
                         <form role="form" class="text-start" method="post" action="">
                             <div class="input-group input-group-outline mb-3">
                                 <label class="form-label">Email</label>
@@ -144,6 +145,10 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                                 </div>
                             </div>
                             <?php echo $pass_err?>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input ms-auto mt-1" type="checkbox" id="flexSwitchCheckDefault">
+                                <label class="form-check-label ms-2" for="flexSwitchCheckDefault">Remember me</label>
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                             </div>

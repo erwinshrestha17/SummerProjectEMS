@@ -300,9 +300,11 @@ EOF;
                                         <span class="mask bg-gradient-dark opacity-10"></span>
                                         <div class="card-body position-relative z-index-1 p-3">
                                             <i class="material-icons text-white p-2">wifi</i>
-                                            <h5 class="text-white mt-4 mb-5 pb-2">Kumari bank Limited 4562&nbsp;&nbsp;&nbsp;1122&nbsp;&nbsp;&nbsp;4594&nbsp;&nbsp;&nbsp;7852</h5>
+                                            <h6 class="text-white text-uppercase">Shine Resunga Development Bank LTD </h6>
+                                            <h5 class="text-white mt-4 mb-5 pb-2"> 4562&nbsp;&nbsp;&nbsp;1122&nbsp;&nbsp;&nbsp;4594&nbsp;&nbsp;&nbsp;7852</h5>
                                             <div class="d-flex">
                                                 <div class="d-flex">
+
                                                     <div class="me-4">
                                                         <p class="text-white text-sm opacity-8 mb-0">Card Holder</p>
                                                         <h6 class="text-white mb-0"><?php echo $fullname?></h6>
@@ -360,16 +362,17 @@ EOF;
                     </div>
                 </div>
             </div>
-            <!-- Profile Information -->
+            <!-- General Information -->
 
             <div class="row">
                 <div class="row">
+
                     <div class="col-12 col-xl-6">
                         <div class="card card-plain h-100 bg-transparent shadow-xl">
                             <div class="card-header pb-0 p-2">
                                 <div class="row">
                                     <div class="col-md-8 d-flex align-items-center">
-                                        <h6 class="mb-0">Profile Information</h6>
+                                        <h6 class="mb-0">General Information</h6>
                                     </div>
                                     <div class="col-md-4 text-end">
                                         <a href="javascript:;">
@@ -380,7 +383,7 @@ EOF;
                             </div>
                             <div class="card-body p-4">
                                 <p class="text-sm">
-                                    <
+
                                     Hi, I’m <?php echo $fullname?> : If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                                 </p>
                                 <hr class="horizontal gray-light my-4">
@@ -389,6 +392,8 @@ EOF;
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
+                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Education:</strong> &nbsp; Oxford College , Tribhuvan University</li>
+
                                     <li class="list-group-item border-0 ps-0 pb-0">
                                         <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                         <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -406,8 +411,49 @@ EOF;
                         </div>
                     </div>
 
-                    <!-- Invoices-->
+                    <!-- Skills-->
 
+                    <div class="col-12 col-xl-6">
+                        <div class="card h-100">
+                            <div class="card-header pb-0 p-3">
+                                <div class="row">
+                                    <div class="col-6 d-flex align-items-center">
+                                        <h6 class="mb-0">Skills</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-3 pb-0">
+                                <div class="row">
+                                    <div class=" flex-column">
+                                        <button type="button" class="btn bg-gradient-primary w-auto ">Java</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" flex-column">
+                                        <button type="button" class="btn bg-gradient-primary w-auto ">Java Script</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" flex-column">
+                                        <button type="button" class="btn bg-gradient-primary w-auto ">React</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" flex-column">
+                                        <button type="button" class="btn bg-gradient-primary w-auto ">Python</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="row mt-2" >
+                <div class="row">
                     <div class="col-12 col-xl-6">
                         <div class="card h-100">
                             <div class="card-header pb-0 p-3">
@@ -416,7 +462,7 @@ EOF;
                                         <h6 class="mb-0">Invoices</h6>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
+                                        <button class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#exampleModal">View All</button>
                                     </div>
                                 </div>
                             </div>
@@ -473,14 +519,87 @@ EOF;
                                         </div>
                                     </li>
                                 </ul>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Invoices</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                                        <div class="d-flex flex-column">
+                                                            <h6 class="mb-1 text-dark font-weight-bold text-sm">March, 01, 2020</h6>
+                                                            <span class="text-xs">#MS-415646</span>
+                                                        </div>
+                                                        <div class="d-flex align-items-center text-sm">
+                                                            $180
+                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                                        <div class="d-flex flex-column">
+                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">February, 10, 2021</h6>
+                                                            <span class="text-xs">#RV-126749</span>
+                                                        </div>
+                                                        <div class="d-flex align-items-center text-sm">
+                                                            $250
+                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                                        <div class="d-flex flex-column">
+                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">April, 05, 2020</h6>
+                                                            <span class="text-xs">#FB-212562</span>
+                                                        </div>
+                                                        <div class="d-flex align-items-center text-sm">
+                                                            $560
+                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                                        <div class="d-flex flex-column">
+                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">June, 25, 2019</h6>
+                                                            <span class="text-xs">#QW-103578</span>
+                                                        </div>
+                                                        <div class="d-flex align-items-center text-sm">
+                                                            $120
+                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
+                                                        <div class="d-flex flex-column">
+                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">March, 01, 2019</h6>
+                                                            <span class="text-xs">#AR-803481</span>
+                                                        </div>
+                                                        <div class="d-flex align-items-center text-sm">
+                                                            $300
+                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+
+                                            </div>
+                                            <div class="modal-footer justify-content-center">
+                                                <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-
-
             </div>
+
+
+
+
         </div>
     </div>
 
