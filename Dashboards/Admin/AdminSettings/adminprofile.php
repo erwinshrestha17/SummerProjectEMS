@@ -265,22 +265,8 @@ if (!isset($_SESSION['authenticated'])) {
             </div>
             <div class="row">
                 <div class="row">
-                    <div class="col-12 col-xl-4">
-                        <div class="card card-plain h-100">
-                            <div class="card-header pb-0 p-3">
-                                <h6 class="mb-0">Platform Settings</h6>
-                            </div>
-                            <div class="card-body p-3">
-                                <h6 class="text-uppercase text-body text-xs font-weight-bolder">Account</h6>
-                                <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Application</h6>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-12 col-xl-5">
-
-
                         <div class="card card-plain h-100">
-
                             <div class="card-header pb-0 p-2">
                                 <div class="row">
                                     <div class="col-md-8 d-flex align-items-center">

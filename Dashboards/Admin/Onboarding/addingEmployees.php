@@ -240,6 +240,8 @@ if (!isset($_SESSION['authenticated'])) {
 
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
+                                    <div class="p-2"></div>
+                                    <input type="text" class="form-control" placeholder="VAT" name="vat" disabled>
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">

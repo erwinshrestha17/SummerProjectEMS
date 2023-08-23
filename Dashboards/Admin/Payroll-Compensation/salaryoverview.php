@@ -28,12 +28,6 @@ if (!isset($_SESSION['authenticated'])) {
     }
 
     while ($let = pg_fetch_assoc($ret)) {
-        $id = $let['id'];
-        $username = $let['username'];
-        $email = $let['email'];
-        $position = $let['position'];
-        $organization = $let['organization'];
-        $salary = $let['salary'];
         $fullname= $let['fullname'];
         $image=$let['image'];
 
@@ -247,6 +241,77 @@ if (!isset($_SESSION['authenticated'])) {
                                 </thead>
 
                                 <tbody>
+                                <?php
+                                $host        = "host = 127.0.0.1";
+                                $port        = "port = 5432";
+                                $dbname      = "dbname = emsdb";
+                                $credentials = "user = postgres password=admin";
+                                $conn = pg_connect( "$host $port $dbname $credentials"  );
+                                if(!isset($conn)){
+                                    echo die("Database connection failed");
+                                }
+                                $sql =<<<Eof
+                                    SELECT * FROM employeeslist
+                                Eof;
+                                $ret = pg_query($conn, $sql);
+                                if(!$ret) {
+                                    echo pg_last_error($conn);
+                                    exit;
+                                }
+                                while ($let=pg_fetch_assoc($ret)){
+                                    $id=$let['id'];
+                                    $username=$let['username'];
+                                    $email=$let['email'];
+                                    $position=$let['position'];
+                                    $salary=$let['salary'];
+                                    $organization=$let['organization'];
+                                    $image=$let['image'];
+                                    echo "<tr>";
+                                    echo "<td>";
+                                    echo "<div class='d-flex px-2 py-1'>";
+                                    echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg'alt='Image'  > </div>";
+                                    echo "<div class='d-flex flex-column justify-content-center'>";
+                                    echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
+                                    echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo" </td>";
+                                    echo" <td>";
+                                    echo "<p class='text-xs font-weight-bold mb-0'>".$position."</p>";
+                                    echo "   <p class='text-xs text-secondary mb-0'>".$organization."</p>
+                                    </td> 
+                                      <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'>JAN</span>
+                                    </td>
+                                      <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'> Rs ".$salary."</span>
+                                    </td>
+                                     <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'>0 </span>
+                                    </td>
+                                     <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'> 0</span>
+                                    </td>
+                                        <td class='align-middle text-center'>
+                                        <span class='text-secondary text-xs font-weight-bold'>Rs ". $total =$salary."</span>
+                                    </td>
+                                    
+                                    ";
+
+
+                                    echo "<td class='lign-middle'>
+                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Payment</button>
+                                        </a>
+                                    </td>";
+
+                                    echo"</tr>";
+                                }
+                                pg_close($conn);
+                                ?>
+
+
+                                </tbody>
 
 </main>
 

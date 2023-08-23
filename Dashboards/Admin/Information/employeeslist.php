@@ -287,9 +287,9 @@ if (!isset($_SESSION['authenticated'])) {
                                         <span class='badge badge-sm bg-gradient-success'>Online</span>
                                     </td>
                                     <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'> $ ".$salary."</span>
+                                        <span class='text-secondary text-xs font-weight-bold'> Rs ".$salary."</span>
                                     </td>
-                                       <td class='align-middle text-center'>
+                                    <td class='align-middle text-center'>
                                         <span class='text-secondary text-xs font-weight-bold'>".$employeeddate."</span>
                                     </td>
                                     

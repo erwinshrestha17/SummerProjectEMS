@@ -388,6 +388,7 @@ EOF;
                                 </p>
                                 <hr class="horizontal gray-light my-4">
                                 <ul class="list-group">
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">VAT Number: </strong>600678956</li>
                                     <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
