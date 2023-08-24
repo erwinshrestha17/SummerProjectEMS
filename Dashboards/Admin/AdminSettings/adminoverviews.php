@@ -255,7 +255,7 @@ if (!isset($_SESSION['authenticated'])) {
                                     exit;
                                 }
                                 while ($let=pg_fetch_assoc($ret)){
-                                    $id=$let['id'];
+                                    $id=$let['adminid'];
                                     $username=$let['username'];
                                     $email=$let['email'];
                                     $position=$let['position'];

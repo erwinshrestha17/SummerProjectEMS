@@ -1,13 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
-}else{
+}else {
 
-    $adminID= $_SESSION['id'];
-    $fullname="";
-    $image="";
+    $adminID = $_SESSION['id'];
+    $fullname = "";
+    $image = "";
     $host = "host = 127.0.0.1";
     $port = "port = 5432";
     $dbname = "dbname = emsdb";
@@ -18,25 +18,66 @@ if (!isset($_SESSION['authenticated'])) {
     if (!isset($conn)) {
         echo die("Database connection failed");
     }
-    $sql =<<<Eof
+    $sql = <<<Eof
             SELECT * FROM adminlists where adminid=$adminID;
     Eof;
     $ret = pg_query($conn, $sql);
-    if(!$ret) {
+    if (!$ret) {
         echo pg_last_error($conn);
         exit;
     }
 
     while ($let = pg_fetch_assoc($ret)) {
-        $fullname= $let['fullname'];
-        $image=$let['image'];
-
-
+        $fullname = $let['fullname'];
+        $image = $let['image'];
     }
-    pg_close($conn);
-}
 
+    $sqlSelect = <<<EOF
+    SELECT * FROM employeeslist
+EOF;
+    $result = pg_query($conn, $sqlSelect);
+    if (!$result) {
+        echo pg_last_error($conn);
+        exit;
+    }
+
+
+    // Truncate the salaryoverview table
+    $sqlTruncate = "TRUNCATE TABLE public.salaryoverview";
+    $resultTruncate = pg_query($conn, $sqlTruncate);
+
+    if (!$resultTruncate) {
+        echo pg_last_error($conn);
+        exit;
+    }
+
+// Now, you can proceed with inserting new data as shown in your previous code.
+    while ($let = pg_fetch_assoc($result)) {
+        $empid1 = $let['employeesid'];
+        $username1 = $let['username'];
+        $email1 = $let['email'];
+        $position1 = $let['position'];
+        $organization1 = $let['organization'];
+        $salary1 = $let['salary'];
+        $image1 = $let['image'];
+
+        // Insert data into salaryoverview table
+        $sqlInsert = <<<EOF
+        INSERT INTO public.salaryoverview (employeesid, username, email, position, organization, salary, image)
+        VALUES ($empid1, '$username1', '$email1', '$position1', '$organization1', $salary1, '$image1')
+EOF;
+
+        $result2 = pg_query($conn, $sqlInsert);
+        if (!$result2) {
+            echo pg_last_error($conn);
+            exit;
+        }
+    }
+}
+pg_close($conn);
 ?>
+
+
 <!Doctype html>
 <html lang="eng">
 <head>
@@ -230,10 +271,9 @@ if (!isset($_SESSION['authenticated'])) {
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Function</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Month</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Date</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salary</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bonus</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deduction</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tax</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
 
                                     <th class="text-secondary opacity-7"></th>
@@ -251,7 +291,7 @@ if (!isset($_SESSION['authenticated'])) {
                                     echo die("Database connection failed");
                                 }
                                 $sql =<<<Eof
-                                    SELECT * FROM employeeslist
+                                    SELECT * FROM salaryoverview
                                 Eof;
                                 $ret = pg_query($conn, $sql);
                                 if(!$ret) {
@@ -266,6 +306,8 @@ if (!isset($_SESSION['authenticated'])) {
                                     $salary=$let['salary'];
                                     $organization=$let['organization'];
                                     $image=$let['image'];
+                                    $deduction=$let['taxdeduction'];
+                                    $total=$let['total'];
                                     echo "<tr>";
                                     echo "<td>";
                                     echo "<div class='d-flex px-2 py-1'>";
@@ -286,14 +328,12 @@ if (!isset($_SESSION['authenticated'])) {
                                       <td class='align-middle text-center'>
                                         <span class='text-secondary text-xs font-weight-bold'> Rs ".$salary."</span>
                                     </td>
+                                 
                                      <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'>0 </span>
-                                    </td>
-                                     <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'> 0</span>
+                                        <span class='text-secondary text-xs font-weight-bold'>Rs ".$deduction."</span>
                                     </td>
                                         <td class='align-middle text-center'>
-                                        <span class='text-secondary text-xs font-weight-bold'>Rs ". $total =$salary."</span>
+                                        <span class='text-secondary text-xs font-weight-bold'>Rs ". $total =$salary-$deduction."</span>
                                     </td>
                                     
                                     ";
@@ -301,7 +341,7 @@ if (!isset($_SESSION['authenticated'])) {
 
                                     echo "<td class='lign-middle'>
                                         <a href='payment.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value=''>Payment</button>
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value=''>Pay</button>
                                         </a>
                                     </td>";
 
@@ -353,3 +393,5 @@ if (!isset($_SESSION['authenticated'])) {
 </script>
 </body>
 </html>
+
+

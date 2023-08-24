@@ -11,7 +11,7 @@ if(!isset($conn)){
     echo die("Database connection failed");
 }
 $sql =<<<Eof
-            SELECT date FROM employeeslist where id=2;
+            SELECT date FROM employeeslist where employeesid=2;
     Eof;
 $ret = pg_query($conn, $sql);
 if(!$ret) {
