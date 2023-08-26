@@ -1,6 +1,4 @@
-<!-- php script start -->
 <?php
-//include('../DatabaseConnection/databaseconnections.php');
 session_start();
 $email="";
 $password="";
@@ -109,17 +107,17 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                             <div class="text-center my-5"> <?php echo $login_Err; ?> </div>
                             <div class="row mt-3">
                                 <div class="col-2 text-center ms-auto">
-                                    <a class="btn btn-link px-3" href="javascript:;">
+                                    <a class="btn btn-link px-3" href="javascript:">
                                         <i class="fa fa-facebook text-white text-lg"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 text-center px-1">
-                                    <a class="btn btn-link px-3" href="javascript:;">
+                                    <a class="btn btn-link px-3" href="javascript:">
                                         <i class="fa fa-github text-white text-lg"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 text-center me-auto">
-                                    <a class="btn btn-link px-3" href="javascript:;">
+                                    <a class="btn btn-link px-3" href="javascript:">
                                         <i class="fa fa-google text-white text-lg"></i>
                                     </a>
                                 </div>
@@ -144,15 +142,6 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                                 </div>
                             </div>
                             <?php echo $pass_err?>
-                            <?php
-                            /*
-                            <div class="form-check form-switch">
-                                <input class="form-check-input ms-auto mt-1" type="checkbox" id="flexSwitchCheckDefault">
-                                <label class="form-check-label ms-2" for="flexSwitchCheckDefault">Remember me</label>
-                            </div>
-                            */
-                            ?>
-
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                             </div>
@@ -173,9 +162,9 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
 <script src="../../Assets/js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
 <script>
     function password_show_hide() {
-        var x = document.getElementById("password");
-        var show_eye = document.getElementById("show_eye");
-        var hide_eye = document.getElementById("hide_eye");
+        let x = document.getElementById("password");
+        let show_eye = document.getElementById("show_eye");
+        let hide_eye = document.getElementById("hide_eye");
         hide_eye.classList.remove("d-none");
         if (x.type === "password") {
             x.type = "text";

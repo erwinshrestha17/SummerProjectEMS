@@ -3,44 +3,35 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/EmployeesLogin.php');
     exit;
-}else{
-
-
-    $employeeID= $_SESSION['id'];
-    $fullname="";
-    $image="";
-    $host = "host = 127.0.0.1";
-    $port = "port = 5432";
-    $dbname = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-
-    $conn = pg_connect("$host $port $dbname $credentials");
-
-    if (!isset($conn)) {
-        echo die("Database connection failed");
-    }
-    $sql =<<<Eof
-            SELECT * FROM employeeslist where employeesid=$employeeID;
-    Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-
-    while ($let = pg_fetch_assoc($ret)) {
-        $fullname= $let['fullname'];
-        $images=$let['image'];
-
-    }
-
-
-    pg_close($conn);
-    $totalbonus = isset($_SESSION['totalbonus']);
-
 }
 
+$employeeID= $_SESSION['id'];
+$fullname="";
+$image="";
 
+$host = "host = 127.0.0.1";
+$port = "port = 5432";
+$dbname = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect("$host $port $dbname $credentials");
+
+if (!isset($conn)) {
+    echo die("Database connection failed");
+}
+$sql =<<<Eof
+            SELECT * FROM employeeslist where employeesid=$employeeID;
+    Eof;
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    exit;
+}
+while ($let = pg_fetch_assoc($ret)) {
+    $fullname= $let['fullname'];
+    $images=$let['image'];
+}
+pg_close($conn);
 ?>
 
 
@@ -118,7 +109,7 @@ if (!isset($_SESSION['authenticated'])) {
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Dashboard</h6>
@@ -127,7 +118,7 @@ if (!isset($_SESSION['authenticated'])) {
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
                 <a href='../EmployeesProfile/employeesprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                    <img src="../../Admin/Onboarding/img/<?php echo $images?>"alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                    <img src="../../Admin/Onboarding/img/<?php echo $images?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>

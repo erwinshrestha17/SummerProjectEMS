@@ -3,78 +3,70 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
-}else{
-    $empID = $_POST['openprofilebtn'];
-    $adminID= $_SESSION['id'];
-    $adminfullname="";
-    $adminimage="";
-
-    $host        = "host = 127.0.0.1";
-    $port        = "port = 5432";
-    $dbname      = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-    $conn = pg_connect( "$host $port $dbname $credentials"  );
-    if(!isset($conn)){
-        echo die("Database connection failed");
-    }
-
-    // Employee All data
-    $sql =<<<Eof
-            SELECT * FROM employeeslist where employeesid=$empID;
-    Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        header('Location:employeeslist.php');
-        exit;
-    }
-
-    while ($let = pg_fetch_assoc($ret)) {
-        $id = $let['employeesid'];
-        $email = $let['email'];
-        $position = $let['position'];
-        $organization = $let['organization'];
-        $salary = $let['salary'];
-        $fullname= $let['fullname'];
-        $phonenumber = $let['phonenumber'];
-        $empimage=$let['image'];
-
-        $_SESSION['id']=$id;
-    }
-
-
-    // Admin Profile Image
-    $query=<<<EOF
-        SELECT * FROM adminlists WHERE adminid=$adminID;
-EOF;
-    $ret1 = pg_query($conn, $query);
-    if(!$ret1) {
-        echo pg_last_error($conn);
-        exit;
-    }
-
-    while ($let = pg_fetch_assoc($ret1)) {
-        $adminimage=$let['image'];
-
-    }
-    pg_close($conn);
 }
 
 
+$empID = $_POST['openprofilebtn'];
+
+$host        = "host = 127.0.0.1";
+$port        = "port = 5432";
+$dbname      = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect( "$host $port $dbname $credentials"  );
+if(!isset($conn)){
+    echo die("Database connection failed");
+}
+
+// Employee All data
+
+$sql =<<<Eof
+            SELECT * FROM employeeslist where employeesid=$empID;
+    Eof;
+
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    header('Location:employeeslist.php');
+    exit;
+}
+
+
+while ($let = pg_fetch_assoc($ret)) {
+    $email = $let['email'];
+    $position = $let['position'];
+    $organization = $let['organization'];
+    $salary = $let['salary'];
+    $fullname= $let['fullname'];
+    $phonenumber = $let['phonenumber'];
+    $empimage=$let['image'];
+}
 ?>
 
-<!-- Database Connection -->
 <?php
+// Admin Data
+$adminID= $_SESSION['id'];
+$adminfullname="";
+$adminimage="";
+$query=<<<EOF
+        SELECT * FROM adminlists WHERE adminid=$adminID;
+EOF;
+
+$ret1 = pg_query($conn, $query);
+if(!$ret1) {
+    echo pg_last_error($conn);
+    exit;
+}
+
+while ($row = pg_fetch_assoc($ret1)) {
+    $adminfullname =$row['fullname'];
+    $adminimage=$row['image'];
+
+}
+
 
 
 ?>
-<?php
-
-
-?>
-
-
-
 
 
 <!Doctype html>
@@ -131,11 +123,6 @@ EOF;
                             <span class="nav-link-text ms-1">Employees List</span>
                         </a>
                     </li>
-
-                    <!-- EMPLOYEES PROFILE-->
-
-
-
                 </ul>
             </li>
             <!-- EMPLOYEES ONBOARDING-->
@@ -157,8 +144,6 @@ EOF;
                     </li>
                 </ul>
             </li>
-
-
             <!--PAYROLL & COMPENSATION-->
 
             <li class="sub-menu">
@@ -206,12 +191,8 @@ EOF;
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--PROFILE-->
                 </ul>
             </li>
-
-
-
         </ul>
 
     </div>
@@ -230,7 +211,7 @@ EOF;
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Employee Profiles</li>
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Profile</h6>
@@ -259,7 +240,7 @@ EOF;
             <div class="row gx-4 mb-2">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img   src="../Onboarding/img/<?php echo $empimage ?>" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                        <img   src="../Onboarding/img/<?php echo $empimage ?>" class="w-100 border-radius-lg shadow-sm" width="130" height="60" alt="">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -347,8 +328,6 @@ EOF;
                             </div>
                             <div class="col-md-6 col-6">
                                     <div class="card pt-1">
-                                        <a href="#">
-
                                         <div class="card-header mx-4 p-3 text-center">
                                             <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
                                                 <i class="material-icons opacity-10">account_balance_wallet</i>
@@ -360,10 +339,7 @@ EOF;
                                             <hr class="horizontal dark my-3">
                                             <h5 class="mb-0">Rs 0</h5>
                                         </div>
-                                        </a>
-
                                     </div>
-
                             </div>
                         </div>
                     </div>
@@ -382,7 +358,7 @@ EOF;
                                         <h6 class="mb-0">General Information</h6>
                                     </div>
                                     <div class="col-md-4 text-end">
-                                        <a href="javascript:;">
+                                        <a href="javascript:">
                                             <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                                         </a>
                                     </div>
@@ -404,13 +380,13 @@ EOF;
 
                                     <li class="list-group-item border-0 ps-0 pb-0">
                                         <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
+                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
                                             <i class="fab fa-facebook fa-lg"></i>
                                         </a>
-                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
+                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
                                             <i class="fab fa-twitter fa-lg"></i>
                                         </a>
-                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
+                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
                                             <i class="fab fa-instagram fa-lg"></i>
                                         </a>
                                     </li>
@@ -475,17 +451,6 @@ EOF;
                             <div class="card-body p-3 pb-0">
                                 <ul class="list-group">
                                     <?php
-                                    $host = "host = 127.0.0.1";
-                                    $port = "port = 5432";
-                                    $dbname = "dbname = emsdb";
-                                    $credentials = "user = postgres password=admin";
-
-                                    $conn = pg_connect("$host $port $dbname $credentials");
-
-                                    if (!isset($conn)) {
-                                        echo die("Database connection failed");
-                                    }
-
                                     $sqlinvoice = <<<EOF
                                         SELECT * FROM invoice WHERE employeesid = $empID;
                                     EOF;
@@ -496,6 +461,7 @@ EOF;
                                         echo pg_last_error($conn);
                                         exit;
                                     }
+
 
                                     while ($let = pg_fetch_assoc($ret)) {
                                         $invoiceID = $let['invoiceid'];
@@ -537,6 +503,7 @@ EOF;
                                             <div class="modal-body">
                                                 <ul class="list-group">
                                                     <?php
+
                                                     $host = "host = 127.0.0.1";
                                                     $port = "port = 5432";
                                                     $dbname = "dbname = emsdb";
@@ -547,14 +514,17 @@ EOF;
                                                     if (!isset($conn)) {
                                                         echo die("Database connection failed");
                                                     }
+
                                                     $sqlinvoice = <<<EOF
                                                         SELECT * FROM invoice WHERE employeesid = $empID;
                                                     EOF;
+
                                                     $ret = pg_query($conn, $sqlinvoice);
                                                     if (!$ret) {
                                                         echo pg_last_error($conn);
                                                         exit;
                                                     }
+
                                                     while ($let = pg_fetch_assoc($ret)) {
                                                         $invoiceID = $let['invoiceid'];
                                                         $month = $let['month'];
@@ -605,9 +575,9 @@ EOF;
 <script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
@@ -624,9 +594,9 @@ EOF;
     });
 </script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);

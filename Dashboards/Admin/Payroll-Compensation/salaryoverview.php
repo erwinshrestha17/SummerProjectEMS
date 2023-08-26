@@ -3,84 +3,81 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
-}else {
+}
 
-    $adminID = $_SESSION['id'];
-    $fullname = "";
-    $image = "";
-    $host = "host = 127.0.0.1";
-    $port = "port = 5432";
-    $dbname = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
+$adminID = $_SESSION['id'];
+$fullname = "";
+$image = "";
+$host = "host = 127.0.0.1";
+$port = "port = 5432";
+$dbname = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
 
-    $conn = pg_connect("$host $port $dbname $credentials");
+$conn = pg_connect("$host $port $dbname $credentials");
 
-    if (!isset($conn)) {
-        echo die("Database connection failed");
-    }
-    $sql = <<<Eof
+if (!isset($conn)) {
+    echo die("Database connection failed");
+}
+$sql = <<<Eof
             SELECT * FROM adminlists where adminid=$adminID;
     Eof;
-    $ret = pg_query($conn, $sql);
-    if (!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
+$ret = pg_query($conn, $sql);
+if (!$ret) {
+    echo pg_last_error($conn);
+    exit;
+}
 
-    while ($let = pg_fetch_assoc($ret)) {
-        $fullname = $let['fullname'];
-        $image = $let['image'];
-    }
-
-
-    /*
-    $sqlSelect = <<<EOF
-    SELECT * FROM employeeslist
+while ($let = pg_fetch_assoc($ret)) {
+    $fullname = $let['fullname'];
+    $image = $let['image'];
+}
+pg_close($conn);
+?>
+<?php
+/*
+$sqlSelect = <<<EOF
+SELECT * FROM employeeslist
 EOF;
-    $result = pg_query($conn, $sqlSelect);
-    if (!$result) {
-        echo pg_last_error($conn);
-        exit;
-    }
+$result = pg_query($conn, $sqlSelect);
+if (!$result) {
+echo pg_last_error($conn);
+exit;
+}
 
 
-    // Truncate the salaryoverview table
-    $sqlTruncate = "TRUNCATE TABLE public.salaryoverview";
-    $resultTruncate = pg_query($conn, $sqlTruncate);
+// Truncate the salaryoverview table
+$sqlTruncate = "TRUNCATE TABLE public.salaryoverview";
+$resultTruncate = pg_query($conn, $sqlTruncate);
 
-    if (!$resultTruncate) {
-        echo pg_last_error($conn);
-        exit;
-    }
+if (!$resultTruncate) {
+echo pg_last_error($conn);
+exit;
+}
 
 // Now, you can proceed with inserting new data as shown in your previous code.
-    while ($let = pg_fetch_assoc($result)) {
-        $_SESSION['employeesid'] = $let['employeesid'];
-        $username1 = $let['username'];
-        $email1 = $let['email'];
-        $position1 = $let['position'];
-        $organization1 = $let['organization'];
-        $salary1 = $let['salary'];
-        $image1 = $let['image'];
+while ($let = pg_fetch_assoc($result)) {
+$_SESSION['employeesid'] = $let['employeesid'];
+$username1 = $let['username'];
+$email1 = $let['email'];
+$position1 = $let['position'];
+$organization1 = $let['organization'];
+$salary1 = $let['salary'];
+$image1 = $let['image'];
 
-        $empid=$_SESSION['employeesid'];
-        // Insert data into salaryoverview table
-        $sqlInsert = <<<EOF
-        INSERT INTO public.salaryoverview (employeesid, username, email, position, organization, salary, image)
-        VALUES ($empid, '$username1', '$email1', '$position1', '$organization1', $salary1, '$image1')
+$empid=$_SESSION['employeesid'];
+// Insert data into salaryoverview table
+$sqlInsert = <<<EOF
+INSERT INTO public.salaryoverview (employeesid, username, email, position, organization, salary, image)
+VALUES ($empid, '$username1', '$email1', '$position1', '$organization1', $salary1, '$image1')
 EOF;
 
-        $result2 = pg_query($conn, $sqlInsert);
-        if (!$result2) {
-            echo pg_last_error($conn);
-            exit;
-        }
-    }
-    */
-
-    pg_close($conn);
-
+$result2 = pg_query($conn, $sqlInsert);
+if (!$result2) {
+    echo pg_last_error($conn);
+    exit;
 }
+}
+*/
 ?>
 
 
@@ -242,7 +239,7 @@ EOF;
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Salary Overviews</li>
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Overview</h6>
@@ -279,7 +276,6 @@ EOF;
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Function</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Date</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salary</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bonus</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tax</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
 
@@ -331,7 +327,7 @@ EOF;
                                     echo "<tr>";
                                     echo "<td>";
                                     echo "<div class='d-flex px-2 py-1'>";
-                                    echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg'alt='Image'  > </div>";
+                                    echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg' alt='Image'  > </div>";
                                     echo "<div class='d-flex flex-column justify-content-center'>";
                                     echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
                                     echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
@@ -359,7 +355,7 @@ EOF;
                                     ";
 
 
-                                    echo "<td class='lign-middle'>
+                                    echo "<td class='align-middle'>
                                         <a href='payment.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                             <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value=''>Pay</button>
                                         </a>
@@ -384,9 +380,9 @@ EOF;
 <script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
@@ -403,9 +399,9 @@ EOF;
     });
 </script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);

@@ -3,40 +3,37 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
-}else{
-
-    $adminID= $_SESSION['id'];
-    $fullname="";
-    $image="";
-
-    $host = "host = 127.0.0.1";
-    $port = "port = 5432";
-    $dbname = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-
-    $conn = pg_connect("$host $port $dbname $credentials");
-
-    if (!isset($conn)) {
-        echo die("Database connection failed");
-    }
-    $sql =<<<Eof
-            SELECT * FROM adminlists where adminid=$adminID;
-    Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-
-    while ($let = pg_fetch_assoc($ret)) {
-        $id = $let['adminid'];
-        $image=$let['image'];
-        $fullname=$let['fullname'];
-
-    }
-
 }
 
+$adminID= $_SESSION['id'];
+$fullname="";
+$image="";
+
+$host = "host = 127.0.0.1";
+$port = "port = 5432";
+$dbname = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
+
+$conn = pg_connect("$host $port $dbname $credentials");
+
+if (!isset($conn)) {
+    echo die("Database connection failed");
+}
+$sql =<<<Eof
+            SELECT * FROM adminlists where adminid=$adminID;
+    Eof;
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    exit;
+}
+
+while ($let = pg_fetch_assoc($ret)) {
+    $id = $let['adminid'];
+    $image=$let['image'];
+    $fullname=$let['fullname'];
+
+}
 
 
 ?>
@@ -204,7 +201,7 @@ if (!isset($_SESSION['authenticated'])) {
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Dashboard</h6>
@@ -232,7 +229,7 @@ if (!isset($_SESSION['authenticated'])) {
         echo pg_last_error($conn);
         exit;
     }
-
+    $count_emp_id=0;
     while ($let = pg_fetch_assoc($ret)) {
         $count_emp_id = $let['count'];
 
@@ -344,9 +341,9 @@ if (!isset($_SESSION['authenticated'])) {
 <script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
@@ -363,9 +360,9 @@ if (!isset($_SESSION['authenticated'])) {
     });
 </script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);

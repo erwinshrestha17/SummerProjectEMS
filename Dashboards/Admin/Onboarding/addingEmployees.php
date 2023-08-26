@@ -3,38 +3,37 @@ session_start();
 if (!isset($_SESSION['authenticated'])) {
     header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
     exit;
-}else{
+}
 
-    $_SESSION['authenticated-registration']= false;
-    $adminID= $_SESSION['id'];
-    $fullname="";
-    $image="";
+$_SESSION['authenticated-registration']= false;
+$adminID= $_SESSION['id'];
+$fullname="";
+$image="";
 
-    $host = "host = 127.0.0.1";
-    $port = "port = 5432";
-    $dbname = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
+$host = "host = 127.0.0.1";
+$port = "port = 5432";
+$dbname = "dbname = emsdb";
+$credentials = "user = postgres password=admin";
 
-    $conn = pg_connect("$host $port $dbname $credentials");
+$conn = pg_connect("$host $port $dbname $credentials");
 
-    if (!isset($conn)) {
-        echo die("Database connection failed");
-    }
-    $sql =<<<Eof
+if (!isset($conn)) {
+    echo die("Database connection failed");
+}
+$sql =<<<Eof
             SELECT * FROM adminlists where adminid=$adminID;
     Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-
-    while ($let = pg_fetch_assoc($ret)) {
-        $fullname= $let['fullname'];
-        $image=$let['image'];
-    }
-    pg_close($conn);
+$ret = pg_query($conn, $sql);
+if(!$ret) {
+    echo pg_last_error($conn);
+    exit;
 }
+
+while ($let = pg_fetch_assoc($ret)) {
+    $fullname= $let['fullname'];
+    $image=$let['image'];
+}
+pg_close($conn);
 
 
 ?>
@@ -309,9 +308,9 @@ if (!isset($_SESSION['authenticated'])) {
 <script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
@@ -328,9 +327,9 @@ if (!isset($_SESSION['authenticated'])) {
     });
 </script>
 <script>
-    var win = navigator.platform.indexOf('Win') > -1;
+    let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
+        let options = {
             damping: '0.5'
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
