@@ -5,6 +5,7 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }else{
 
+
     $employeeID= $_SESSION['id'];
     $fullname="";
     $image="";
@@ -32,8 +33,14 @@ if (!isset($_SESSION['authenticated'])) {
         $images=$let['image'];
 
     }
+
+
     pg_close($conn);
+    $totalbonus = isset($_SESSION['totalbonus']);
+
 }
+
+
 ?>
 
 
@@ -69,27 +76,7 @@ if (!isset($_SESSION['authenticated'])) {
     <div class="animated bounceInDown w-auto  max-height-vh-100" >
         <ul class="navbar-nav">
             <!-- EMPLOYEES INFORMATION-->
-            <li class='sub-menu'>
-                <a class="nav-link text-white ">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Information</span>
-                </a>
-                <ul class="navbar-nav">
-                    <!-- EMPLOYEES PROFILE-->
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white" href="#">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1"> Profiles</span>
-                        </a>
-                    </li>
 
-
-                </ul>
-            </li>
 
 
             <!--SALARY REQUEST-->

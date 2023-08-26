@@ -53,12 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     // Insert data into the database
                     $query1 = "INSERT INTO adminlists (adminid, username, email, position, organization, date, fullname, salary, phonenumber, image,password) 
                                VALUES ($id, '$username', '$email', '$roles', '$branch', '$employeddate', '$fullname', $salary, '$phonenumber', '$newImageName','$password')";
-                    $query2 = "INSERT INTO adminlogin (email, password, 'adminId' ) 
-                               VALUES ( '$email', '$password','$id')";
                     $result1 = pg_query($conn, $query1);
-                    $result2 = pg_query($conn, $query2);
 
-                    if ($result1 || $result2) {
+                    if ($result1) {
                         echo "Data inserted successfully.";
                         pg_close($conn);
                         header("Location: adminregistration.php");

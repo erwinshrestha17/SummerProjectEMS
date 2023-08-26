@@ -38,6 +38,8 @@ if (!isset($_SESSION['authenticated'])) {
         $fullname= $let['fullname'];
         $phonenumber = $let['phonenumber'];
         $empimage=$let['image'];
+
+        $_SESSION['id']=$id;
     }
 
 
@@ -344,19 +346,24 @@ EOF;
                                 </div>
                             </div>
                             <div class="col-md-6 col-6">
-                                <div class="card pt-1">
-                                    <div class="card-header mx-4 p-3 text-center">
-                                        <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-                                            <i class="material-icons opacity-10">account_balance_wallet</i>
+                                    <div class="card pt-1">
+                                        <a href="#">
+
+                                        <div class="card-header mx-4 p-3 text-center">
+                                            <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                                                <i class="material-icons opacity-10">account_balance_wallet</i>
+                                            </div>
                                         </div>
+                                        <div class="card-body pt-0 p-3 text-center">
+                                            <h6 class="text-center mb-0">Bonus</h6>
+                                            <span class="text-xs">Incentives Payment</span>
+                                            <hr class="horizontal dark my-3">
+                                            <h5 class="mb-0">Rs 0</h5>
+                                        </div>
+                                        </a>
+
                                     </div>
-                                    <div class="card-body pt-0 p-3 text-center">
-                                        <h6 class="text-center mb-0">Bonus</h6>
-                                        <span class="text-xs">Incentives Payment</span>
-                                        <hr class="horizontal dark my-3">
-                                        <h5 class="mb-0">Rs 0 </h5>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -450,6 +457,7 @@ EOF;
                 </div>
             </div>
             <!-- Invoices -->
+
             <div class="row mt-2" >
                 <div class="row">
                     <div class="col-12 col-xl-6">
@@ -466,56 +474,56 @@ EOF;
                             </div>
                             <div class="card-body p-3 pb-0">
                                 <ul class="list-group">
-                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark font-weight-bold text-sm">March, 01, 2020</h6>
-                                            <span class="text-xs">#MS-415646</span>
-                                        </div>
-                                        <div class="d-flex align-items-center text-sm">
-                                            $180
-                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex flex-column">
-                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">February, 10, 2021</h6>
-                                            <span class="text-xs">#RV-126749</span>
-                                        </div>
-                                        <div class="d-flex align-items-center text-sm">
-                                            $250
-                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex flex-column">
-                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">April, 05, 2020</h6>
-                                            <span class="text-xs">#FB-212562</span>
-                                        </div>
-                                        <div class="d-flex align-items-center text-sm">
-                                            $560
-                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex flex-column">
-                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">June, 25, 2019</h6>
-                                            <span class="text-xs">#QW-103578</span>
-                                        </div>
-                                        <div class="d-flex align-items-center text-sm">
-                                            $120
-                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-                                        <div class="d-flex flex-column">
-                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">March, 01, 2019</h6>
-                                            <span class="text-xs">#AR-803481</span>
-                                        </div>
-                                        <div class="d-flex align-items-center text-sm">
-                                            $300
-                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                        </div>
-                                    </li>
+                                    <?php
+                                    $host = "host = 127.0.0.1";
+                                    $port = "port = 5432";
+                                    $dbname = "dbname = emsdb";
+                                    $credentials = "user = postgres password=admin";
+
+                                    $conn = pg_connect("$host $port $dbname $credentials");
+
+                                    if (!isset($conn)) {
+                                        echo die("Database connection failed");
+                                    }
+
+                                    $sqlinvoice = <<<EOF
+                                        SELECT * FROM invoice WHERE employeesid = $empID;
+                                    EOF;
+
+                                    $ret = pg_query($conn, $sqlinvoice);
+
+                                    if (!$ret) {
+                                        echo pg_last_error($conn);
+                                        exit;
+                                    }
+
+                                    while ($let = pg_fetch_assoc($ret)) {
+                                        $invoiceID = $let['invoiceid'];
+                                        $month = $let['month'];
+                                        $day=$let['day'];
+                                        $year=$let['year'];
+                                        $total = $let['total'];
+
+                                        echo "
+                                            <li class='list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg'>
+                                                <div class='d-flex flex-column'>
+                                                    <h6 class='mb-1 text-dark font-weight-bold text-sm'>$month , $day 20$year</h6>
+                                           
+                                                    <span class='text-xs'>#MS-$invoiceID</span>
+                                                </div>
+                                                <div class='d-flex align-items-center text-sm'>
+                                                    RS $total
+                                                    <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4'>
+                                                        <i class='material-icons text-lg position-relative me-1'>picture_as_pdf</i> PDF
+                                                    </button>
+                                                </div>
+                                            </li>";
+                                    }
+
+                                    pg_close($conn);
+                                    ?>
+
+
                                 </ul>
 
                                 <!-- Modal -->
@@ -528,59 +536,47 @@ EOF;
                                             </div>
                                             <div class="modal-body">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                        <div class="d-flex flex-column">
-                                                            <h6 class="mb-1 text-dark font-weight-bold text-sm">March, 01, 2020</h6>
-                                                            <span class="text-xs">#MS-415646</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center text-sm">
-                                                            $180
-                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                        <div class="d-flex flex-column">
-                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">February, 10, 2021</h6>
-                                                            <span class="text-xs">#RV-126749</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center text-sm">
-                                                            $250
-                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                        <div class="d-flex flex-column">
-                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">April, 05, 2020</h6>
-                                                            <span class="text-xs">#FB-212562</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center text-sm">
-                                                            $560
-                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                        <div class="d-flex flex-column">
-                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">June, 25, 2019</h6>
-                                                            <span class="text-xs">#QW-103578</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center text-sm">
-                                                            $120
-                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-                                                        <div class="d-flex flex-column">
-                                                            <h6 class="text-dark mb-1 font-weight-bold text-sm">March, 01, 2019</h6>
-                                                            <span class="text-xs">#AR-803481</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center text-sm">
-                                                            $300
-                                                            <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> PDF</button>
-                                                        </div>
-                                                    </li>
+                                                    <?php
+                                                    $host = "host = 127.0.0.1";
+                                                    $port = "port = 5432";
+                                                    $dbname = "dbname = emsdb";
+                                                    $credentials = "user = postgres password=admin";
+
+                                                    $conn = pg_connect("$host $port $dbname $credentials");
+
+                                                    if (!isset($conn)) {
+                                                        echo die("Database connection failed");
+                                                    }
+                                                    $sqlinvoice = <<<EOF
+                                                        SELECT * FROM invoice WHERE employeesid = $empID;
+                                                    EOF;
+                                                    $ret = pg_query($conn, $sqlinvoice);
+                                                    if (!$ret) {
+                                                        echo pg_last_error($conn);
+                                                        exit;
+                                                    }
+                                                    while ($let = pg_fetch_assoc($ret)) {
+                                                        $invoiceID = $let['invoiceid'];
+                                                        $month = $let['month'];
+                                                        $total = $let['total'];
+                                                                echo "
+                                                                <li class='list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg'>
+                                                                    <div class='d-flex flex-column'>
+                                                                        <h6 class='mb-1 text-dark font-weight-bold text-sm'>$month , $day 20$year</h6>
+                                                                        <span class='text-xs'>#MS-$invoiceID</span>
+                                                                    </div>
+                                                                    <div class='d-flex align-items-center text-sm'>
+                                                                        RS $total
+                                                                        <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4'>
+                                                                            <i class='material-icons text-lg position-relative me-1'>picture_as_pdf</i> PDF
+                                                                        </button>
+                                                                    </div>
+                                                                </li>";
+                                                            }
+
+                                                    pg_close($conn);
+                                                    ?>
                                                 </ul>
-
-
                                             </div>
                                             <div class="modal-footer justify-content-center">
                                                 <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Close</button>
@@ -594,9 +590,6 @@ EOF;
                     </div>
                 </div>
             </div>
-
-
-
 
         </div>
     </div>

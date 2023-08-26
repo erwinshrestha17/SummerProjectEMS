@@ -5,9 +5,12 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }else{
 
+
+
     $employeeID= $_SESSION['id'];
     $fullname="";
     $image="";
+
     $host = "host = 127.0.0.1";
     $port = "port = 5432";
     $dbname = "dbname = emsdb";
@@ -28,11 +31,24 @@ if (!isset($_SESSION['authenticated'])) {
     }
 
     while ($let = pg_fetch_assoc($ret)) {
+        $username = $let['username'];
+        $email = $let['email'];
+        $position = $let['position'];
+        $organization = $let['organization'];
+        $salary = $let['salary'];
         $fullname= $let['fullname'];
         $images=$let['image'];
 
     }
-    pg_close($conn);
+    $_SESSION['employeeid']=$employeeID;
+    $_SESSION['username']=$username;
+    $_SESSION['email']=$email;
+    $_SESSION['position']=$position;
+    $_SESSION['organization']=$organization;
+    $_SESSION['salary']=$salary;
+    $_SESSION['image']=$images;
+    $totalbonus = isset($_SESSION['totalbonus']);
+
 }
 ?>
 
@@ -77,28 +93,7 @@ if (!isset($_SESSION['authenticated'])) {
     <hr class="horizontal light mt-0 mb-2">
     <div class="animated bounceInDown w-auto  max-height-vh-100" >
         <ul class="navbar-nav">
-            <!-- EMPLOYEES INFORMATION-->
-            <li class='sub-menu'>
-                <a class="nav-link text-white ">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Information</span>
-                </a>
-                <ul class="navbar-nav">
-                    <!-- EMPLOYEES PROFILE-->
-                    <li class="nav-item" id="">
-                        <a class="nav-link text-white" href="#">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
-                                <i class="material-icons opacity-10">table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1"> Profiles</span>
-                        </a>
-                    </li>
 
-
-                </ul>
-            </li>
 
 
             <!--SALARY REQUEST-->
@@ -134,6 +129,8 @@ if (!isset($_SESSION['authenticated'])) {
         </div>
     </div>
 </aside>
+
+
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -167,14 +164,127 @@ if (!isset($_SESSION['authenticated'])) {
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
-                            <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
+                            <?php
+                            $allowedDate = strtotime(date("Y-m-23")); // Set allowed date to the 15th day of the current month
+                            $currentDate = strtotime(date("Y-m-d")); // Get the current date
 
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="date" class="form-control" placeholder="Date" name="requestdate"  required>
+                            if ($currentDate >= $allowedDate) {
+                            // Allow the user to send requests
+                            // Your form code and request processing code here
+                            } else {
+                            // Display a message indicating that requests are not allowed yet
+                            echo '<p>Requests are not allowed until ' . date("F j, Y", $allowedDate) . '</p>';
+                            }
+
+                            ?>
+
+                            <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
+                                <div id="alertContainer"  style="z-index: 1050">
+
                                 </div>
+                                <?php
+
+                                $day= (string) date('d');
+                                $month=(string) date('m');
+                                $year= (string) date('y');
+                                $currentmonth= (string)$month;
+                                switch ($currentmonth) {
+                                    case '01':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control ' placeholder='Month' name='month' value='January'  required>
+                                                    
+                                                    
+                                                    
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '02':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='February'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '03':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='March'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '04':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='Aoril'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '05':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='MAY'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '06':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='JUN'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '07':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='JULY'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '08':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='AUGUST'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '09':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='SEPTEMBER'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '10':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='OCTOBER'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '11':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='NOVEMBER'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    case '12':
+                                        echo "  <div class='input-group input-group-outline mb-3'>
+                                                    <input type='text' class='form-control' placeholder='Month' name='month' value='DECEMBER'  required>
+                                                 </div>";
+                                        $_SESSION['day']=$day;
+                                        $_SESSION['year']=$year;
+                                        break;
+                                    default:
+                                        echo "Month not recognized.";
+                                        break;
+                                }
+                                ?>
+
 
                                 <div class="text-center">
-                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
+                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Request</button>
                                 </div>
                             </form>
                         </div>
@@ -186,7 +296,39 @@ if (!isset($_SESSION['authenticated'])) {
 
 
 </main>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if successAlert session variable is set
+        <?php if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) { ?>
+        var alertContainer = document.getElementById("alertContainer");
+        var successAlertHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Request sent successfully!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+        alertContainer.innerHTML = successAlertHTML;
+        <?php
+        // Clear the successAlert session variable
+        unset($_SESSION['successAlert']);
+        }
+        ?>
 
+        // Check if duplicateRequest session variable is set
+        <?php if (isset($_SESSION['duplicateRequest']) && $_SESSION['duplicateRequest']) { ?>
+        var alertContainer = document.getElementById("alertContainer");
+        var duplicateAlertHTML = `
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Request already sent!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+        alertContainer.innerHTML = duplicateAlertHTML;
+        <?php
+        // Clear the duplicateRequest session variable
+        unset($_SESSION['duplicateRequest']);
+        }
+        ?>
+    });
+</script>
 
 
 <script src="../../Assets/js/bootstrap.bundle.min.js"></script>
