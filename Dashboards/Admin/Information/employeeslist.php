@@ -180,7 +180,10 @@ pg_close($conn);
     <!--LOG OUT-->
     <div class="sidenav-footer position-absolute w-100 bottom-0  ">
         <div class="mx-3">
-            <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">log out</a>
+            <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAZVJREFUWEftlztKBEEURc8FPxtQ0HWM4BcUQyM3YCaCuAMTNRAX4A/BJYiKYj4mugQxFzEQF2BypaR7KIYZZ6ZaqA7mQQf9eVWn3+dWlaiZqWY8DIF6ZaRShGwvA4vAWK+JOrz/AK4kfcbvkoFsnwA7CSCxS4BalfRSPkwCsr0O3FSEKd2fJS1UBdoFDotBHoFmAtxe4fMtabwq0D5QDnggKdwPZLbdgpBamUpN2RDoz/Dbzhsh2w1gRtJFIM0KZHsDuASOyuK1vQKEK1hT0sBdNnBR2x4BToGtYuKkbuqW+4GAbE8Cd8BcNGAeINuzwC0w1fZ3SQLYTaP6ilBULymLZcfsKBK9+IN+gTaBcyDUz79YJaCipeeL+pnInrISwPY0cA8E/SktT1FHUKGOgv4EHQqWFygCCzp0nF0Y2zoi6FFDUhDKvEtHp1bLupYNgVLUr44pq90mfw14SIluB58nSeGw+WtJm/yi9c+A7YpQ78VB8bUyUAEVjtJLwGgC2BtwLekr9k2OUAJAXy5DoF5hql2EfgDdIfYldluSXAAAAABJRU5ErkJggg==" alt=""/>
+                log out
+            </a>
         </div>
     </div>
 
@@ -234,6 +237,8 @@ pg_close($conn);
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
                                     <th class="text-secondary opacity-7"></th>
                                     <th class="text-secondary opacity-7"></th>
+                                    <th class="text-secondary opacity-7"></th>
+
 
                                 </tr>
                                 </thead>
@@ -289,22 +294,29 @@ pg_close($conn);
                                     <td class='align-middle text-center'>
                                         <span class='text-secondary text-xs font-weight-bold'>".$employeeddate."</span>
                                     </td>
-                                    
-                                    
                                     ";
-
-                                    echo "<td class='align-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Edit</button>
-                                        </a>
-                                    </td>";
 
                                     echo "<td class='align-middle'>
                                         <a class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                                 <form action='employeesprofile.php' method='post'>
-                                              
-                                                  <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'> Open</button>                                            
-                                                
+                                                  <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'><i class='material-icons text-lg position-relative'>person</i></button> 
+                                                </form>
+                                        </a>
+                                    </td>";
+
+                                    echo "<td class='align-middle'>
+                                        <a href='../Onboarding/edit.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                         <form action='../Onboarding/edit.php' method='post'>
+                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value='$id' name='editbtn'><i class='material-icons text-lg position-relative'>edit</i></button>
+                                        </form>
+                                        </a>
+                                    </td>";
+
+
+                                    echo "<td class='align-middle'>
+                                        <a class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                                <form action='delete.php' method='post'>
+                                                  <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='deletebtn'><i class='material-icons text-lg position-relative'>delete</i></button>                              
                                                 </form>
                                         </a>
                                     </td>";

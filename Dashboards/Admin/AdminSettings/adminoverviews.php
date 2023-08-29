@@ -184,7 +184,10 @@ pg_close($conn);
     <!--LOG OUT-->
     <div class="sidenav-footer position-absolute w-100 bottom-0  ">
         <div class="mx-3">
-            <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">log out</a>
+            <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAZVJREFUWEftlztKBEEURc8FPxtQ0HWM4BcUQyM3YCaCuAMTNRAX4A/BJYiKYj4mugQxFzEQF2BypaR7KIYZZ6ZaqA7mQQf9eVWn3+dWlaiZqWY8DIF6ZaRShGwvA4vAWK+JOrz/AK4kfcbvkoFsnwA7CSCxS4BalfRSPkwCsr0O3FSEKd2fJS1UBdoFDotBHoFmAtxe4fMtabwq0D5QDnggKdwPZLbdgpBamUpN2RDoz/Dbzhsh2w1gRtJFIM0KZHsDuASOyuK1vQKEK1hT0sBdNnBR2x4BToGtYuKkbuqW+4GAbE8Cd8BcNGAeINuzwC0w1fZ3SQLYTaP6ilBULymLZcfsKBK9+IN+gTaBcyDUz79YJaCipeeL+pnInrISwPY0cA8E/SktT1FHUKGOgv4EHQqWFygCCzp0nF0Y2zoi6FFDUhDKvEtHp1bLupYNgVLUr44pq90mfw14SIluB58nSeGw+WtJm/yi9c+A7YpQ78VB8bUyUAEVjtJLwGgC2BtwLekr9k2OUAJAXy5DoF5hql2EfgDdIfYldluSXAAAAABJRU5ErkJggg=="/>
+                log out
+            </a>
         </div>
     </div>
 
@@ -232,6 +235,7 @@ pg_close($conn);
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salary</th>
                                     <th class="text-secondary opacity-7"></th>
 
                                 </tr>
@@ -260,6 +264,7 @@ pg_close($conn);
                                     $email=$let['email'];
                                     $position=$let['position'];
                                     $organization=$let['organization'];
+                                    $salary=$let['salary'];
                                     $image=$let['image'];
                                     echo "<tr>";
                                     echo "<td>";
@@ -273,27 +278,34 @@ pg_close($conn);
                                     echo" </td>";
                                     echo" <td>";
                                     echo "<p class='text-xs font-weight-bold mb-0'>".$position."</p>";
-                                    echo "   <p class='text-xs text-secondary mb-0'>".$organization."</p>
+                                    echo "<p class='text-xs text-secondary mb-0'>".$organization."</p>
                                     </td>
                                     <td class='align-middle text-center text-sm'>
                                         <span class='badge badge-sm bg-gradient-success'>Online</span>
+                                    </td>
+                                     <td class='align-middle text-center text-sm'>
+                                        <span class='text-secondary text-xs font-weight-bold'> Rs ".$salary."</span>
                                     </td>";
 
+                                    /*
                                     echo "<td class='lign-middle'>
-                                        <a href='../Onboarding/addingEmployees.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' >Edit</button>
+                                        <a href='' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <form method='post' action='edit.php'>
+                                                <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' name='editbtn' value='$id'><i class='material-icons text-lg position-relative'>edit</i></button>
+                                            </form>
+                                      
+                                        </a>
+                                    </td>";
+                                    */
+                                    echo "<td class='lign-middle'>
+                                        <a href='' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                            <form method='post' action='delete.php'>
+                                                <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value='$id' name='deletebtn'><i class='material-icons text-lg position-relative'>delete</i></button>
+                                            </form>
                                       
                                         </a>
                                     </td>";
 
-                                    /*echo " <td class='align-middle'>
-                                                <a class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                                    <form action='adminprofile.php' method='post'>
-                                                        <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' type='submit' value=$id name ='openprofilebtn'> Open</button>
-                                                    </form>
-                                                 </a>
-                                        </td>";
-                                    */
                                     echo"</tr>";
                                 }
                                 pg_close($conn);

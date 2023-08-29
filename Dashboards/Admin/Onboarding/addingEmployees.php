@@ -1,7 +1,8 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
 
@@ -102,11 +103,6 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Employees List</span>
                         </a>
                     </li>
-
-                    <!-- EMPLOYEES PROFILE-->
-
-
-
                 </ul>
             </li>
             <!-- EMPLOYEES ONBOARDING-->
@@ -128,10 +124,7 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
-
-
             <!--PAYROLL & COMPENSATION-->
-
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -150,9 +143,7 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
-
             <hr class="horizontal light mt-0 mb-2">
-
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -177,23 +168,19 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--PROFILE-->
-
                 </ul>
             </li>
-
-
-
         </ul>
-
     </div>
     <!--LOG OUT-->
     <div class="sidenav-footer position-absolute w-100 bottom-0  ">
         <div class="mx-3">
-            <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">log out</a>
+            <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAZVJREFUWEftlztKBEEURc8FPxtQ0HWM4BcUQyM3YCaCuAMTNRAX4A/BJYiKYj4mugQxFzEQF2BypaR7KIYZZ6ZaqA7mQQf9eVWn3+dWlaiZqWY8DIF6ZaRShGwvA4vAWK+JOrz/AK4kfcbvkoFsnwA7CSCxS4BalfRSPkwCsr0O3FSEKd2fJS1UBdoFDotBHoFmAtxe4fMtabwq0D5QDnggKdwPZLbdgpBamUpN2RDoz/Dbzhsh2w1gRtJFIM0KZHsDuASOyuK1vQKEK1hT0sBdNnBR2x4BToGtYuKkbuqW+4GAbE8Cd8BcNGAeINuzwC0w1fZ3SQLYTaP6ilBULymLZcfsKBK9+IN+gTaBcyDUz79YJaCipeeL+pnInrISwPY0cA8E/SktT1FHUKGOgv4EHQqWFygCCzp0nF0Y2zoi6FFDUhDKvEtHp1bLupYNgVLUr44pq90mfw14SIluB58nSeGw+WtJm/yi9c+A7YpQ78VB8bUyUAEVjtJLwGgC2BtwLekr9k2OUAJAXy5DoF5hql2EfgDdIfYldluSXAAAAABJRU5ErkJggg==" alt=""/>
+                
+                log out</a>
         </div>
     </div>
-
 </aside>
 
 
@@ -209,7 +196,6 @@ pg_close($conn);
                 <h6 class="font-weight-bolder mb-0">Registration</h6>
             </nav>
         </div>
-
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
                 <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
@@ -219,9 +205,6 @@ pg_close($conn);
         </div>
     </nav>
     <!-- End Navbar -->
-
-
-
 
     <!-- Form Start -->
     <div class="container-fluid py-4">
@@ -235,8 +218,11 @@ pg_close($conn);
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
-                            <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
-
+                            <form role="form" action="insertdata1.php" method="post" enctype="multipart/form-data">
+                                <div id="alertContainer"  style="z-index: 1050">
+                                <!-- ALERT  -->
+                                    <?php echo $alertHTML; ?>
+                                </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
                                     <div class="p-2"></div>
@@ -297,6 +283,9 @@ pg_close($conn);
             </div>
         </div>
     </div>
+    <!--   FORM END  -->
+
+
 </main>
 
 <!--   Core JS Files   -->
@@ -307,6 +296,37 @@ pg_close($conn);
 <script src="../../Assets/js/core/bootstrap.min.js"></script>
 <script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+<?php
+$alertHTML = '';
+if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) {
+    $alertHTML = '
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Request sent successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    ';
+    unset($_SESSION['successAlert']);
+}
+if (isset($_SESSION['duplicateRequest']) && $_SESSION['duplicateRequest']) {
+    $alertHTML = '
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Request already sent!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    ';
+    unset($_SESSION['duplicateRequest']);
+}
+?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let alertContainer = document.getElementById("alertContainer");
+        let alertHTML = `<?= $alertHTML; ?>`;
+        alertContainer.innerHTML = alertHTML;
+    });
+</script>
+
 <script>
     let win = Navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -335,6 +355,8 @@ pg_close($conn);
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 </script>
+
+
 </body>
 </html>
 

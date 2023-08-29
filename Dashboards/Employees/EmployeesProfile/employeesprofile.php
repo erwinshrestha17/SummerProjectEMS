@@ -170,6 +170,12 @@ if (!isset($_SESSION['authenticated'])) {
                                         Close
                                     </button>
                                 </a>
+                                <a href='edit.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                                           <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' value="editbtn">
+                                               <i class="material-icons text-lg position-relative">edit</i>
+                                               Edit
+                                           </button>
+                                </a>
                             </li>
                         </ul>
                     </div>
