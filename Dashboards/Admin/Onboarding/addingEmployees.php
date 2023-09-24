@@ -124,6 +124,25 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!--PAYROLL & COMPENSATION-->
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
@@ -139,6 +158,34 @@ pg_close($conn);
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Salary Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Leave Management-->
+
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Types</span>
                         </a>
                     </li>
                 </ul>
@@ -166,6 +213,15 @@ pg_close($conn);
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Registration</span>
+                        </a>
+                    </li>
+                    <!--CHANGE PASSWORD-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
                 </ul>
@@ -219,57 +275,94 @@ pg_close($conn);
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
                             <form role="form" action="insertdata1.php" method="post" enctype="multipart/form-data">
-                                <div id="alertContainer"  style="z-index: 1050">
-                                <!-- ALERT  -->
-                                    <?php echo $alertHTML; ?>
+                                <div id="alertContainer" style="z-index: 1050">
+                                    <?php
+                                    // Check if successAlert session variable is set
+                                    if (isset($_SESSION['DeletionError']) && $_SESSION['DeletionError']) {
+                                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Employee Profile Deletion Error
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        // Clear the successAlert session variable
+                                        unset($_SESSION['DeletionError']);
+                                    }
+
+                                    // Check if duplicateRequest session variable is set
+                                    if (isset($_SESSION['duplicateRequest']) && $_SESSION['duplicateRequest']) {
+                                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Employees with this email already exist!
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        // Clear the duplicateRequest session variable
+                                        unset($_SESSION['duplicateRequest']);
+                                    }
+
+                                    // Check if there's an image error
+                                    if (isset($_SESSION['imageError'])) {
+                                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                ' . $_SESSION['imageError'] . '
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        unset($_SESSION['imageError']);
+                                    }
+
+                                    // Check if there's an error during data insertion
+                                    if (isset($_SESSION['insertError'])) {
+                                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                ' . $_SESSION['insertError'] . '
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        unset($_SESSION['insertError']);
+                                    }
+                                    ?>
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid"  required>
+                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname"  required pattern="[A-Za-z ]+" title="Only alphabetic characters and spaces are allowed." >
                                     <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="VAT" name="vat" disabled>
+                                    <input type="text" class="form-control" placeholder="User Name" name="username"  required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
 
                                 </div>
+
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname"  required>
+                                    <input type="email" class="form-control" placeholder="Email" name="email"  required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                                     <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="User Name" name="username"  required>
+                                    <input type="password" class="form-control" placeholder="Password" name="password" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$" title="Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.">
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" name="email"  required>
-                                    <div class="p-2"></div>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" required >
-
-                                </div>
-
-                                <div class="input-group input-group-outline mb-3">
-                                    <select class="form-select form-select-lg mb-2" name="role" required>
-                                        <option class="outline mb-3" selected value="role">Select Roles</option>
-                                        <option class="outline mb-3" name="role">Sr Software Engineer</option>
-                                        <option class="outline mb-3" name="role">Jr Web Developer</option>
-                                        <option class="outline mb-3" name="role">Full stack developer</option>
+                                    <select class="form-select form-select-lg mb-2" name="role" required >
+                                        <option class="outline mb-3" selected name="role"> Department</option>
+                                        <option class="outline mb-3" name="role">Technology Department</option>
+                                        <option class="outline mb-3" name="role">Operation Department</option>
+                                        <option class="outline mb-3" name="role">Production Department</option>
+                                        <option class="outline mb-3" name="role">Marketing Department</option>
+                                        <option class="outline mb-3" name="role">Sales Department </option>
+                                        <option class="outline mb-3" name="role">Human Resource Department</option>
                                     </select>
                                     <div class="p-2"></div>
 
 
                                     <select class="form-select form-select-lg mb-2 " name="branch" required>
                                         <option class="outline mb-3" selected value="branch">Branch</option>
-                                        <option class="outline mb-3" name="branch">Kathmandu</option>
                                         <option class="outline mb-3" name="branch" >Butwal</option>
-                                        <option class="outline mb-3" name="branch">Pokhara</option>
+                                        <option class="outline mb-3" name="branch">Bhairahawa</option>
                                     </select>
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate"  required>
+                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate"   required>
                                     <div class="p-2"></div>
                                     <input type="number" class="form-control" placeholder="Salary" name="salary"  required>
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" required>
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" required pattern="[0-9]+">
                                     <div class="p-2"></div>
                                     <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png">
+
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <textarea class="form-control" rows="2" placeholder="Skills" name="skills"></textarea>
 
                                 </div>
 
@@ -297,45 +390,7 @@ pg_close($conn);
 <script src="../../Assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../../Assets/js/plugins/smooth-scrollbar.min.js"></script>
 
-<?php
-$alertHTML = '';
-if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) {
-    $alertHTML = '
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Request sent successfully!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    ';
-    unset($_SESSION['successAlert']);
-}
-if (isset($_SESSION['duplicateRequest']) && $_SESSION['duplicateRequest']) {
-    $alertHTML = '
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Request already sent!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    ';
-    unset($_SESSION['duplicateRequest']);
-}
-?>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let alertContainer = document.getElementById("alertContainer");
-        let alertHTML = `<?= $alertHTML; ?>`;
-        alertContainer.innerHTML = alertHTML;
-    });
-</script>
-
-<script>
-    let win = Navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-        let options = {
-            damping: '0.5'
-        }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-</script>
 <script src="../../Assets/js/material-dashboard.min.js?v=3.1.0"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

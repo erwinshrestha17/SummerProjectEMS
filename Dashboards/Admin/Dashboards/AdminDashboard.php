@@ -115,6 +115,26 @@ while ($let = pg_fetch_assoc($ret)) {
                 </ul>
             </li>
 
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
 
             <!--PAYROLL & COMPENSATION-->
 
@@ -137,6 +157,35 @@ while ($let = pg_fetch_assoc($ret)) {
                 </ul>
             </li>
 
+            <!--Leave Management-->
+
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Types</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <hr class="horizontal light mt-0 mb-2">
 
             <li class="sub-menu">
@@ -147,6 +196,7 @@ while ($let = pg_fetch_assoc($ret)) {
                     <span class="nav-link-text ms-1">Admin</span>
                 </a>
                 <ul class="navbar-nav">
+                    <!--OVERVIEW-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -155,6 +205,8 @@ while ($let = pg_fetch_assoc($ret)) {
                             <span class="nav-link-text ms-1">Overview</span>
                         </a>
                     </li>
+                    <!--Registration-->
+
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -163,19 +215,16 @@ while ($let = pg_fetch_assoc($ret)) {
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--PROFILE-->
-                    <?php
-                    /*
+                    <!--CHANGE PASSWORD-->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">EmployeesProfile</span>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
-                    */
-                    ?>
+
 
                 </ul>
             </li>
@@ -272,7 +321,7 @@ while ($let = pg_fetch_assoc($ret)) {
                     </div>
                     <hr class="dark horizontal my-0">
                     <div class="card-footer p-3">
-                        <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>
+                       <?php /* <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>*/?>
                     </div>
                 </div>
             </div>
@@ -289,10 +338,11 @@ while ($let = pg_fetch_assoc($ret)) {
                     </div>
                     <hr class="dark horizontal my-0">
                     <div class="card-footer p-3">
-                        <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
+                       <?php /* <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p> */?>
                     </div>
                 </div>
             </div>
+            <?php /*
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-header p-3 pt-2">
@@ -327,6 +377,10 @@ while ($let = pg_fetch_assoc($ret)) {
                     </div>
                 </div>
             </div>
+
+            */?>
+
+
         </div>
 
 

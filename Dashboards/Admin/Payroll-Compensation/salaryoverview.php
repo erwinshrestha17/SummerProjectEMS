@@ -162,6 +162,25 @@ if (!$result2) {
                     </li>
                 </ul>
             </li>
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
             <!--PAYROLL & COMPENSATION-->
@@ -181,6 +200,34 @@ if (!$result2) {
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Salary Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Leave Management-->
+
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Types</span>
                         </a>
                     </li>
                 </ul>
@@ -214,7 +261,15 @@ if (!$result2) {
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--PROFILE-->
+                    <!--CHANGE PASSWORD-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change Password</span>
+                        </a>
+                    </li>
 
                 </ul>
             </li>
@@ -305,6 +360,7 @@ if (!$result2) {
                                 }
                                 while ($let=pg_fetch_assoc($ret)){
                                     $id=$let['employeesid'];
+                                    $fullname=$let['fullname'];
                                     $username=$let['username'];
                                     $email=$let['email'];
                                     $position=$let['position'];
@@ -331,7 +387,7 @@ if (!$result2) {
                                     echo "<div class='d-flex px-2 py-1'>";
                                     echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg' alt='Image'  > </div>";
                                     echo "<div class='d-flex flex-column justify-content-center'>";
-                                    echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
+                                    echo "<h6 class='mb-0 text-sm'>".$fullname."</h6>";
                                     echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
                                     echo "</div>";
                                     echo "</div>";

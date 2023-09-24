@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $host = "host=127.0.0.1";
     $port = "port=5432";
@@ -12,10 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 
     // Validate and sanitize user inputs
-    $id = $_POST['employeesid'];
+    $id = $_SESSION['adminid'];
     $username = pg_escape_string($_POST['username']);
     $email = pg_escape_string($_POST['email']);
     $password = pg_escape_string($_POST['password']);
+    //$oldpassword = pg_escape_string($_POST['oldpassword']);
+    //$newpassword = pg_escape_string($_POST['newpassword']);
+
     $roles = pg_escape_string($_POST['role']);
     $branch = pg_escape_string($_POST['branch']);
     $employeddate = pg_escape_string($_POST['employeddate']);

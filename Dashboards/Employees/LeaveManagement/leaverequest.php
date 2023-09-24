@@ -28,9 +28,12 @@ if(!$ret) {
     exit;
 }
 while ($let = pg_fetch_assoc($ret)) {
+
     $fullname= $let['fullname'];
     $images=$let['image'];
 }
+$_SESSION['employeesid']=$employeeID;
+$_SESSION['image']=$images;
 pg_close($conn);
 ?>
 
@@ -53,12 +56,20 @@ pg_close($conn);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS -->
     <link id="pagestyle" href="../../Assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <style>
+        input[type="date"]::before {
+            content: attr(placeholder);
+            width: 100%;
+        }
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before { display: none }
+    </style>
 </head>
 <body>
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="EmployeesDashboard.php" target="_self">
+        <a class="navbar-brand m-0" href="../Dashboards/EmployeesDashboard.php" target="_self">
             <img src="../../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Welcome <?php echo $fullname ?> </span>
         </a>
@@ -140,6 +151,7 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Leave Request</span>
                         </a>
                     </li>
+                   
                 </ul>
             </li>
 
@@ -186,9 +198,9 @@ pg_close($conn);
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Leave Management</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+                <h6 class="font-weight-bolder mb-0">Leave Request</h6>
             </nav>
         </div>
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -200,87 +212,88 @@ pg_close($conn);
         </div>
     </nav>
     <!-- End Navbar -->
-    <!-- Leave Request Response -->
-    <?php
-    $host = "host = 127.0.0.1";
-    $port = "port = 5432";
-    $dbname = "dbname = emsdb";
-    $credentials = "user = postgres password=admin";
-
-    $conn = pg_connect("$host $port $dbname $credentials");
-
-    if (!isset($conn)) {
-        echo die("Database connection failed");
-    }
-    $sql =<<<Eof
-            SELECT * FROM leavemanagement where employeesid=$employeeID;
-    Eof;
-    $ret = pg_query($conn, $sql);
-    if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-    }
-    $status = ''; // Initialize with a default value
-    $leavefrom = ''; // Initialize other variables with default values
-    $leaveto = '';
-    while ($let = pg_fetch_assoc($ret)) {
-        $status=$let['status'];
-        $leavefrom=$let['leavefrom'];
-        $leaveto=$let['leaveto'];
-    }
-
-    ?>
-
     <div class="container-fluid py-4">
-        <div class="row ">
-            <div class="col-xl-4 col-sm-8">
-                <div class="card">
-                    <div class="card-header p-3 pt-2">
-                        <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                            <i class="material-icons opacity-10">report</i>
-                        </div>
-                        <div class="text-end pt-1">
-                            <p class="text-sm mb-0 text-capitalize">Leave Request</p>
-                            <?php
-                            if ($status==="Approved"){
-                                echo '<h4 class="mb-0">Approved</h4>';
-
-                            }elseif ($status==="Declined"){
-                                echo '<h4 class="mb-0">Declined</h4>';
-
-                            }elseif($status==="Pending"){
-                                echo '<h4 class="mb-0">Pending</h4>';
-
-                            }else{
-                                echo '<h4 class="mb-0">No Request Sent</h4>';
-                            }
-                            ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Leave Request</h6>
                         </div>
                     </div>
-                    <hr class="dark horizontal my-0">
-                    <div class="card-footer p-3">
-                        <?php
-                            if ($status==="Approved"){
-                                echo '<p class="mb-0"><span class="text-success text-sm font-weight-bolder">Enjoy Holiday</span></p> ';
+                    <div class="card-body px-0 pb-2">
+                        <div class="card-body">
+                            <?php
 
-                            }elseif ($status==="Declined"){
-                                echo '<p class="mb-0"><span class="text-danger text-sm font-weight-bolder">Better Luck Next Time</span></p> ';
-                            }elseif($status==="Pending"){
-                                echo '<p class="mb-0"><span class="text-primary text-sm font-weight-bolder">Wait For The Response</span></p> ';
-                            }else{
-                                echo '<p class="mb-0"><span class="text- text-sm font-weight-bolder">Enjoy Work Time</span></p> ';
+                            ?>
 
-                            }
+                            <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
+                                <div id="alertContainer" style="z-index: 1050">
+                                    <?php
+                                    if (isset($_SESSION['error']) && $_SESSION['error']) {
+                                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Leave Request Already Sent
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        // Clear the successAlert session variable
+                                        unset($_SESSION['error']);
+                                    }
+                                    // Check if successAlert session variable is set
+                                    if (isset($_SESSION['Leave-Request-Sent']) && $_SESSION['Leave-Request-Sent']) {
+                                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                 Leave Request Sent
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        // Clear the successAlert session variable
+                                        unset($_SESSION['Leave-Request-Sent']);
+                                    }
+                                    $year = date('Y');
+                                    $month = date('m');
+                                    $day = date('d');
+                                    $currentdate = $year . "-" . $month . "-" . $day;
+                                    // Calculate the maximum date (1 month from the current date)
+                                    $maxdate = date('Y-m-d', strtotime('+1 month'));
 
-                        ?>
+
+                                    $_SESSION['currentdate']=$currentdate;
+                                    ?>
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="date" class="form-control" placeholder="Leave From" name="leavefrom" min="<?php echo $currentdate; ?>" max="<?php echo $maxdate; ?>" required>
+                                    <div class="p-2"></div>
+                                    <input type="date" class="form-control" placeholder="Leave To" name="leaveto" min="<?php echo $currentdate; ?>"  max="<?php echo $maxdate; ?>" required>
+
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <select class="form-select form-select-lg mb-2" id="leaveType" name="leaveType">
+                                        <option value="Annual Leave">Annual Leave</option>
+                                        <option value="Casual Leave">Casual Leave</option>
+                                        <option value="Emergency Leave">Emergency Leave</option>
+                                        <option value="Family Leave">Family Leave</option>
+                                        <option value="Sick Leave">Sick Leave</option>
+                                        <option value="Work From Home Leave">Work From Home Leave</option>
+                                    </select>
+
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <textarea class="form-control" rows="2" placeholder="Remarks" name="remarks" required></textarea>
+
+                                </div>
+
+
+
+                                <div class="text-center">
+                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Request</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
+
+
 </main>
 
 

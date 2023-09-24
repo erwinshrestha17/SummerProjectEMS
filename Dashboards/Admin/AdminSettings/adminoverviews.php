@@ -113,7 +113,25 @@ pg_close($conn);
                 </ul>
             </li>
 
-
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!--PAYROLL & COMPENSATION-->
 
             <li class="sub-menu">
@@ -130,6 +148,34 @@ pg_close($conn);
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Salary Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Leave Management-->
+
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Types</span>
                         </a>
                     </li>
                 </ul>
@@ -161,18 +207,15 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--PROFILE-->
-                   <?php /*
+                    <!--CHANGE PASSWORD-->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">EmployeesProfile</span>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
-                    */
-                    ?>
                 </ul>
             </li>
 
@@ -259,7 +302,7 @@ pg_close($conn);
                                     exit;
                                 }
                                 while ($let=pg_fetch_assoc($ret)){
-                                    $id=$let['adminid'];
+                                    $id1=$let['adminid'];
                                     $username=$let['username'];
                                     $email=$let['email'];
                                     $position=$let['position'];
@@ -286,12 +329,11 @@ pg_close($conn);
                                      <td class='align-middle text-center text-sm'>
                                         <span class='text-secondary text-xs font-weight-bold'> Rs ".$salary."</span>
                                     </td>";
-
                                     /*
                                     echo "<td class='lign-middle'>
                                         <a href='' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                             <form method='post' action='edit.php'>
-                                                <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' name='editbtn' value='$id'><i class='material-icons text-lg position-relative'>edit</i></button>
+                                                <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' name='editbtn' value='$id1'><i class='material-icons text-lg position-relative'>edit</i></button>
                                             </form>
                                       
                                         </a>
@@ -300,7 +342,7 @@ pg_close($conn);
                                     echo "<td class='lign-middle'>
                                         <a href='' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                             <form method='post' action='delete.php'>
-                                                <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value='$id' name='deletebtn'><i class='material-icons text-lg position-relative'>delete</i></button>
+                                                <button class='btn btn-lg bg-gradient-primary btn-sm w-90 mt-2 mb-0' value='$id1' name='deletebtn'><i class='material-icons text-lg position-relative'>delete</i></button>
                                             </form>
                                       
                                         </a>

@@ -16,13 +16,8 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
     if (empty($_POST["password"])) {
         $pass_err = " <p > * Password Can Not Be Empty</p> ";
     } else {
-        // Decrypting hash
-
-
        // $dbPassword = $rows['password'];
         $password = $_REQUEST["password"];
-       // $password_decoded = password_verify($password,$dbPassword);
-        //pg_close($conn);
     }
 
     if( !empty($email) && !empty($password) ){
@@ -39,19 +34,28 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
 
 
         $sql = <<<EOF
-            SELECT * FROM adminlists where email='$email' and password='$password'
+            SELECT * FROM adminlists where email='$email'
         EOF;
         $result = pg_query( $conn , $sql);
         if ( pg_num_rows($result) > 0 ){
 
+
             while( $rows = pg_fetch_assoc($result) ){
+                $dbpassword=$rows['password'];
+                $passworddecoded=password_verify($password,$dbpassword);
                 $_SESSION['authenticated']= true;
                 $_SESSION['id'] =$rows['adminid'];
                 $_SESSION['email'] = $rows['email'];
+                if ($passworddecoded){
+                    header("Location: ../Dashboards/AdminDashboard.php");
+                }else{
+                    $_SESSION['ErrorPassword'] = true;
+                }
 
             }
-            header("Location: ../Dashboards/AdminDashboard.php");
+
         }else{
+            /*
             $login_Err = "<div class='alert alert-danger alert-dismissible fade show'>
             
             <strong style='text-decoration-color: white'>Invalid Email/Password</strong>
@@ -59,6 +63,8 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
               <span aria-hidden='true'>&times;</span>
             </button>
           </div>";
+            */
+            $_SESSION['warningAlert']=true;
         }
         pg_close($conn);
 
@@ -103,29 +109,38 @@ if( $_SERVER["REQUEST_METHOD"] === "POST" ) {
                 <div class="card z-index-0 fadeIn3 fadeInBottom">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                            <h4 class="text-white font-weight-bolder text-center mt-2 mb-0"> Sign in</h4>
-                            <div class="text-center my-5"> <?php echo $login_Err; ?> </div>
+                            <h4 class="text-white font-weight-bolder text-center mt-2 mb-0"> Sign In</h4>
+                            <div class="text-center my-5">  </div>
                             <div class="row mt-3">
-                                <div class="col-2 text-center ms-auto">
-                                    <a class="btn btn-link px-3" href="javascript:">
-                                        <i class="fa fa-facebook text-white text-lg"></i>
-                                    </a>
-                                </div>
-                                <div class="col-2 text-center px-1">
-                                    <a class="btn btn-link px-3" href="javascript:">
-                                        <i class="fa fa-github text-white text-lg"></i>
-                                    </a>
-                                </div>
-                                <div class="col-2 text-center me-auto">
-                                    <a class="btn btn-link px-3" href="javascript:">
-                                        <i class="fa fa-google text-white text-lg"></i>
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <form role="form" class="text-start" method="post" action="">
+                            <div id="alertContainer" style="z-index: 1050">
+                                <?php
+                                // Check if successAlert session variable is set
+                                if (isset($_SESSION['warningAlert']) && $_SESSION['warningAlert']) {
+                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                Invalid Email or Password
+                                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                                           </div>';
+                                    // Clear the successAlert session variable
+                                    unset($_SESSION['warningAlert']);
+                                }
+                                // Check Password session variable is set
+                                if (isset($_SESSION['ErrorPassword']) && $_SESSION['ErrorPassword']) {
+                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                Invalid  Password
+                                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                                           </div>';
+                                    // Clear the successAlert session variable
+                                    unset($_SESSION['ErrorPassword']);
+                                }
+
+                                ?>
+                            </div>
                             <div class="input-group input-group-outline mb-3">
                                 <label class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" value="<?php echo  $email?>">

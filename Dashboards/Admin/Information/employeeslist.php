@@ -119,6 +119,25 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
             <!--PAYROLL & COMPENSATION-->
@@ -137,6 +156,34 @@ pg_close($conn);
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Salary Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Leave Management-->
+
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Types</span>
                         </a>
                     </li>
                 </ul>
@@ -166,6 +213,15 @@ pg_close($conn);
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Registration</span>
+                        </a>
+                    </li>
+                    <!--CHANGE PASSWORD-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
 
@@ -228,6 +284,20 @@ pg_close($conn);
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
+                                <div id="alertContainer" style="z-index: 1050">
+                                <?php
+                                    // Check if successAlert session variable is set
+                                    if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        Employees created successfully!
+                                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                                    </div>';
+                                    // Clear the successAlert session variable
+                                    unset($_SESSION['successAlert']);
+                                    }
+
+                                    ?>
+                                </div>
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
@@ -262,7 +332,9 @@ pg_close($conn);
                                     exit;
                                 }
                                 while ($let=pg_fetch_assoc($ret)){
+
                                     $id=$let['employeesid'];
+                                    $fullname=$let['fullname'];
                                     $username=$let['username'];
                                     $email=$let['email'];
                                     $position=$let['position'];
@@ -276,7 +348,7 @@ pg_close($conn);
                                     echo "<div class='d-flex px-2 py-1'>";
                                     echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg' alt='Image'> </div>";
                                     echo "<div class='d-flex flex-column justify-content-center'>";
-                                    echo "<h6 class='mb-0 text-sm'>".$username."</h6>";
+                                    echo "<h6 class='mb-0 text-sm'>".$fullname."</h6>";
                                     echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
                                     echo "</div>";
                                     echo "</div>";

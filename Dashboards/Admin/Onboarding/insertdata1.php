@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $host = "host=127.0.0.1";
     $port = "port=5432";
@@ -12,33 +14,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 
     // Validate and sanitize user inputs
-    $id = $_POST['employeesid'];
     $username = pg_escape_string($_POST['username']);
     $email = pg_escape_string($_POST['email']);
-    $password = pg_escape_string($_POST['password']);
     $roles = pg_escape_string($_POST['role']);
     $branch = pg_escape_string($_POST['branch']);
     $employeddate = pg_escape_string($_POST['employeddate']);
     $fullname = pg_escape_string($_POST['fullname']);
     $salary = $_POST['salary'];
-    $phonenumber = pg_escape_string($_POST['phonenumber']);
-    // Add additional validation for other fields here...
+    $phonenumber = $_POST['phonenumber'];
+    $password = pg_escape_string($_POST['password']);
+    $skills=pg_escape_string($_POST['skills']);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Check for duplicate data based on a unique field (e.g., email)
-    $duplicateCheckQuery = "SELECT COUNT(*) FROM employeeslist WHERE email = '$email'";
-    $duplicateResult = pg_query($conn, $duplicateCheckQuery);
+    // Check if a duplicate record exists
+    $sqlCheckDuplicate1 =<<<EOF
+        SELECT * FROM employeeslist WHERE email='$email';
+    EOF;
 
-    // Fetch the count of rows where the email matches
-    $duplicateCount = pg_fetch_result($duplicateResult, 0);
-
-    if ($duplicateCount > 0) {
-        echo "<script>alert('Employee with this email already exists.')</script>";
+    $duplicateResult1 = pg_query($conn, $sqlCheckDuplicate1);
+    if (pg_num_rows($duplicateResult1) > 0 ) {
+        // Set a session variable to indicate a duplicate request
+        $_SESSION['duplicateRequest'] = true;
     } else {
         // Continue with the registration process
-        // ...
 
         if ($_FILES["image"]["error"] === 4) {
-            echo "<script> alert('Image Does Not Exist'); </script>";
+            $_SESSION['imageError'] = "Image Does Not Exist";
         } else {
             $fileName = $_FILES["image"]["name"];
             $fileSize = $_FILES["image"]["size"];
@@ -46,30 +47,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             $validImageExtension = ['jpg', 'jpeg', 'png'];
             $imageExtension = explode('.', $fileName);
             $imageExtension = strtolower(end($imageExtension));
+
             if (!in_array($imageExtension, $validImageExtension)) {
-                echo "<script> alert('Invalid Image Extension');</script>";
+                $_SESSION['imageError'] = "Invalid Image Extension";
             } else if ($fileSize > 1000000) {
-                echo "<script> alert('Image Size Is Too Large');</script>";
+                $_SESSION['imageError'] = "Image Size Is Too Large";
             } else {
-                $newImageName = uniqid('', true);
+                $newImageName = uniqid();
                 $newImageName .= '.' . $imageExtension;
 
                 move_uploaded_file($tmpName, 'img/' . $newImageName);
 
                 // Insert data into the database
-                $query1 = "INSERT INTO employeeslist (employeesid, username, email, position, organization, date, fullname, salary, phonenumber, image, password) 
-                    VALUES ($id, '$username', '$email', '$roles', '$branch', '$employeddate', '$fullname', $salary, '$phonenumber', '$newImageName', '$password')";
+                $query1 = "INSERT INTO employeeslist (username, email, position, organization, date, fullname, salary, phonenumber, image, password,skills) 
+                    VALUES ('$username', '$email', '$roles', '$branch', '$employeddate', '$fullname', $salary, '$phonenumber', '$newImageName', '$hashedPassword','$skills')";
                 $result1 = pg_query($conn, $query1);
 
                 if ($result1) {
-                    echo "<script>alert('Data inserted successfully.')</script>";
-                    pg_close($conn);
-                    header("Location: addingEmployees.php");
+                    $_SESSION['successAlert'] = true;
                 } else {
-                    echo "<script>alert('Error: " . pg_last_error($conn) . "')</script>";
+                    $_SESSION['insertError'] = "Error: " . pg_last_error($conn);
                 }
             }
         }
     }
+
+    pg_close($conn);
+    header("Location: addingEmployees.php");
 }
 ?>

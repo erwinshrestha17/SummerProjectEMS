@@ -35,21 +35,7 @@
                             <h4 class="text-center text-white font-weight-bolder text-center mt-2 mb-0"> Employee Management System</h4>
                             <h5 class="text-center text-white font-weight-bolder text-center mt-2 mb-0"> Please Log-In Acording To Your Role!!</h5>
                             <div class="row mt-3">
-                                <div class="col-2 text-center ms-auto">
-                                    <a class="btn btn-link px-3" href="javascript:;">
-                                        <i class="fa fa-facebook text-white text-lg"></i>
-                                    </a>
-                                </div>
-                                <div class="col-2 text-center px-1">
-                                    <a class="btn btn-link px-3" href="javascript:;">
-                                        <i class="fa fa-github text-white text-lg"></i>
-                                    </a>
-                                </div>
-                                <div class="col-2 text-center me-auto">
-                                    <a class="btn btn-link px-3" href="javascript:;">
-                                        <i class="fa fa-google text-white text-lg"></i>
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
 
@@ -77,14 +63,13 @@
 <script src="./Assets/js/core/popper.min.js" type="text/javascript"></script>
 <script src="./Assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 <script src="./Assets/js/plugins/perfect-scrollbar.min.js"></script>
-<!--  Google Maps Plugin    -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
 <script src="./Assets/js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
 <script>
     function password_show_hide() {
-        var x = document.getElementById("password");
-        var show_eye = document.getElementById("show_eye");
-        var hide_eye = document.getElementById("hide_eye");
+        let x = document.getElementById("password");
+        let show_eye = document.getElementById("show_eye");
+        let hide_eye = document.getElementById("hide_eye");
         hide_eye.classList.remove("d-none");
         if (x.type === "password") {
             x.type = "text";

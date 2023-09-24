@@ -1,13 +1,14 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
 
-$adminID = $_SESSION['id'];
+$adminID= $_SESSION['id'];
 $fullname="";
 $image="";
+
 $host = "host = 127.0.0.1";
 $port = "port = 5432";
 $dbname = "dbname = emsdb";
@@ -29,23 +30,17 @@ if(!$ret) {
 
 while ($let = pg_fetch_assoc($ret)) {
     $id = $let['adminid'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
     $image=$let['image'];
+    $fullname=$let['fullname'];
 
 }
+
 pg_close($conn);
-
 ?>
-
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Admins Profiles</title>
+    <title>Attendance</title>
     <link rel="icon" type="image/png" href="../../Assets/img/img.png">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -60,13 +55,12 @@ pg_close($conn);
     <link id="pagestyle" href="../../Assets/css/material-dashboard.min.css" rel="stylesheet" />
 </head>
 <body class="g-sidenav-show  bg-gray-200">
-
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
+        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php">
             <img src="../../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname?></span>
+            <span class="ms-1 font-weight-bold text-white"> Admin <?php echo $fullname?></span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -96,6 +90,8 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Employees List</span>
                         </a>
                     </li>
+
+                    <!-- EMPLOYEES PROFILE-->
 
                 </ul>
             </li>
@@ -190,7 +186,7 @@ pg_close($conn);
             </li>
 
             <hr class="horizontal light mt-0 mb-2">
-            <!--ADMIN -->
+
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -199,7 +195,6 @@ pg_close($conn);
                     <span class="nav-link-text ms-1">Admin</span>
                 </a>
                 <ul class="navbar-nav">
-                    <!--OVERVIEW-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -208,8 +203,6 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Overview</span>
                         </a>
                     </li>
-                    <!--REGISTRATION-->
-
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -240,13 +233,12 @@ pg_close($conn);
         <div class="mx-3">
             <a class="btn bg-gradient-primary mt-4 w-100" href="../LogIn-Logout/logout.php" type="button">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAZVJREFUWEftlztKBEEURc8FPxtQ0HWM4BcUQyM3YCaCuAMTNRAX4A/BJYiKYj4mugQxFzEQF2BypaR7KIYZZ6ZaqA7mQQf9eVWn3+dWlaiZqWY8DIF6ZaRShGwvA4vAWK+JOrz/AK4kfcbvkoFsnwA7CSCxS4BalfRSPkwCsr0O3FSEKd2fJS1UBdoFDotBHoFmAtxe4fMtabwq0D5QDnggKdwPZLbdgpBamUpN2RDoz/Dbzhsh2w1gRtJFIM0KZHsDuASOyuK1vQKEK1hT0sBdNnBR2x4BToGtYuKkbuqW+4GAbE8Cd8BcNGAeINuzwC0w1fZ3SQLYTaP6ilBULymLZcfsKBK9+IN+gTaBcyDUz79YJaCipeeL+pnInrISwPY0cA8E/SktT1FHUKGOgv4EHQqWFygCCzp0nF0Y2zoi6FFDUhDKvEtHp1bLupYNgVLUr44pq90mfw14SIluB58nSeGw+WtJm/yi9c+A7YpQ78VB8bUyUAEVjtJLwGgC2BtwLekr9k2OUAJAXy5DoF5hql2EfgDdIfYldluSXAAAAABJRU5ErkJggg==" alt=""/>
+
                 log out</a>
         </div>
     </div>
 
 </aside>
-
-
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -256,106 +248,127 @@ pg_close($conn);
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin Profiles</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Attendance</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Profile</h6>
+                <h6 class="font-weight-bolder mb-0">Attendance Overview</h6>
             </nav>
         </div>
 
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
-                <a href='adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                    <img src="../AdminSettings/img/<?php echo $image ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+
+                    <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
+
+
     </nav>
     <!-- End Navbar -->
+    <!-- Table Start -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Attendance</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Check In</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Check Out</th>
+                                    <th class="text-secondary opacity-7"></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $host        = "host = 127.0.0.1";
+                                $port        = "port = 5432";
+                                $dbname      = "dbname = emsdb";
+                                $credentials = "user = postgres password=admin";
+                                $conn = pg_connect( "$host $port $dbname $credentials"  );
+                                if(!isset($conn)){
+                                    echo die("Database connection failed");
+                                }
+                                $sql =<<<Eof
+                                    
+                                      SELECT * FROM checkin INNER JOIN checkout ON checkin.employeesid = checkout.employeesid ORDER BY checkin.checkinid DESC ;
+                                    
+                                Eof;
+                                $ret = pg_query($conn, $sql);
+                                if(!$ret) {
+                                    echo pg_last_error($conn);
+                                    exit;
+                                }
+                                while ($let=pg_fetch_assoc($ret)){
+                                    $fullname=$let['fullname'];
+                                    $username=$let['username'];
+                                    $email=$let['email'];
+                                    $position=$let['position'];
+                                    $organization=$let['organizaion'];
+                                    $image=$let['image'];
+                                    //$date=$let['date'];
+                                    $date= date("Y M D d", strtotime($let['date']));
+                                    $checkin=$let['checkintime'];
+                                    $checkout=$let['checkouttime'];
+                                    echo "<tr>";
+                                    echo "<td>";
+                                    echo "<div class='d-flex px-2 py-1'>";
+                                    echo "<div> <img src='../Onboarding/img/$image '  class='avatar avatar-sm me-3 border-radius-lg' alt='Image'  > </div>";
+                                    echo "<div class='d-flex flex-column justify-content-center'>";
+                                    echo "<h6 class='mb-0 text-sm'>".$fullname."</h6>";
+                                    echo " <p class='text-xs text-secondary mb-0'>".$email."</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo" </td>";
+                                    echo" <td>";
+                                    echo "<p class='text-xs font-weight-bold mb-0'>".$position."</p>";
+                                    echo "<p class='text-xs text-secondary mb-0'>".$organization."</p>
+                                    </td>
+                                 
+                                     <td class='align-middle text-center text-sm'>
+                                        <span class='text-secondary text-xs font-weight-bold'>".$date."</span>
+                                    </td>
+                                    <td class='align-middle text-center text-sm'>
+                                        <span class='text-secondary text-xs font-weight-bold'>".$checkin."</span>
+                                    </td>
+                                    <td class='align-middle text-center text-sm'>
+                                        <span class='text-secondary text-xs font-weight-bold'>".$checkout."</span>
+                                    </td>
+                                    
+                                    
+                                    
+                                    ";
 
 
-    <div class="container-fluid px-2 px-md-4">
-        <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-            <span class="mask  bg-gradient-primary  opacity-6"></span>
-        </div>
-        <div class="card card-body mx-3 mx-md-4 mt-n6">
-            <div class="row gx-4 mb-2">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h5 class="mb-1">
-                            <?php echo $fullname ?>
-                        </h5>
-                        <p class="mb-0 font-weight-normal text-sm">
-                            <?php echo $position?> / <?php echo $organization?>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                    <div class="nav-wrapper position-relative end-0">
-                        <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                            <li class="nav-item">
-                                <a href='adminoverviews.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                    <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' >
-                                        <i class="material-icons text-lg position-relative">home</i>
-                                        Close
-                                    </button>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row">
-                    <div class="col-12 col-xl-5">
-                        <div class="card card-plain h-100">
-                            <div class="card-header pb-0 p-2">
-                                <div class="row">
-                                    <div class="col-md-8 d-flex align-items-center">
-                                        <h6 class="mb-0">Profile Information</h6>
-                                    </div>
-                                    <div class="col-md-4 text-end">
-                                        <a href="javascript:">
-                                            <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="card-body p-4">
-                                <p class="text-sm">
-                                    Hi, I’m <?php echo $fullname?> : If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-                                </p>
-                                <hr class="horizontal gray-light my-4">
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
-                                    <li class="list-group-item border-0 ps-0 pb-0">
-                                        <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-facebook fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-twitter fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-instagram fa-lg"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
+                                    echo"</tr>";
+                                }
+                                pg_close($conn);
+                                ?>
+
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Table End -->
 
 </main>
 
@@ -397,3 +410,5 @@ pg_close($conn);
 </script>
 </body>
 </html>
+
+

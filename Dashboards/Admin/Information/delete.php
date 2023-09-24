@@ -26,14 +26,16 @@ if (!isset($conn)) {
 
 $sql =<<<Eof
          DELETE FROM invoice WHERE employeesid = $empID;
+        Delete From checkin where employeesid=$empID;
+        DELETE from checkout where employeesid=$empID;
         DELETE FROM employeeslist WHERE employeesid = $empID;
     Eof;
 $ret = pg_query($conn, $sql);
 if(!$ret) {
-    echo pg_last_error($conn);
+    $_SESSION['DeletionError']= true == pg_last_error($conn) ;
     exit;
 }
 header('location: employeeslist.php');
-
+pg_close($conn);
 
 ?>

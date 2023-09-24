@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $host = "host=127.0.0.1";
     $port = "port=5432";
@@ -12,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 
     // Validate and sanitize user inputs
-    $id = $_POST['employeesid'];
+    $id = $_SESSION['employeeid'];
     $username = pg_escape_string($_POST['username']);
     $email = pg_escape_string($_POST['email']);
     $password = pg_escape_string($_POST['password']);
@@ -22,19 +23,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $fullname = pg_escape_string($_POST['fullname']);
     $salary = $_POST['salary'];
     $phonenumber = pg_escape_string($_POST['phonenumber']);
+    $skills=pg_escape_string($_POST['skills']);
     // Add additional validation for other fields here...
 
     // Construct the SQL update query
     $query1 = "UPDATE employeeslist SET
             username = '$username',
             email = '$email',
-            password = '$password',
             position = '$roles',
             organization = '$branch',
             date = '$employeddate',
             fullname = '$fullname',
             salary = $salary,
-            phonenumber = '$phonenumber'
+            phonenumber = '$phonenumber',
+            skills='$skills'
           WHERE employeesid = $id";
 
     $result1 = pg_query($conn, $query1);
@@ -42,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     if ($result1) {
         echo "<script>alert('Data updated successfully.')</script>";
         pg_close($conn);
-        header("Location: addingEmployees.php");
+        header("Location: ../Information/employeeslist.php");
     } else {
         echo "<script>alert('Error: " . pg_last_error($conn) . "')</script>";
     }

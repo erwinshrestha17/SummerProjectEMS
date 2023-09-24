@@ -1,13 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated'])) {
-    header('Location: ../LogIn-Logout/TestEmployeesLogin.php');
+    header('Location: ../LogIn-Logout/AdminLogin.php');
     exit;
 }
 
 $adminID = $_SESSION['id'];
-$fullname="";
-$image="";
+$fullname = "";
+$image = "";
 $host = "host = 127.0.0.1";
 $port = "port = 5432";
 $dbname = "dbname = emsdb";
@@ -18,35 +18,75 @@ $conn = pg_connect("$host $port $dbname $credentials");
 if (!isset($conn)) {
     echo die("Database connection failed");
 }
-$sql =<<<Eof
+$sql = <<<Eof
             SELECT * FROM adminlists where adminid=$adminID;
     Eof;
 $ret = pg_query($conn, $sql);
-if(!$ret) {
+if (!$ret) {
     echo pg_last_error($conn);
     exit;
 }
 
 while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['adminid'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $salary = $let['salary'];
-    $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
-    $image=$let['image'];
-
+    $fullname = $let['fullname'];
+    $image = $let['image'];
 }
 pg_close($conn);
-
 ?>
+<?php
+/*
+$sqlSelect = <<<EOF
+SELECT * FROM employeeslist
+EOF;
+$result = pg_query($conn, $sqlSelect);
+if (!$result) {
+echo pg_last_error($conn);
+exit;
+}
+
+
+// Truncate the salaryoverview table
+$sqlTruncate = "TRUNCATE TABLE public.salaryoverview";
+$resultTruncate = pg_query($conn, $sqlTruncate);
+
+if (!$resultTruncate) {
+echo pg_last_error($conn);
+exit;
+}
+
+// Now, you can proceed with inserting new data as shown in your previous code.
+while ($let = pg_fetch_assoc($result)) {
+$_SESSION['employeesid'] = $let['employeesid'];
+$username1 = $let['username'];
+$email1 = $let['email'];
+$position1 = $let['position'];
+$organization1 = $let['organization'];
+$salary1 = $let['salary'];
+$image1 = $let['image'];
+
+$empid=$_SESSION['employeesid'];
+// Insert data into salaryoverview table
+$sqlInsert = <<<EOF
+INSERT INTO public.salaryoverview (employeesid, username, email, position, organization, salary, image)
+VALUES ($empid, '$username1', '$email1', '$position1', '$organization1', $salary1, '$image1')
+EOF;
+
+$result2 = pg_query($conn, $sqlInsert);
+if (!$result2) {
+    echo pg_last_error($conn);
+    exit;
+}
+}
+*/
+?>
+
 
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Admins Profiles</title>
+    <title>Leave Types</title>
     <link rel="icon" type="image/png" href="../../Assets/img/img.png">
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -58,21 +98,23 @@ pg_close($conn);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS -->
     <link id="pagestyle" href="../../Assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <style>
+
+    </style>
 </head>
 <body class="g-sidenav-show  bg-gray-200">
-
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
             <img src="../../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname?></span>
+            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname ?> </span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
 
 
-    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main" >
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <!-- EMPLOYEES INFORMATION-->
             <!--By using js class='sub-menu' active and deactivated in others according to the button clicked  -->
@@ -97,6 +139,9 @@ pg_close($conn);
                         </a>
                     </li>
 
+                    <!-- EMPLOYEES PROFILE-->
+
+
                 </ul>
             </li>
             <!-- EMPLOYEES ONBOARDING-->
@@ -107,6 +152,8 @@ pg_close($conn);
                     </div>
                     <span class="nav-link-text ms-1"> Onboarding</span>
                 </a>
+
+                <!--ADDING EMPLOYEES-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../Onboarding/addingEmployees.php">
@@ -118,7 +165,6 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
-
             <!-- ATTENDANCE-->
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
@@ -149,6 +195,7 @@ pg_close($conn);
                     </div>
                     <span class="nav-link-text ms-1">Payroll & Compensation</span>
                 </a>
+                <!--SALARY OVERVIEW-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../Payroll-Compensation/salaryoverview.php">
@@ -160,8 +207,6 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
-            <!--Leave Management-->
-
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -183,14 +228,14 @@ pg_close($conn);
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">Leave Types</span>
+                            <span class="nav-link-text ms-1">Leave Type</span>
                         </a>
                     </li>
                 </ul>
             </li>
 
             <hr class="horizontal light mt-0 mb-2">
-            <!--ADMIN -->
+            <!--ADMIN-->
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -209,7 +254,6 @@ pg_close($conn);
                         </a>
                     </li>
                     <!--REGISTRATION-->
-
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -227,6 +271,7 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
+
                 </ul>
             </li>
 
@@ -246,9 +291,6 @@ pg_close($conn);
 
 </aside>
 
-
-
-
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -256,106 +298,78 @@ pg_close($conn);
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin Profiles</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Leave Types</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Profile</h6>
+                <h6 class="font-weight-bolder mb-0">Types</h6>
             </nav>
         </div>
 
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
-                <a href='adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                     <img src="../AdminSettings/img/<?php echo $image ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
     </nav>
     <!-- End Navbar -->
+    <?php
+    $host        = "host = 127.0.0.1";
+    $port        = "port = 5432";
+    $dbname      = "dbname = emsdb";
+    $credentials = "user = postgres password=admin";
+    $conn = pg_connect( "$host $port $dbname $credentials"  );
+    if(!isset($conn)){
+        echo die("Database connection failed");
+    }
+    $id=$_POST['edit'];
+    $sql =<<<Eof
+       SELECT * FROM leavetypes where leavetypeid=$id
+    Eof;
+    $ret = pg_query($conn, $sql);
+    if(!$ret) {
+        echo pg_last_error($conn);
+        exit;
+    }
+    $let=pg_fetch_assoc($ret);
+    $name=$let['name'];
+    $entitled=$let['entitled'];
+    ?>
+    <!-- Form Start -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Updating Details</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="card-body">
+                            <form role="form" action="updateleavedata.php" method="post" enctype="multipart/form-data">
 
 
-    <div class="container-fluid px-2 px-md-4">
-        <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-            <span class="mask  bg-gradient-primary  opacity-6"></span>
-        </div>
-        <div class="card card-body mx-3 mx-md-4 mt-n6">
-            <div class="row gx-4 mb-2">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h5 class="mb-1">
-                            <?php echo $fullname ?>
-                        </h5>
-                        <p class="mb-0 font-weight-normal text-sm">
-                            <?php echo $position?> / <?php echo $organization?>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                    <div class="nav-wrapper position-relative end-0">
-                        <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                            <li class="nav-item">
-                                <a href='adminoverviews.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                    <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' >
-                                        <i class="material-icons text-lg position-relative">home</i>
-                                        Close
-                                    </button>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row">
-                    <div class="col-12 col-xl-5">
-                        <div class="card card-plain h-100">
-                            <div class="card-header pb-0 p-2">
-                                <div class="row">
-                                    <div class="col-md-8 d-flex align-items-center">
-                                        <h6 class="mb-0">Profile Information</h6>
-                                    </div>
-                                    <div class="col-md-4 text-end">
-                                        <a href="javascript:">
-                                            <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                                        </a>
-                                    </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="text" class="form-control" placeholder="Full Name" name="name" value="<?php echo $name;?>" required pattern="[A-Za-z ]+" title="Only alphabetic characters and spaces are allowed." >
+                                    <div class="p-2"></div>
+                                    <input type="number" class="form-control" name="entitled" value="<?php echo $entitled;?>" required pattern="[A-Za-z ]+" max="10" >
+
                                 </div>
-                            </div>
 
-                            <div class="card-body p-4">
-                                <p class="text-sm">
-                                    Hi, I’m <?php echo $fullname?> : If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-                                </p>
-                                <hr class="horizontal gray-light my-4">
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
-                                    <li class="list-group-item border-0 ps-0 pb-0">
-                                        <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-facebook fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-twitter fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-instagram fa-lg"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                <div class="text-center">
+                                    <button type="submit" name="btn-leave-edit"  class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Update</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!--   FORM END  -->
+
+
 
 </main>
 
@@ -397,3 +411,5 @@ pg_close($conn);
 </script>
 </body>
 </html>
+
+

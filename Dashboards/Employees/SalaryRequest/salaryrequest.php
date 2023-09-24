@@ -93,8 +93,38 @@ if (!isset($_SESSION['authenticated'])) {
     <hr class="horizontal light mt-0 mb-2">
     <div class="animated bounceInDown w-auto  max-height-vh-100" >
         <ul class="navbar-nav">
+            <!-- ATTENDANCE -->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- CHECK IN  -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../Attendance/checkin.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Check In</span>
+                        </a>
+                    </li>
+                    <!-- CHECK OUT  -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../Attendance/checkout.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Check Out</span>
+                        </a>
+                    </li>
 
 
+                </ul>
+            </li>
+         
 
             <!--SALARY REQUEST-->
             <li class='sub-menu'>
@@ -114,8 +144,69 @@ if (!isset($_SESSION['authenticated'])) {
                             <span class="nav-link-text ms-1">Request Salary</span>
                         </a>
                     </li>
+                </ul>
+            </li>
 
+            <!--Task Management-->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Task Management </span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- Task -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../TaskManagement/task.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Tasks</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Leave Management-->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management </span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- Leave Request-->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../LeaveManagement/remainingleaves.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request</span>
+                        </a>
+                    </li>
 
+                </ul>
+            </li>
+            <hr class="horizontal light mt-0 mb-2">
+            <!-- Change Password-->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Password</span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- Change Password-->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../EmployeesProfile/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change password</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -165,6 +256,7 @@ if (!isset($_SESSION['authenticated'])) {
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
                             <?php
+                            /*
                             $allowedDate = strtotime(date("Y-m-23")); // Set allowed date to the 15th day of the current month
                             $currentDate = strtotime(date("Y-m-d")); // Get the current date
 
@@ -175,7 +267,7 @@ if (!isset($_SESSION['authenticated'])) {
                             // Display a message indicating that requests are not allowed yet
                             echo '<p>Requests are not allowed until ' . date("F j, Y", $allowedDate) . '</p>';
                             }
-
+                            */
                             ?>
 
                             <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
@@ -301,7 +393,7 @@ if (!isset($_SESSION['authenticated'])) {
         // Check if successAlert session variable is set
         <?php if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) { ?>
         var alertContainer = document.getElementById("alertContainer");
-        var successAlertHTML = `
+        let successAlertHTML = `
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     Request sent successfully!
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

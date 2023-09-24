@@ -42,7 +42,6 @@ pg_close($conn);
 <?php
 $empID=$_POST['editbtn'];
 
-
 $host        = "host = 127.0.0.1";
 $port        = "port = 5432";
 $dbname      = "dbname = emsdb";
@@ -78,7 +77,9 @@ while ($let = pg_fetch_assoc($ret)) {
     $phonenumber = $let['phonenumber'];
     $empimage=$let['image'];
     $employeeddate=$let['date'];
+    $skills=$let['skills'];
 }
+$_SESSION['employeeid']=$empID;
 
 ?>
 
@@ -210,6 +211,15 @@ while ($let = pg_fetch_assoc($ret)) {
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
+                    <!--CHANGE PASSWORD-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change Password</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -260,24 +270,16 @@ while ($let = pg_fetch_assoc($ret)) {
                         <div class="card-body">
                             <form role="form" action="updatedata.php" method="post" enctype="multipart/form-data">
 
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid" value="<?php echo $empID ;?>"  required>
-                                    <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="VAT" name="vat" disabled>
 
-                                </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname" value="<?php echo $fullname;?>" required>
+                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname" value="<?php echo $fullname;?>" required pattern="[A-Za-z ]+" title="Only alphabetic characters and spaces are allowed." >
                                     <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="User Name" name="username"  value="<?php echo $username;?>" required>
+                                    <input type="text" class="form-control" placeholder="User Name" name="username"  value="<?php echo $username;?>" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" >
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $email;?>"  required>
-                                    <div class="p-2"></div>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $password;?>"required >
-
+                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $email;?>"  required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
@@ -304,14 +306,18 @@ while ($let = pg_fetch_assoc($ret)) {
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" value="<?php echo $phonenumber ;?>"required>
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" value="<?php echo $phonenumber ;?>"required pattern="[0-9]+" >
                                     <div class="p-2"></div>
                                     <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png">
 
                                 </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <textarea class="form-control" rows="2" placeholder="Skills" name="skills"><?php echo $skills?></textarea>
+
+                                </div>
 
                                 <div class="text-center">
-                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Update</button>
+                                    <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" >Update</button>
                                 </div>
                             </form>
                         </div>

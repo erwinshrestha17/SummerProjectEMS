@@ -40,6 +40,7 @@ while ($let = pg_fetch_assoc($ret)) {
     $fullname= $let['fullname'];
     $phonenumber = $let['phonenumber'];
     $empimage=$let['image'];
+    $skills=$let['skills'];
 }
 ?>
 
@@ -144,6 +145,25 @@ while ($row = pg_fetch_assoc($ret1)) {
                     </li>
                 </ul>
             </li>
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!--PAYROLL & COMPENSATION-->
 
             <li class="sub-menu">
@@ -164,7 +184,34 @@ while ($row = pg_fetch_assoc($ret1)) {
                     </li>
                 </ul>
             </li>
+            <!--Leave Management-->
 
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Types</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <hr class="horizontal light mt-0 mb-2">
 
             <li class="sub-menu">
@@ -189,6 +236,16 @@ while ($row = pg_fetch_assoc($ret1)) {
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Registration</span>
+                        </a>
+                    </li>
+
+                    <!--CHANGE PASSWORD-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
                 </ul>
@@ -285,7 +342,7 @@ while ($row = pg_fetch_assoc($ret1)) {
                                         <span class="mask bg-gradient-dark opacity-10"></span>
                                         <div class="card-body position-relative z-index-1 p-3">
                                             <i class="material-icons text-white p-2">wifi</i>
-                                            <h6 class="text-white text-uppercase">Shine Resunga Development Bank LTD </h6>
+                                            <h6 class="text-white text-uppercase">X Y Z Bank  </h6>
                                             <h5 class="text-white mt-4 mb-5 pb-2"> 4562&nbsp;&nbsp;&nbsp;1122&nbsp;&nbsp;&nbsp;4594&nbsp;&nbsp;&nbsp;7852</h5>
                                             <div class="d-flex">
                                                 <div class="d-flex">
@@ -373,25 +430,13 @@ while ($row = pg_fetch_assoc($ret1)) {
                                 </p>
                                 <hr class="horizontal gray-light my-4">
                                 <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">VAT Number: </strong>600678956</li>
                                     <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Education:</strong> &nbsp; Oxford College , Tribhuvan University</li>
 
-                                    <li class="list-group-item border-0 ps-0 pb-0">
-                                        <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-facebook fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-twitter fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-instagram fa-lg"></i>
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -411,22 +456,8 @@ while ($row = pg_fetch_assoc($ret1)) {
                             <div class="card-body p-3 pb-0">
                                 <div class="row">
                                     <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">Java</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">Java Script</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">React</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">Python</button>
+
+                                        <p><?php echo $skills?></p>
                                     </div>
                                 </div>
                             </div>

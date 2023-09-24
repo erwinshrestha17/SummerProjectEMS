@@ -50,6 +50,7 @@ while ($let = pg_fetch_assoc($ret)) {
     $employeeddate=$let['date'];
     $image=$let['image'];
 }
+$_SESSION['employeeid']=$employeeID;
 
 ?>
 
@@ -92,7 +93,38 @@ while ($let = pg_fetch_assoc($ret)) {
     <hr class="horizontal light mt-0 mb-2">
     <div class="animated bounceInDown w-auto  max-height-vh-100" >
         <ul class="navbar-nav">
-            <!-- EMPLOYEES INFORMATION-->
+
+            <!-- ATTENDANCE -->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- CHECK IN  -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../Attendance/checkin.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Check In</span>
+                        </a>
+                    </li>
+                    <!-- CHECK OUT  -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../Attendance/checkout.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Check Out</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
 
 
             <!--SALARY REQUEST-->
@@ -169,27 +201,18 @@ while ($let = pg_fetch_assoc($ret)) {
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Employees ID" name="employeesid" value="<?php echo $employeeID ;?>"  required>
+                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname" value="<?php echo $fullname;?>" required pattern="[A-Za-z ]+" title="Only alphabetic characters and spaces are allowed." >
                                     <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="VAT" name="vat" disabled>
-
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname" value="<?php echo $fullname;?>" required>
-                                    <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="User Name" name="username"  value="<?php echo $username;?>" required>
+                                    <input type="text" class="form-control" placeholder="User Name" name="username"  value="<?php echo $username;?>" required pattern="[A-Za-z ]+" title="Only alphabetic characters and spaces are allowed." >
 
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $email;?>"  required>
-                                    <div class="p-2"></div>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $password;?>"required >
-
+                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $email;?>"  required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                                 </div>
 
                                 <div class="input-group input-group-outline mb-3">
-                                    <select class="form-select form-select-lg mb-2" name="role" required>
+                                    <select class="form-select form-select-lg mb-2" name="role" required disabled>
                                         <option class="outline mb-3" selected value="<?php echo $position ;?>" >Select Roles</option>
                                         <option class="outline mb-3" name="role" value="<?php echo $position ;?>">Sr Software Engineer</option>
                                         <option class="outline mb-3" name="role" value="<?php echo $position ;?>">Jr Web Developer</option>
@@ -198,7 +221,7 @@ while ($let = pg_fetch_assoc($ret)) {
                                     <div class="p-2"></div>
 
 
-                                    <select class="form-select form-select-lg mb-2 " name="branch" required>
+                                    <select class="form-select form-select-lg mb-2 " name="branch" required disabled>
                                         <option class="outline mb-3" selected value="<?php echo $organization;?>">Branch</option>
                                         <option class="outline mb-3" name="branch" value="<?php echo $organization;?>">Kathmandu</option>
                                         <option class="outline mb-3" name="branch" value="<?php echo $organization;?>">Butwal</option>
@@ -206,13 +229,13 @@ while ($let = pg_fetch_assoc($ret)) {
                                     </select>
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate" value="<?php echo $employeeddate ;?>" required>
+                                    <input type="date" class="form-control" placeholder="Employed" name="employeddate" value="<?php echo $employeeddate ;?>" required disabled>
                                     <div class="p-2"></div>
-                                    <input type="number" class="form-control" placeholder="Salary" name="salary"  value="<?php echo $salary ;?>"required>
+                                    <input type="number" class="form-control" placeholder="Salary" name="salary"  value="<?php echo $salary ;?>" required disabled>
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" value="<?php echo $phonenumber ;?>"required>
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" value="<?php echo $phonenumber ;?>"required pattern="[0-9]+">
                                     <div class="p-2"></div>
                                     <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png">
 

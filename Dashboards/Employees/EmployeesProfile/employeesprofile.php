@@ -36,6 +36,7 @@ if (!isset($_SESSION['authenticated'])) {
         $fullname= $let['fullname'];
         $phonenumber = $let['phonenumber'];
         $images=$let['image'];
+        $skills=$let['skills'];
 
     }
     pg_close($conn);
@@ -75,8 +76,38 @@ if (!isset($_SESSION['authenticated'])) {
     <hr class="horizontal light mt-0 mb-2">
     <div class="animated bounceInDown w-auto  max-height-vh-100" >
         <ul class="navbar-nav">
-            <!-- EMPLOYEES INFORMATION-->
 
+            <!-- ATTENDANCE -->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- CHECK IN  -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../Attendance/checkin.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Check In</span>
+                        </a>
+                    </li>
+                    <!-- CHECK OUT  -->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../Attendance/checkout.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Check Out</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
 
             <!--SALARY REQUEST-->
             <li class='sub-menu'>
@@ -96,8 +127,73 @@ if (!isset($_SESSION['authenticated'])) {
                             <span class="nav-link-text ms-1">Request Salary</span>
                         </a>
                     </li>
+                </ul>
+            </li>
 
 
+
+            <!--Leave Management-->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management </span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- Leave Request-->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Tasks</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--Leave Management-->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Management </span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- Leave Request-->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../LeaveManagement/leaverequest.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Leave Request</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <hr class="horizontal light mt-0 mb-2">
+            <!-- Change Password-->
+            <li class='sub-menu'>
+                <a class="nav-link text-white ">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Password</span>
+                </a>
+                <ul class="navbar-nav">
+                    <!-- Change Password-->
+                    <li class="nav-item" id="">
+                        <a class="nav-link text-white" href="../EmployeesProfile/changepassword.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-end">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Change password</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -170,12 +266,14 @@ if (!isset($_SESSION['authenticated'])) {
                                         Close
                                     </button>
                                 </a>
+                                <?php /*
                                 <a href='edit.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
                                            <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' value="editbtn">
                                                <i class="material-icons text-lg position-relative">edit</i>
                                                Edit
                                            </button>
                                 </a>
+                                */?>
                             </li>
                         </ul>
                     </div>
@@ -196,7 +294,7 @@ if (!isset($_SESSION['authenticated'])) {
                                         <span class="mask bg-gradient-dark opacity-10"></span>
                                         <div class="card-body position-relative z-index-1 p-3">
                                             <i class="material-icons text-white p-2">wifi</i>
-                                            <h6 class="text-white text-uppercase">Shine Resunga Development Bank LTD </h6>
+                                            <h6 class="text-white text-uppercase">X Y Z  Bank  </h6>
                                             <h5 class="text-white mt-4 mb-5 pb-2"> 4562&nbsp;&nbsp;&nbsp;1122&nbsp;&nbsp;&nbsp;4594&nbsp;&nbsp;&nbsp;7852</h5>
                                             <div class="d-flex">
                                                 <div class="d-flex">
@@ -287,25 +385,13 @@ if (!isset($_SESSION['authenticated'])) {
                                 </p>
                                 <hr class="horizontal gray-light my-4">
                                 <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">VAT Number: </strong>600678956</li>
                                     <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Education:</strong> &nbsp; Oxford College , Tribhuvan University</li>
 
-                                    <li class="list-group-item border-0 ps-0 pb-0">
-                                        <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                            <i class="fab fa-facebook fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                            <i class="fab fa-twitter fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                            <i class="fab fa-instagram fa-lg"></i>
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -322,28 +408,18 @@ if (!isset($_SESSION['authenticated'])) {
                                     </div>
                                 </div>
                             </div>
+                            <!-- What Skills Employees got -->
                             <div class="card-body p-3 pb-0">
+
                                 <div class="row">
                                     <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">Java</button>
+
+                                        <p><?php echo $skills?></p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">Java Script</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">React</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" flex-column">
-                                        <button type="button" class="btn bg-gradient-primary w-auto ">Python</button>
-                                    </div>
-                                </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -527,5 +603,6 @@ if (!isset($_SESSION['authenticated'])) {
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 </script>
+
 </body>
 </html>

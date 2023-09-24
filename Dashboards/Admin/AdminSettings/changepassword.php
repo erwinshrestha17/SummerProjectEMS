@@ -5,9 +5,12 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }
 
-$adminID = $_SESSION['id'];
+$_SESSION['authenticated-registration']= false;
 $fullname="";
 $image="";
+
+$adminID= $_SESSION['id'];
+
 $host = "host = 127.0.0.1";
 $port = "port = 5432";
 $dbname = "dbname = emsdb";
@@ -26,27 +29,27 @@ if(!$ret) {
     echo pg_last_error($conn);
     exit;
 }
-
 while ($let = pg_fetch_assoc($ret)) {
-    $id = $let['adminid'];
-    $email = $let['email'];
-    $position = $let['position'];
-    $organization = $let['organization'];
-    $salary = $let['salary'];
+    $id=$let['adminid'];
+    $email=$let['email'];
     $fullname= $let['fullname'];
-    $phonenumber = $let['phonenumber'];
+    $password=$let['password'];
     $image=$let['image'];
-
 }
+$_SESSION['id']=$id;
+$_SESSION['email']=$email;
 pg_close($conn);
 
+
 ?>
+
 
 <!Doctype html>
 <html lang="eng">
 <head>
-    <title>Admins Profiles</title>
+    <title>Change Password</title>
     <link rel="icon" type="image/png" href="../../Assets/img/img.png">
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -58,15 +61,22 @@ pg_close($conn);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS -->
     <link id="pagestyle" href="../../Assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <style>
+        input[type="date"]::before {
+            content: attr(placeholder);
+            width: 100%;
+        }
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before { display: none }
+    </style>
 </head>
 <body class="g-sidenav-show  bg-gray-200">
-
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php" >
+        <a class="navbar-brand m-0" href="../Dashboards/AdminDashboard.php">
             <img src="../../Assets/img/img.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname?></span>
+            <span class="ms-1 font-weight-bold text-white">Admin <?php echo $fullname ?></span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -77,7 +87,7 @@ pg_close($conn);
             <!-- EMPLOYEES INFORMATION-->
             <!--By using js class='sub-menu' active and deactivated in others according to the button clicked  -->
             <li class='sub-menu' >
-                <a class="nav-link text-white ">
+                <a class="nav-link text-white " href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -96,6 +106,9 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Employees List</span>
                         </a>
                     </li>
+
+
+
 
                 </ul>
             </li>
@@ -119,26 +132,6 @@ pg_close($conn);
                 </ul>
             </li>
 
-            <!-- ATTENDANCE-->
-            <li class="sub-menu">
-                <a class="nav-link text-white" href="#">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1"> Attendance</span>
-                </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Attendance Overview</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
 
             <!--PAYROLL & COMPENSATION-->
 
@@ -150,6 +143,7 @@ pg_close($conn);
                     <span class="nav-link-text ms-1">Payroll & Compensation</span>
                 </a>
                 <ul class="navbar-nav">
+                    <!--SALARY Overview-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../Payroll-Compensation/salaryoverview.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -160,37 +154,10 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
-            <!--Leave Management-->
-
-            <li class="sub-menu">
-                <a class="nav-link text-white" href="#">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Leave Management</span>
-                </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveRequestManagement/leaverequestsoverview.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Leave Request Overview</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="../LeaveRequestManagement/leavetype.php">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10" >table_view</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Leave Types</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
             <hr class="horizontal light mt-0 mb-2">
-            <!--ADMIN -->
+            <!--Admin-->
+
             <li class="sub-menu">
                 <a class="nav-link text-white" href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -199,7 +166,7 @@ pg_close($conn);
                     <span class="nav-link-text ms-1">Admin</span>
                 </a>
                 <ul class="navbar-nav">
-                    <!--OVERVIEW-->
+                    <!--Overview-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminoverviews.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -208,8 +175,7 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Overview</span>
                         </a>
                     </li>
-                    <!--REGISTRATION-->
-
+                    <!--Registration-->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../AdminSettings/adminregistration.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -247,25 +213,23 @@ pg_close($conn);
 </aside>
 
 
-
-
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin Profiles</li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="">Pages</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Admin Registration</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Profile</h6>
+                <h6 class="font-weight-bolder mb-0">Registration</h6>
             </nav>
         </div>
 
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline border-0">
-                <a href='adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                    <img src="../AdminSettings/img/<?php echo $image ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
+                <a href='../AdminSettings/adminprofile.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
+                    <img src="img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
                 </a>
             </div>
         </div>
@@ -273,89 +237,68 @@ pg_close($conn);
     <!-- End Navbar -->
 
 
-    <div class="container-fluid px-2 px-md-4">
-        <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-            <span class="mask  bg-gradient-primary  opacity-6"></span>
-        </div>
-        <div class="card card-body mx-3 mx-md-4 mt-n6">
-            <div class="row gx-4 mb-2">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="../AdminSettings/img/<?php echo $image?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" width="130" height="60">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h5 class="mb-1">
-                            <?php echo $fullname ?>
-                        </h5>
-                        <p class="mb-0 font-weight-normal text-sm">
-                            <?php echo $position?> / <?php echo $organization?>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                    <div class="nav-wrapper position-relative end-0">
-                        <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                            <li class="nav-item">
-                                <a href='adminoverviews.php' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user' >
-                                    <button class='btn btn-lg bg-gradient-primary btn-sm w-40 mt-2 mb-0' >
-                                        <i class="material-icons text-lg position-relative">home</i>
-                                        Close
-                                    </button>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row">
-                    <div class="col-12 col-xl-5">
-                        <div class="card card-plain h-100">
-                            <div class="card-header pb-0 p-2">
-                                <div class="row">
-                                    <div class="col-md-8 d-flex align-items-center">
-                                        <h6 class="mb-0">Profile Information</h6>
-                                    </div>
-                                    <div class="col-md-4 text-end">
-                                        <a href="javascript:">
-                                            <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="card-body p-4">
-                                <p class="text-sm">
-                                    Hi, I’m <?php echo $fullname?> : If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-                                </p>
-                                <hr class="horizontal gray-light my-4">
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $fullname ?></li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;<?php echo $phonenumber?> </li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $email?></li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $organization?></li>
-                                    <li class="list-group-item border-0 ps-0 pb-0">
-                                        <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                        <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-facebook fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-twitter fa-lg"></i>
-                                        </a>
-                                        <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:">
-                                            <i class="fab fa-instagram fa-lg"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
+    <!-- Form Start -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Change Password</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="card-body">
+                            <form role="form" action="passwordupdate.php" method="post" enctype="multipart/form-data">
+                                <div id="alertContainer" style="z-index: 1050">
+                                    <?php
+                                    // Check if successAlert session variable is set
+                                    if (isset($_SESSION['passwordchanged']) && $_SESSION['passwordchanged']) {
+                                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Password Changed successfully!
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        // Clear the successAlert session variable
+                                        unset($_SESSION['passwordchanged']);
+                                    }
+
+                                    // Old Password Wrong
+                                    if (isset($_SESSION['oldpasswordwrong']) && $_SESSION['oldpasswordwrong']) {
+                                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Old Password Wrong!
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        // Clear the  session variable
+                                        unset($_SESSION['oldpasswordwrong']);
+                                    }
+
+
+
+
+                                    ?>
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="password" class="form-control" placeholder="Old Password" name="oldpassword"  required >
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <input type="password" class="form-control" placeholder="New Password" name="newpassword"  required  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$" title="Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.">
+
+                                </div>
+
+
+                                <div class="text-center">
+                                    <button type="submit" name="changepasswordbtn" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Change</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
 </main>
 
@@ -397,3 +340,6 @@ pg_close($conn);
 </script>
 </body>
 </html>
+
+
+

@@ -41,6 +41,7 @@ while ($let = pg_fetch_assoc($ret)) {
     $password=$let['password'];
     $image=$let['image'];
 }
+$_SESSION['adminid']=$adminID;
 pg_close($conn);
 
 
@@ -187,19 +188,15 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--EmployeesProfile-->
-
-                    <?php /*
+                    <!--CHANGE PASSWORD-->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">EmployeesProfile</span>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
-                    */
-                    ?>
                 </ul>
             </li>
 
@@ -260,10 +257,7 @@ pg_close($conn);
                         <div class="card-body">
                             <form role="form" action="update.php" method="post" enctype="multipart/form-data">
 
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Admin ID" name="id" value="<?php echo $adminID ?>"  required>
 
-                                </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="text" class="form-control" placeholder="Full Name" name="fullname"  value="<?php echo $fullname?>" required>
                                     <div class="p-2"></div>
@@ -273,8 +267,6 @@ pg_close($conn);
 
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $email ?>"  required>
-                                    <div class="p-2"></div>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $password?>" required >
 
                                 </div>
 
@@ -302,11 +294,11 @@ pg_close($conn);
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="date" class="form-control" placeholder="Employed" name="employeddate" value="<?php echo $date ?>"  required>
                                     <div class="p-2"></div>
-                                    <input type="number" class="form-control" placeholder="Salary" name="salary" <?php echo $salary?>  required>
+                                    <input type="number" class="form-control" placeholder="Salary" name="salary" value=" <?php echo $salary?> " required>
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" value="<?php echo $phonenumber ?>"  required>
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" value="<?php echo $phonenumber ?>"  required pattern="[0-9]+">
                                     <div class="p-2"></div>
                                     <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png" value="<?php echo$image ?>" >
                                 </div>

@@ -126,6 +126,25 @@ pg_close($conn);
                     </li>
                 </ul>
             </li>
+            <!-- ATTENDANCE-->
+            <li class="sub-menu">
+                <a class="nav-link text-white" href="#">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Attendance</span>
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../Attendance/attendanceoverview.php">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10" >table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Attendance Overview</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
             <!--PAYROLL & COMPENSATION-->
@@ -179,19 +198,15 @@ pg_close($conn);
                             <span class="nav-link-text ms-1">Registration</span>
                         </a>
                     </li>
-                    <!--EmployeesProfile-->
-
-                    <?php /*
+                    <!--CHANGE PASSWORD-->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="../AdminSettings/adminprofile.php">
+                        <a class="nav-link text-white" href="../AdminSettings/changepassword.php">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10" >table_view</i>
                             </div>
-                            <span class="nav-link-text ms-1">EmployeesProfile</span>
+                            <span class="nav-link-text ms-1">Change Password</span>
                         </a>
                     </li>
-                    */
-                    ?>
                 </ul>
             </li>
 
@@ -251,39 +266,73 @@ pg_close($conn);
                     <div class="card-body px-0 pb-2">
                         <div class="card-body">
                             <form role="form" action="insertdata.php" method="post" enctype="multipart/form-data">
+                                <div id="alertContainer" style="z-index: 1050">
+                                    <!-- Alerts will be added here -->
+                                    <?php
+                                    // Check if successAlert session variable is set
+                                    if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) {
+                                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Admin created successfully!
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            </div>';
+                                        // Clear the successAlert session variable
+                                        unset($_SESSION['successAlert']);
+                                    }
 
-                                <div class="input-group input-group-outline mb-3">
-                                    <input type="number" class="form-control" placeholder="Admin ID" name="id"  required>
+                                    // Check if duplicateRequest session variable is set
+                                    if (isset($_SESSION['duplicateRequest']) && $_SESSION['duplicateRequest']) {
+                                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Admin with this email already exists!
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            </div>';
+                                        // Clear the duplicateRequest session variable
+                                        unset($_SESSION['duplicateRequest']);
+                                    }
 
+                                    // Check if duplicateRequest session variable is set
+                                    if (isset($_SESSION['duplicateName']) && $_SESSION['duplicateName']) {
+                                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Admin with this Username already exists!
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            </div>';
+                                        // Clear the duplicateRequest session variable
+                                        unset($_SESSION['duplicateName']);
+                                    }
+
+                                    // Check if there's an image error
+                                    if (isset($_SESSION['imageError'])) {
+                                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                ' . $_SESSION['imageError'] . '
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        unset($_SESSION['imageError']);
+                                    }
+
+                                    // Check if there's an error during data insertion
+                                    if (isset($_SESSION['insertError'])) {
+                                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                ' . $_SESSION['insertError'] . '
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+              </div>';
+                                        unset($_SESSION['insertError']);
+                                    }
+
+                                    ?>
                                 </div>
+
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname"  required>
+                                    <input type="text" class="form-control" placeholder="Full Name" name="fullname"  required >
                                     <div class="p-2"></div>
-                                    <input type="text" class="form-control" placeholder="User Name" name="username"  required>
-
+                                    <input type="text" class="form-control" placeholder="User Name" name="username"  required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                                 </div>
-
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" name="email"  required>
+                                    <input type="email" class="form-control" placeholder="Email" name="email"  required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                                     <div class="p-2"></div>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" required >
-
+                                    <input type="password" class="form-control" placeholder="Password" name="password" required  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$" title="Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long." >
                                 </div>
-
                                 <div class="input-group input-group-outline mb-3">
                                     <input type="text" class="form-control" placeholder="Admin" value="Admin" name="role" >
-                                    <?php   /*
-                                    <select class="form-select form-select-lg mb-2" name="role" required>
-                                        <option class="outline mb-3" selected value="role">Select Roles</option>
-                                        <option class="outline mb-3" name="role">Sr Software Engineer</option>
-                                        <option class="outline mb-3" name="role">Jr Web Developer</option>
-                                        <option class="outline mb-3" name="role">Full stack developer</option>
-                                    </select>
-                                    */
-                                    ?>
                                     <div class="p-2"></div>
-
-
                                     <select class="form-select form-select-lg mb-2 " name="branch" required>
                                         <option class="outline mb-3" selected value="branch">Branch</option>
                                         <option class="outline mb-3" name="branch">Kathmandu</option>
@@ -295,14 +344,12 @@ pg_close($conn);
                                     <input type="date" class="form-control" placeholder="Employed" name="employeddate"  required>
                                     <div class="p-2"></div>
                                     <input type="number" class="form-control" placeholder="Salary" name="salary"  required>
-
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" required>
+                                    <input type="tel" class="form-control" placeholder="Mobile" name="phonenumber" minlength="10" maxlength="10" pattern="[0-9]+"  required>
                                     <div class="p-2"></div>
                                     <input type="file" class="form-control"  name="image" id = "image" accept=".jpg, .jpeg, .png">
                                 </div>
-
                                 <div class="text-center">
                                     <button type="submit" name="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
                                 </div>
@@ -314,6 +361,42 @@ pg_close($conn);
         </div>
     </div>
 </main>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if successAlert session variable is set
+        <?php if (isset($_SESSION['successAlert']) && $_SESSION['successAlert']) { ?>
+        var alertContainer = document.getElementById("alertContainer");
+        let successAlertHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Admin created successfully!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+        alertContainer.innerHTML = successAlertHTML;
+        <?php
+        // Clear the successAlert session variable
+        unset($_SESSION['successAlert']);
+        }
+        ?>
+
+        // Check if duplicateRequest session variable is set
+        <?php if (isset($_SESSION['duplicateRequest']) && $_SESSION['duplicateRequest']) { ?>
+        var alertContainer = document.getElementById("alertContainer");
+        var duplicateAlertHTML = `
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Admin already Exist!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+        alertContainer.innerHTML = duplicateAlertHTML;
+        <?php
+        // Clear the duplicateRequest session variable
+        unset($_SESSION['duplicateRequest']);
+        }
+        ?>
+    });
+</script>
+
 
 <!--   Core JS Files   -->
 <script src="../../Assets/js/bootstrap.bundle.min.js"></script>
